@@ -9,7 +9,7 @@
 - 支持接入 Uptime Kuma 状态页，聚合公共监控数据
 - 状态变化时推送通知，包含总览 + 每站明细
 - 每日定时发送全量状态报告（可配置时间）
-- 支持 Server酱、飞书、企业微信通知
+- 支持 Server酱、飞书、企业微信、Telegram、钉钉、PushPlus、Gotify、Bark 通知
 - GitHub Actions 定时运行，零部署成本
 
 ## 通知效果
@@ -107,6 +107,14 @@
 | `SERVERCHAN_KEY` | Server酱 | [sct.ftqq.com](https://sct.ftqq.com/) → 设置 → SendKey |
 | `FEISHU_WEBHOOK` | 飞书机器人 | 群设置 → 群机器人 → 自定义机器人 → Webhook 地址 |
 | `WECOM_WEBHOOK` | 企业微信机器人 | 群设置 → 群机器人 → 新建机器人 → Webhook 地址 |
+| `TELEGRAM_BOT_TOKEN` | Telegram Bot | 在 Telegram 中找 [@BotFather](https://t.me/BotFather)，发送 `/newbot` 创建机器人，获取 Token |
+| `TELEGRAM_CHAT_ID` | Telegram Chat ID | 给机器人发一条消息，然后访问 `https://api.telegram.org/bot<你的Token>/getUpdates` 查看 `chat.id` |
+| `DINGDING_WEBHOOK` | 钉钉机器人 | 群设置 → 智能群助手 → 添加机器人 → 自定义，安全设置选"自定义关键词"填 `中转站` |
+| `PUSHPLUS_TOKEN` | PushPlus | [pushplus.plus](https://www.pushplus.plus/) 注册后获取 Token |
+| `GOTIFY_URL` | Gotify | 你的 Gotify 服务地址（如 `https://gotify.example.com/message`） |
+| `GOTIFY_TOKEN` | Gotify Token | Gotify 应用的访问令牌 |
+| `BARK_KEY` | Bark | 打开 Bark App 即可看到 Key |
+| `BARK_SERVER` | Bark 自建服务器（可选） | 默认 `https://api.day.app` |
 
 每个渠道独立配置，未配置的会自动跳过。
 
@@ -199,7 +207,12 @@ UPTIME_KUMA_BASE=https://your-instance.com node src/index.js
 │   └── notifiers/
 │       ├── serverchan.js   # Server酱 + 消息格式化
 │       ├── feishu.js       # 飞书
-│       └── wecom.js        # 企业微信
+│       ├── wecom.js        # 企业微信
+│       ├── telegram.js     # Telegram
+│       ├── dingding.js     # 钉钉
+│       ├── pushplus.js     # PushPlus
+│       ├── gotify.js       # Gotify
+│       └── bark.js         # Bark
 ├── data/
 │   └── last-status.json    # 上次状态（自动维护）
 ├── config.example.json     # 配置示例

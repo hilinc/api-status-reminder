@@ -4,13 +4,18 @@ const { loadLastStatus, saveStatus, diff } = require('./diff');
 const { notify: notifyServerChan, formatReport } = require('./notifiers/serverchan');
 const { notify: notifyFeishu } = require('./notifiers/feishu');
 const { notify: notifyWeCom } = require('./notifiers/wecom');
+const { notify: notifyTelegram } = require('./notifiers/telegram');
+const { notify: notifyDingDing } = require('./notifiers/dingding');
+const { notify: notifyPushPlus } = require('./notifiers/pushplus');
+const { notify: notifyGotify } = require('./notifiers/gotify');
+const { notify: notifyBark } = require('./notifiers/bark');
 
 const scrapers = [
   { name: 'ltcraft', fn: scrapeLtcraft, enabled: !!process.env.UPTIME_KUMA_BASE },
   { name: 'api-probe', fn: scrapeApiProbe, enabled: true },
 ];
 
-const notifiers = [notifyServerChan, notifyFeishu, notifyWeCom];
+const notifiers = [notifyServerChan, notifyFeishu, notifyWeCom, notifyTelegram, notifyDingDing, notifyPushPlus, notifyGotify, notifyBark];
 
 const mode = process.argv[2] || 'check'; // 'check', 'digest', or 'change-only'
 
