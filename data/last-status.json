@@ -1,6 +1,6 @@
 {
   "api-probe": {
-    "checked_at": "2026-04-07T16:26:09.813Z",
+    "checked_at": "2026-04-07T16:35:58.008Z",
     "models": [
       {
         "id": "ltcraft",
@@ -8,9 +8,9 @@
         "group": "API Probe",
         "status": "up",
         "status_code": 200,
-        "ping_ms": 914,
+        "ping_ms": 71,
         "message": "10 models",
-        "checked_at": "2026-04-07T16:26:09.814Z",
+        "checked_at": "2026-04-07T16:35:58.008Z",
         "uptime_24h": null,
         "model_list": [
           "claude-haiku-4-5",
@@ -27,69 +27,53 @@
         "model_details": [
           {
             "model": "claude-haiku-4-5",
-            "status": "down",
-            "code": 0,
-            "latency_ms": 30003,
-            "error": "The operation was aborted due to timeout"
+            "status": "listed",
+            "code": 200
           },
           {
             "model": "claude-haiku-4-5-20251001",
-            "status": "down",
-            "code": 0,
-            "latency_ms": 30003,
-            "error": "The operation was aborted due to timeout"
+            "status": "listed",
+            "code": 200
           },
           {
             "model": "claude-opus-4-6",
-            "status": "up",
-            "code": 200,
-            "latency_ms": 3030
+            "status": "listed",
+            "code": 200
           },
           {
             "model": "claude-sonnet-4-5",
-            "status": "down",
-            "code": 429,
-            "latency_ms": 7107
+            "status": "listed",
+            "code": 200
           },
           {
             "model": "claude-sonnet-4-5-20250929",
-            "status": "down",
-            "code": 429,
-            "latency_ms": 7671
+            "status": "listed",
+            "code": 200
           },
           {
             "model": "claude-sonnet-4-6",
-            "status": "up",
-            "code": 200,
-            "latency_ms": 2426
+            "status": "listed",
+            "code": 200
           },
           {
             "model": "deepseek-3.2",
-            "status": "down",
-            "code": 0,
-            "latency_ms": 30003,
-            "error": "The operation was aborted due to timeout"
+            "status": "listed",
+            "code": 200
           },
           {
             "model": "minimax-m2.1",
-            "status": "down",
-            "code": 0,
-            "latency_ms": 30002,
-            "error": "The operation was aborted due to timeout"
+            "status": "listed",
+            "code": 200
           },
           {
             "model": "minimax-m2.5",
-            "status": "down",
-            "code": 0,
-            "latency_ms": 30003,
-            "error": "The operation was aborted due to timeout"
+            "status": "listed",
+            "code": 200
           },
           {
             "model": "qwen3-coder-next",
-            "status": "down",
-            "code": 0,
-            "latency_ms": 30003,
-            "error": "The operation was aborted due to timeout"
+            "status": "listed",
+            "code": 200
           }
         ]
       },
@@ -99,9 +83,9 @@
         "group": "API Probe",
         "status": "up",
         "status_code": 200,
-        "ping_ms": 848,
+        "ping_ms": 266,
         "message": "3 models",
-        "checked_at": "2026-04-07T16:26:09.814Z",
+        "checked_at": "2026-04-07T16:35:58.008Z",
         "uptime_24h": null,
         "model_list": [
           "claude-haiku-4-5-20251001",
@@ -127,28 +111,55 @@
         ]
       },
       {
-        "id": "aipaibox",
-        "name": "aipaibox",
+        "id": "macode",
+        "name": "macode",
         "group": "API Probe",
         "status": "up",
         "status_code": 200,
-        "ping_ms": 383,
-        "message": "3 models",
-        "checked_at": "2026-04-07T16:26:09.814Z",
+        "ping_ms": 338,
+        "message": "10 models",
+        "checked_at": "2026-04-07T16:35:58.008Z",
         "uptime_24h": null,
         "model_list": [
+          "MiniMax-M2.5",
+          "claude-haiku-4-5",
+          "claude-haiku-4-5-20251001",
           "claude-opus-4-6",
-          "claude-opus-4-6-thinking",
-          "claude-sonnet-4-6"
+          "claude-sonnet-4-5",
+          "claude-sonnet-4-5-20250929",
+          "claude-sonnet-4-6",
+          "glm-5",
+          "gpt-5.3-codex",
+          "gpt-5.4"
         ],
         "model_details": [
+          {
+            "model": "MiniMax-M2.5",
+            "status": "listed",
+            "code": 200
+          },
+          {
+            "model": "claude-haiku-4-5",
+            "status": "listed",
+            "code": 200
+          },
+          {
+            "model": "claude-haiku-4-5-20251001",
+            "status": "listed",
+            "code": 200
+          },
           {
             "model": "claude-opus-4-6",
             "status": "listed",
             "code": 200
           },
           {
-            "model": "claude-opus-4-6-thinking",
+            "model": "claude-sonnet-4-5",
+            "status": "listed",
+            "code": 200
+          },
+          {
+            "model": "claude-sonnet-4-5-20250929",
             "status": "listed",
             "code": 200
           },
@@ -156,8 +167,111 @@
             "model": "claude-sonnet-4-6",
             "status": "listed",
             "code": 200
+          },
+          {
+            "model": "glm-5",
+            "status": "listed",
+            "code": 200
+          },
+          {
+            "model": "gpt-5.3-codex",
+            "status": "listed",
+            "code": 200
+          },
+          {
+            "model": "gpt-5.4",
+            "status": "listed",
+            "code": 200
           }
         ]
+      },
+      {
+        "id": "aipaibox",
+        "name": "aipaibox",
+        "group": "API Probe",
+        "status": "down",
+        "status_code": 0,
+        "ping_ms": 920,
+        "message": "Unexpected token '<', \"<!doctype \"... is not valid JSON",
+        "checked_at": "2026-04-07T16:35:58.008Z",
+        "uptime_24h": null,
+        "model_list": [],
+        "model_details": []
+      }
+    ]
+  },
+  "ltcraft": {
+    "checked_at": "2026-04-07T16:35:57.083Z",
+    "models": [
+      {
+        "id": 1,
+        "name": "System",
+        "group": "服务",
+        "status": "up",
+        "ping_ms": 78,
+        "message": "",
+        "checked_at": "2026-04-07 16:33:50",
+        "uptime_24h": 0
+      },
+      {
+        "id": 2,
+        "name": "Claude(Anti)",
+        "group": "服务",
+        "status": "down",
+        "ping_ms": null,
+        "message": "",
+        "checked_at": "2026-04-07 16:34:18",
+        "uptime_24h": 0
+      },
+      {
+        "id": 3,
+        "name": "GPT",
+        "group": "服务",
+        "status": "down",
+        "ping_ms": null,
+        "message": "",
+        "checked_at": "2026-04-07 16:33:00",
+        "uptime_24h": 0
+      },
+      {
+        "id": 4,
+        "name": "Gemini",
+        "group": "服务",
+        "status": "down",
+        "ping_ms": null,
+        "message": "",
+        "checked_at": "2026-04-07 16:34:29",
+        "uptime_24h": 0
+      },
+      {
+        "id": 5,
+        "name": "sonnet4.5",
+        "group": "服务",
+        "status": "down",
+        "ping_ms": null,
+        "message": "",
+        "checked_at": "2026-04-07 16:33:48",
+        "uptime_24h": 0
+      },
+      {
+        "id": 6,
+        "name": "Claude(Kiro)",
+        "group": "服务",
+        "status": "up",
+        "ping_ms": 23012,
+        "message": "",
+        "checked_at": "2026-04-07 16:34:19",
+        "uptime_24h": 0
+      },
+      {
+        "id": 7,
+        "name": "Claude(vertex)",
+        "group": "服务",
+        "status": "down",
+        "ping_ms": null,
+        "message": "",
+        "checked_at": "2026-04-07 16:34:19",
+        "uptime_24h": 0
       }
     ]
   }
