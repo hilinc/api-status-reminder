@@ -22,6 +22,12 @@ jobs:
 
       - run: npm ci
 
+      - name: Install Playwright Chromium
+        if: env.CHECK_CX_BASE != ''
+        run: npx playwright install chromium --with-deps
+        env:
+          CHECK_CX_BASE: https://check.linux.do
+
       - name: Write API probe config
         if: env.API_PROBE_CONFIG != ''
         run: echo "$API_PROBE_CONFIG" > config.json
