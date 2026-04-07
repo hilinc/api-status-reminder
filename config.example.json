@@ -1,0 +1,9 @@
+{
+  "providers": [
+    {
+      "name": "ltcraft",
+      "base_url": "https://ai.ltcraft.cn",
+      "api_key": "your-api-key-here"
+    }
+  ]
+}

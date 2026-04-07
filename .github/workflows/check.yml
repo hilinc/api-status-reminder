@@ -24,6 +24,8 @@ jobs:
           UPTIME_KUMA_BASE: https://ai.ltcraft.cn
           CHECK_CX_BASE: https://check.linux.do
           SERVERCHAN_KEY: ${{ secrets.SERVERCHAN_KEY }}
+          FEISHU_WEBHOOK: ${{ secrets.FEISHU_WEBHOOK }}
+          WECOM_WEBHOOK: ${{ secrets.WECOM_WEBHOOK }}
 
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
