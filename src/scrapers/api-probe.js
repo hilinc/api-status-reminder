@@ -57,7 +57,9 @@ async function probeProvider(provider) {
     }
 
     const data = await res.json();
-    let models = (data.data || []).map(m => m.id).sort();
+    // Support both OpenAI format ({ data: [...] }) and Gemini format ({ models: [...] })
+    const rawModels = data.data || data.models || [];
+    let models = rawModels.map(m => m.id || m.name).filter(Boolean).sort();
 
     // Fallback to configured models if API returns empty
     if (models.length === 0 && configModels?.length > 0) {
