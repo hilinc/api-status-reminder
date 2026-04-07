@@ -1,0 +1,22 @@
+{
+  "name": "api-status-reminder",
+  "version": "1.0.0",
+  "description": "自动检测中转站可用性，定时推送结果",
+  "main": "src/index.js",
+  "scripts": {
+    "check": "node src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hilinc/api-status-reminder.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/hilinc/api-status-reminder/issues"
+  },
+  "homepage": "https://github.com/hilinc/api-status-reminder#readme",
+  "dependencies": {}
+}
