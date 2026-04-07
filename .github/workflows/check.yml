@@ -19,6 +19,12 @@ jobs:
 
       - run: npm ci
 
+      - name: Write API probe config
+        if: env.API_PROBE_CONFIG != ''
+        run: echo "$API_PROBE_CONFIG" > config.json
+        env:
+          API_PROBE_CONFIG: ${{ secrets.API_PROBE_CONFIG }}
+
       - run: node src/index.js
         env:
           UPTIME_KUMA_BASE: https://ai.ltcraft.cn
