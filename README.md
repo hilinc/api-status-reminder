@@ -69,7 +69,7 @@
 }
 ```
 
-推荐中转站：[PackyCode](https://www.packyapi.com/register?aff=YNms)
+如果你还没有中转站，可以试试 [PackyCode](https://www.packyapi.com/register?aff=YNms)，支持 Claude、GPT 等主流模型，用着还比较稳。
 
 **字段说明：**
 
