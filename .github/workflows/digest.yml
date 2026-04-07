@@ -24,7 +24,7 @@ jobs:
 
       - name: Install Playwright Chromium
         if: env.CHECK_CX_BASE != ''
-        run: npx playwright install chromium --with-deps
+        run: npm install playwright && npx playwright install chromium --with-deps
         env:
           CHECK_CX_BASE: https://check.linux.do
 
