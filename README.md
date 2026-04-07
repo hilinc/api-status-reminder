@@ -1,69 +1,55 @@
 # API Status Reminder
 
-自动检测 AI 中转站可用性，状态变化时推送通知。
+自动检测 AI 中转站可用性，状态变化时推送通知到你的手机。
 
-## 功能特性
+## 功能
 
-- 抓取 Uptime Kuma 状态页（如 ai.ltcraft.cn）
 - 用你自己的 API Key 探测中转站 `/v1/models` 接口（零 token 消耗）
-- 状态变化时推送通知，包含全量状态概览
+- 可选开启 `deep_check`，逐模型调用 `/v1/chat/completions` 实测可用性（极少量 token）
+- 支持接入 Uptime Kuma 状态页，聚合公共监控数据
+- 状态变化时推送通知，包含总览 + 每站明细
 - 每日定时发送全量状态报告（可配置时间）
-- 支持多种通知渠道（Server酱、飞书、企业微信）
+- 支持 Server酱、飞书、企业微信通知
 - GitHub Actions 定时运行，零部署成本
 
-## 数据源
+## 通知效果
 
-| 数据源 | 说明 | 配置方式 |
-|--------|------|----------|
-| Uptime Kuma | 抓取状态页 JSON API | 环境变量 `UPTIME_KUMA_BASE` |
-| API Probe | 用你的 Key 调 /v1/models | `config.json` 或 Secret `API_PROBE_CONFIG` |
+```
+中转站状态报告
 
-## 使用方法
+## 总览
+
+| 站点 | 连通性 | 延迟 | 可用模型 |
+|------|--------|------|----------|
+| ltcraft | ✅ | 1295ms | 服务 3/7, 模型 5/10 |
+| packyapi | ✅ | 766ms | 3 (未实测) |
+| aipaibox | ✅ | 330ms | 3 (未实测) |
+
+## ltcraft 服务明细
+
+| 服务 | 状态 | 延迟 |
+|------|------|------|
+| System | ✅ | 43ms |
+| Claude(Kiro) | ✅ | 2546ms |
+| Claude(Anti) | ❌ | - |
+
+## ltcraft 模型明细
+
+| 模型 | 状态 | 延迟 |
+|------|------|------|
+| claude-opus-4-6 | ✅ | 3692ms |
+| claude-sonnet-4-6 | ✅ | 4301ms |
+| claude-sonnet-4-5 | ❌ 429 | - |
+| deepseek-3.2 | ❌ 超时 | - |
+```
+
+## 快速开始
 
 ### 1. Fork 本仓库
 
-### 2. 配置通知渠道
+### 2. 配置 API 探测
 
-在仓库 Settings → Secrets and variables → Actions 中添加你需要的通知渠道：
-
-#### Server 酱
-
-- `SERVERCHAN_KEY`: Server 酱的 SendKey
-
-获取方式：登录 [sct.ftqq.com](https://sct.ftqq.com/)，在「设置」中找到 SendKey。
-
-#### 飞书机器人
-
-- `FEISHU_WEBHOOK`: 飞书机器人的 Webhook 地址
-
-获取方式：
-1. 打开飞书，进入目标群聊
-2. 群设置 → 群机器人 → 添加机器人 → 自定义机器人
-3. 复制 Webhook 地址
-
-#### 企业微信机器人
-
-- `WECOM_WEBHOOK`: 企业微信机器人的 Webhook 地址
-
-获取方式：
-1. 打开企业微信，进入目标群聊
-2. 群设置 → 群机器人 → 添加 → 新建机器人
-3. 复制 Webhook 地址
-
-> 每个通知渠道独立配置，只配置你需要的即可，未配置的会自动跳过。
-
-### 3. 配置数据源
-
-在仓库 Settings → Secrets and variables → Actions → Variables 中配置：
-
-- `UPTIME_KUMA_BASE`: Uptime Kuma 状态页地址（如 `https://ai.ltcraft.cn`）
-
-### 4. 配置 API 探测（可选）
-
-如果你想用自己的 API Key 探测中转站可用性（推荐 [PackyCode](https://www.packyapi.com/register?aff=YNms)）：
-
-1. 复制 `config.example.json` 为 `config.json`
-2. 填入你的中转站信息：
+在仓库 Settings → Secrets and variables → Actions → Secrets 中添加 `API_PROBE_CONFIG`，值为 JSON 格式的中转站配置：
 
 ```json
 {
@@ -72,38 +58,51 @@
       "name": "packycode",
       "base_url": "https://www.packyapi.com",
       "api_key": "sk-your-key-here"
+    },
+    {
+      "name": "another-provider",
+      "base_url": "https://api.example.com",
+      "api_key": "sk-another-key",
+      "deep_check": true
     }
   ]
 }
 ```
 
-> 探测只调用 `/v1/models` 接口获取模型列表，不消耗 token。
->
-> `config.json` 已在 `.gitignore` 中，不会被提交到仓库。如需在 GitHub Actions 中使用，请将 config 内容存为 Secret `API_PROBE_CONFIG`，并在 workflow 中写入文件。
+推荐中转站：[PackyCode](https://www.packyapi.com/register?aff=YNms)
 
-### 5. 启用 GitHub Actions
+**字段说明：**
 
-Push 代码后，Actions 会自动定时运行。也可以在 Actions 页面手动触发 `workflow_dispatch`。
+| 字段 | 必填 | 说明 |
+|------|------|------|
+| `name` | 是 | 站点显示名称 |
+| `base_url` | 是 | 中转站 API 地址 |
+| `api_key` | 是 | 你的 API Key |
+| `deep_check` | 否 | 设为 `true` 逐模型实测可用性（会消耗少量 token） |
+
+不开启 `deep_check` 时，只调用 `/v1/models` 获取模型列表，零 token 消耗，但无法确认单个模型是否真正可用。
+
+开启 `deep_check` 后，会对每个模型发送一次最短请求（约 20 tokens），能拿到具体的 HTTP 状态码（200/403/429/500/超时等）。
+
+### 3. 配置通知渠道
+
+在 Secrets 中添加你需要的通知渠道（至少配一个）：
+
+| Secret 名称 | 通知渠道 | 获取方式 |
+|-------------|---------|---------|
+| `SERVERCHAN_KEY` | Server酱 | [sct.ftqq.com](https://sct.ftqq.com/) → 设置 → SendKey |
+| `FEISHU_WEBHOOK` | 飞书机器人 | 群设置 → 群机器人 → 自定义机器人 → Webhook 地址 |
+| `WECOM_WEBHOOK` | 企业微信机器人 | 群设置 → 群机器人 → 新建机器人 → Webhook 地址 |
+
+每个渠道独立配置，未配置的会自动跳过。
+
+### 4. 启用 GitHub Actions
+
+Push 代码后，Actions 会自动定时运行。也可以在 Actions 页面手动触发 `workflow_dispatch` 验证配置。
 
 > GitHub Actions 的 schedule cron 不保证精确触发。即使设置为每 5 分钟，实际触发间隔通常在 15-30 分钟左右，负载高峰期可能更长。如需更精确的定时，建议使用自建服务器 + cron。
 
-## 本地运行
-
-```bash
-npm ci
-
-# 设置环境变量
-export UPTIME_KUMA_BASE=https://ai.ltcraft.cn
-export SERVERCHAN_KEY=your-sendkey
-
-# 状态检测（有变化时通知）
-node src/index.js
-
-# 每日摘要（发送全量状态报告）
-node src/index.js digest
-```
-
-## 每日摘要通知
+## 每日摘要
 
 除了状态变化时的实时通知，还支持每日定时发送全量状态报告。
 
@@ -114,77 +113,68 @@ schedule:
   - cron: '0 1 * * *'    # UTC 01:00 = 北京时间 09:00
 ```
 
-常用时间配置：
+常用时间：
 
-| 北京时间 | cron 表达式 |
-|---------|------------|
+| 北京时间 | cron |
+|---------|------|
 | 08:00 | `0 0 * * *` |
 | 09:00 | `0 1 * * *` |
 | 20:00 | `0 12 * * *` |
 | 08:00 和 20:00 | `0 0,12 * * *` |
 
-也可以在 Actions 页面手动触发 `Daily Status Digest`。
+## 接入 Uptime Kuma（可选）
 
-## Claude Code 社区上报（可选）
+如果你有 Uptime Kuma 状态页，可以在 `.github/workflows/check.yml` 中配置环境变量：
 
-如果你使用 Claude Code + proxy-bridge，可以安装 Stop hook，会话结束时自动上报中转站可用性数据（脱敏，零 token 消耗）。
-
-### 安装
-
-在 `~/.claude/settings.json` 的 `hooks.Stop` 中添加：
-
-```json
-{
-  "hooks": {
-    "Stop": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "/path/to/api-status-reminder/hooks/status-report.sh"
-          }
-        ]
-      }
-    ]
-  }
-}
+```yaml
+UPTIME_KUMA_BASE: https://your-uptime-kuma-instance.com
 ```
 
-上报数据示例（只包含域名、状态码、延迟，不含 API Key 或请求内容）：
+程序会通过 Uptime Kuma 的 JSON API 获取监控数据，与 API 探测结果合并展示。同名站点会自动合并为一行。
 
-```json
-{
-  "ts": 1775572739,
-  "base_url": "http://127.0.0.1:8080",
-  "sites": {
-    "ai.ltcraft.cn": {
-      "total": 5,
-      "success": 4,
-      "avg_latency_ms": 2300
-    }
-  }
-}
+## 本地运行
+
+```bash
+# 安装依赖
+npm ci
+
+# 创建配置文件
+cp config.example.json config.json
+# 编辑 config.json，填入你的中转站信息
+
+# 状态检测（有变化时通知）
+SERVERCHAN_KEY=your-sendkey node src/index.js
+
+# 每日摘要
+SERVERCHAN_KEY=your-sendkey node src/index.js digest
+
+# 如需接入 Uptime Kuma
+UPTIME_KUMA_BASE=https://your-instance.com node src/index.js
 ```
 
-默认写入本地 `~/.claude/status-reports.jsonl`。配置 `API_STATUS_REPORT_URL` 环境变量可上报到中心服务。
+> `config.json` 已在 `.gitignore` 中，不会被提交到仓库。
 
-## 通知效果
-
-状态变化时会收到类似这样的通知：
+## 项目结构
 
 ```
-中转站状态变化 (3项)
-
-## ltcraft — 部分异常
-
-| 模型 | 状态 | 延迟 | 24h可用率 |
-|------|------|------|----------|
-| System | ✅ | 59ms | 98.5% |
-| Claude(Kiro) | ✅ | 2268ms | 95.0% |
-| GPT | ❌ | - | 0.0% |
-
-### 变化
-- GPT: ✅ → ❌
+├── .github/workflows/
+│   ├── check.yml           # 定时检测（每 5 分钟）
+│   └── digest.yml          # 每日摘要
+├── src/
+│   ├── index.js            # 入口
+│   ├── diff.js             # 状态对比
+│   ├── scrapers/
+│   │   ├── api-probe.js    # /v1/models + deep_check 探测
+│   │   └── ltcraft.js      # Uptime Kuma 抓取
+│   └── notifiers/
+│       ├── serverchan.js   # Server酱 + 消息格式化
+│       ├── feishu.js       # 飞书
+│       └── wecom.js        # 企业微信
+├── data/
+│   └── last-status.json    # 上次状态（自动维护）
+├── config.example.json     # 配置示例
+└── hooks/
+    └── status-report.sh    # Claude Code 社区上报 hook
 ```
 
 ## License
