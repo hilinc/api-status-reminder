@@ -27,76 +27,90 @@ async function probeModel(base_url, api_key, model) {
 }
 
 async function probeProvider(provider) {
-  const { name, base_url, api_key, deep_check, models: configModels, models_path } = provider;
-  const startTime = Date.now();
+  const { name, base_url, deep_check, models: configModels, models_path } = provider;
+  const keys = provider.api_keys || [{ key: provider.api_key }];
+  const endpoint = models_path || '/v1/models';
 
-  try {
-    const endpoint = models_path || '/v1/models';
-    const res = await fetch(`${base_url}${endpoint}`, {
-      headers: { 'Authorization': `Bearer ${api_key}` },
-      signal: AbortSignal.timeout(15000),
-    });
+  let allModels = [];
+  let allDetails = [];
+  let bestLatency = Infinity;
+  let overallStatus = 'down';
+  let overallCode = 0;
+  let lastError = '';
 
-    const latency = Date.now() - startTime;
+  for (const keyConfig of keys) {
+    const api_key = typeof keyConfig === 'string' ? keyConfig : keyConfig.key;
+    const label = (typeof keyConfig === 'object' && keyConfig.label) || '';
+    const startTime = Date.now();
 
-    if (!res.ok) {
-      // If models endpoint fails but we have configured models, use those
-      const fallback = configModels || [];
-      if (fallback.length > 0 && deep_check) {
-        console.log(`[api-probe] ${endpoint} returned ${res.status} for ${name}, using configured models`);
-        const model_details = await Promise.all(fallback.map(m => probeModel(base_url, api_key, m)));
-        return {
-          name, base_url, status: 'up', status_code: res.status, latency_ms: latency,
-          models: fallback, model_count: fallback.length, model_details,
-        };
+    try {
+      const res = await fetch(`${base_url}${endpoint}`, {
+        headers: { 'Authorization': `Bearer ${api_key}` },
+        signal: AbortSignal.timeout(15000),
+      });
+      const latency = Date.now() - startTime;
+      if (latency < bestLatency) bestLatency = latency;
+
+      if (res.ok) {
+        overallStatus = 'up';
+        overallCode = 200;
+        const data = await res.json();
+        const rawModels = data.data || data.models || [];
+        const models = rawModels.map(m => m.id || m.name).filter(Boolean);
+
+        if (deep_check) {
+          const prefix = label ? `[${label}] ` : '';
+          console.log(`[api-probe] Deep checking ${models.length} models for ${name} ${prefix}...`);
+          const details = await Promise.all(models.map(m => probeModel(base_url, api_key, m)));
+          for (const d of details) {
+            const existing = allDetails.find(e => e.model === d.model);
+            if (!existing) {
+              allDetails.push({ ...d, label });
+            } else if (d.status === 'up' && existing.status !== 'up') {
+              Object.assign(existing, d, { label });
+            }
+          }
+        }
+
+        for (const m of models) {
+          if (!allModels.includes(m)) allModels.push(m);
+        }
+      } else {
+        if (overallCode === 0) overallCode = res.status;
+        lastError = `HTTP ${res.status}`;
       }
-      return {
-        name, base_url, status: 'down', status_code: res.status, latency_ms: latency,
-        error: `HTTP ${res.status}`, models: [], model_details: [],
-      };
+    } catch (err) {
+      const latency = Date.now() - startTime;
+      if (latency < bestLatency) bestLatency = latency;
+      lastError = err.message;
     }
-
-    const data = await res.json();
-    // Support both OpenAI format ({ data: [...] }) and Gemini format ({ models: [...] })
-    const rawModels = data.data || data.models || [];
-    let models = rawModels.map(m => m.id || m.name).filter(Boolean).sort();
-
-    // Fallback to configured models if API returns empty
-    if (models.length === 0 && configModels?.length > 0) {
-      console.log(`[api-probe] ${endpoint} returned empty for ${name}, using configured models`);
-      models = configModels;
-    }
-
-    let model_details = models.map(m => ({ model: m, status: 'listed', code: 200 }));
-
-    if (deep_check) {
-      console.log(`[api-probe] Deep checking ${models.length} models for ${name}...`);
-      model_details = await Promise.all(models.map(m => probeModel(base_url, api_key, m)));
-    }
-
-    return {
-      name, base_url, status: 'up', status_code: 200, latency_ms: latency,
-      models, model_count: models.length, model_details,
-    };
-  } catch (err) {
-    // Connection failed but we have configured models
-    const fallback = configModels || [];
-    if (fallback.length > 0 && deep_check) {
-      console.log(`[api-probe] Connection failed for ${name} (${err.message}), trying configured models`);
-      const model_details = await Promise.all(fallback.map(m => probeModel(base_url, api_key, m)));
-      const anyUp = model_details.some(d => d.status === 'up');
-      return {
-        name, base_url, status: anyUp ? 'up' : 'down', status_code: 0,
-        latency_ms: Date.now() - startTime, models: fallback,
-        model_count: fallback.length, model_details,
-      };
-    }
-    return {
-      name, base_url, status: 'down', status_code: 0,
-      latency_ms: Date.now() - startTime, error: err.message,
-      models: [], model_details: [],
-    };
   }
+
+  if (allModels.length === 0 && configModels?.length > 0) {
+    console.log(`[api-probe] Using configured models for ${name}`);
+    allModels = configModels;
+    if (deep_check) {
+      const api_key = typeof keys[0] === 'string' ? keys[0] : keys[0].key;
+      allDetails = await Promise.all(allModels.map(m => probeModel(base_url, api_key, m)));
+      if (allDetails.some(d => d.status === 'up')) overallStatus = 'up';
+    }
+  }
+
+  allModels.sort();
+  if (!deep_check && allModels.length > 0) {
+    allDetails = allModels.map(m => ({ model: m, status: 'listed', code: 200 }));
+  }
+
+  return {
+    name, base_url,
+    status: overallStatus,
+    status_code: overallCode,
+    latency_ms: bestLatency === Infinity ? 0 : bestLatency,
+    error: overallStatus === 'down' ? lastError : undefined,
+    models: allModels,
+    model_count: allModels.length,
+    model_details: allDetails,
+  };
 }
 
 async function scrape() {

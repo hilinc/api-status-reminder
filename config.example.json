@@ -3,8 +3,17 @@
     {
       "name": "packycode",
       "base_url": "https://www.packyapi.com",
-      "api_key": "your-api-key-here",
+      "api_key": "sk-your-key-here",
       "models": ["claude-opus-4-6", "claude-sonnet-4-6"],
+      "deep_check": true
+    },
+    {
+      "name": "my-provider",
+      "base_url": "https://api.example.com",
+      "api_keys": [
+        { "key": "sk-group-a-key", "label": "套餐A" },
+        { "key": "sk-group-b-key", "label": "套餐B" }
+      ],
       "deep_check": true
     }
   ]
