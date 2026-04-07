@@ -39,7 +39,17 @@ function formatStatusMessage(scrapeResult, changes) {
     const icon = statusIcon[m.status] || '❓';
     const ping = m.ping_ms != null ? `${m.ping_ms}ms` : '-';
     const uptime = m.uptime_24h != null ? `${(m.uptime_24h * 100).toFixed(1)}%` : '-';
-    md += `| ${m.name} | ${icon} | ${ping} | ${uptime} |\n`;
+    const detail = m.model_list?.length ? ` (${m.model_list.length}个模型)` : '';
+    md += `| ${m.name}${detail} | ${icon} | ${ping} | ${uptime} |\n`;
+  }
+
+  // Show model lists for api-probe results
+  const probeModels = models.filter(m => m.model_list?.length > 0);
+  if (probeModels.length > 0) {
+    md += `\n### 可用模型\n`;
+    for (const m of probeModels) {
+      md += `**${m.name}**: ${m.model_list.join(', ')}\n\n`;
+    }
   }
 
   if (changes.length > 0) {

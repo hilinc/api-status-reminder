@@ -14,12 +14,13 @@ const scrapers = [
 
 const notifiers = [notifyServerChan, notifyFeishu, notifyWeCom];
 
+const mode = process.argv[2] || 'check'; // 'check' or 'digest'
+
 async function main() {
-  console.log('[main] Starting status check...');
+  console.log(`[main] Starting ${mode} mode...`);
 
   const lastStatus = loadLastStatus();
   let allChanges = [];
-  let allResults = [];
 
   for (const s of scrapers) {
     if (!s.enabled) continue;
@@ -37,13 +38,18 @@ async function main() {
         checked_at: result.checked_at,
         models: result.models,
       };
-      allResults.push(result);
     } catch (err) {
       console.error(`[main] ${s.name} failed:`, err.message);
     }
   }
 
-  if (allChanges.length > 0) {
+  if (mode === 'digest') {
+    // Daily digest: send full status regardless of changes
+    const title = `中转站每日状态报告`;
+    const md = formatDigest(lastStatus);
+    await Promise.allSettled(notifiers.map(fn => fn(title, md)));
+    console.log('[main] Digest sent');
+  } else if (allChanges.length > 0) {
     const totalChanges = allChanges.reduce((n, c) => n + c.changes.length, 0);
     console.log(`[main] ${totalChanges} status change(s) detected`);
     const title = `中转站状态变化 (${totalChanges}项)`;
@@ -55,6 +61,38 @@ async function main() {
 
   saveStatus(lastStatus);
   console.log('[main] Status saved');
+}
+
+function formatDigest(status) {
+  const statusIcon = { up: '✅', down: '❌', unknown: '❓' };
+  let md = '';
+
+  for (const [source, data] of Object.entries(status)) {
+    const models = data.models || [];
+    const upCount = models.filter(m => m.status === 'up').length;
+    const total = models.length;
+
+    md += `## ${source} (${upCount}/${total} 可用)\n\n`;
+    md += `| 模型 | 状态 | 延迟 |\n`;
+    md += `|------|------|------|\n`;
+
+    for (const m of models) {
+      const icon = statusIcon[m.status] || '❓';
+      const ping = m.ping_ms != null ? `${m.ping_ms}ms` : '-';
+      md += `| ${m.name} | ${icon} | ${ping} |\n`;
+    }
+
+    if (models.some(m => m.model_list?.length > 0)) {
+      md += `\n### 可用模型\n`;
+      for (const m of models.filter(m => m.model_list?.length > 0)) {
+        md += `**${m.name}**: ${m.model_list.join(', ')}\n\n`;
+      }
+    }
+
+    md += `\n⏰ 最后检测: ${data.checked_at}\n\n---\n\n`;
+  }
+
+  return md;
 }
 
 main().catch(err => {

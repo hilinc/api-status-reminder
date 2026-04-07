@@ -95,9 +95,77 @@ npm ci
 export UPTIME_KUMA_BASE=https://ai.ltcraft.cn
 export SERVERCHAN_KEY=your-sendkey
 
-# 运行
+# 状态检测（有变化时通知）
 node src/index.js
+
+# 每日摘要（发送全量状态报告）
+node src/index.js digest
 ```
+
+## 每日摘要通知
+
+除了状态变化时的实时通知，还支持每日定时发送全量状态报告。
+
+默认北京时间每天 09:00 发送，可在 `.github/workflows/digest.yml` 中修改 cron 表达式：
+
+```yaml
+schedule:
+  - cron: '0 1 * * *'    # UTC 01:00 = 北京时间 09:00
+```
+
+常用时间配置：
+
+| 北京时间 | cron 表达式 |
+|---------|------------|
+| 08:00 | `0 0 * * *` |
+| 09:00 | `0 1 * * *` |
+| 20:00 | `0 12 * * *` |
+| 08:00 和 20:00 | `0 0,12 * * *` |
+
+也可以在 Actions 页面手动触发 `Daily Status Digest`。
+
+## Claude Code 社区上报（可选）
+
+如果你使用 Claude Code + proxy-bridge，可以安装 Stop hook，会话结束时自动上报中转站可用性数据（脱敏，零 token 消耗）。
+
+### 安装
+
+在 `~/.claude/settings.json` 的 `hooks.Stop` 中添加：
+
+```json
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/path/to/api-status-reminder/hooks/status-report.sh"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+上报数据示例（只包含域名、状态码、延迟，不含 API Key 或请求内容）：
+
+```json
+{
+  "ts": 1775572739,
+  "base_url": "http://127.0.0.1:8080",
+  "sites": {
+    "ai.ltcraft.cn": {
+      "total": 5,
+      "success": 4,
+      "avg_latency_ms": 2300
+    }
+  }
+}
+```
+
+默认写入本地 `~/.claude/status-reports.jsonl`。配置 `API_STATUS_REPORT_URL` 环境变量可上报到中心服务。
 
 ## 通知效果
 
