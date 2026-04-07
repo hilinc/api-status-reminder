@@ -1,5 +1,4 @@
 const { scrape: scrapeLtcraft } = require('./scrapers/ltcraft');
-const { scrape: scrapeCheckLinuxDo } = require('./scrapers/check-linux-do');
 const { scrape: scrapeApiProbe } = require('./scrapers/api-probe');
 const { loadLastStatus, saveStatus, diff } = require('./diff');
 const { notify: notifyServerChan, formatStatusMessage } = require('./notifiers/serverchan');
@@ -8,7 +7,6 @@ const { notify: notifyWeCom } = require('./notifiers/wecom');
 
 const scrapers = [
   { name: 'ltcraft', fn: scrapeLtcraft, enabled: !!process.env.UPTIME_KUMA_BASE },
-  { name: 'check-linux-do', fn: scrapeCheckLinuxDo, enabled: !!process.env.CHECK_CX_BASE },
   { name: 'api-probe', fn: scrapeApiProbe, enabled: true },
 ];
 
@@ -80,13 +78,20 @@ function formatDigest(status) {
     for (const m of models) {
       const icon = statusIcon[m.status] || '❓';
       const ping = m.ping_ms != null ? `${m.ping_ms}ms` : '-';
-      md += `| ${m.name} | ${icon} | ${ping} |\n`;
+      const detail = m.model_list?.length ? ` (${m.model_list.length}个模型)` : '';
+      md += `| ${m.name}${detail} | ${icon} | ${ping} |\n`;
     }
 
-    if (models.some(m => m.model_list?.length > 0)) {
-      md += `\n### 可用模型\n`;
-      for (const m of models.filter(m => m.model_list?.length > 0)) {
-        md += `**${m.name}**: ${m.model_list.join(', ')}\n\n`;
+    // Show model lists as tables
+    const probeModels = models.filter(m => m.model_list?.length > 0);
+    if (probeModels.length > 0) {
+      for (const m of probeModels) {
+        md += `\n### ${m.name} 可用模型\n\n`;
+        md += `| 模型 |\n`;
+        md += `|------|\n`;
+        for (const model of m.model_list) {
+          md += `| ${model} |\n`;
+        }
       }
     }
 

@@ -1,6 +1,6 @@
 {
   "ltcraft": {
-    "checked_at": "2026-04-07T16:13:04.479Z",
+    "checked_at": "2026-04-07T16:13:37.273Z",
     "models": [
       {
         "id": 1,
@@ -29,7 +29,7 @@
         "status": "down",
         "ping_ms": null,
         "message": "",
-        "checked_at": "2026-04-07 16:08:00",
+        "checked_at": "2026-04-07 16:13:00",
         "uptime_24h": 0
       },
       {
@@ -75,16 +75,16 @@
     ]
   },
   "api-probe": {
-    "checked_at": "2026-04-07T16:13:05.457Z",
+    "checked_at": "2026-04-07T16:13:38.506Z",
     "models": [
       {
         "id": "ltcraft",
         "name": "ltcraft",
         "group": "API Probe",
         "status": "up",
-        "ping_ms": 83,
+        "ping_ms": 1136,
         "message": "10 models",
-        "checked_at": "2026-04-07T16:13:05.457Z",
+        "checked_at": "2026-04-07T16:13:38.506Z",
         "uptime_24h": null,
         "model_list": [
           "claude-haiku-4-5",
@@ -98,54 +98,6 @@
           "minimax-m2.5",
           "qwen3-coder-next"
         ]
-      },
-      {
-        "id": "packyapi",
-        "name": "packyapi",
-        "group": "API Probe",
-        "status": "up",
-        "ping_ms": 414,
-        "message": "3 models",
-        "checked_at": "2026-04-07T16:13:05.457Z",
-        "uptime_24h": null,
-        "model_list": [
-          "claude-haiku-4-5-20251001",
-          "claude-opus-4-6",
-          "claude-sonnet-4-6"
-        ]
-      },
-      {
-        "id": "macode",
-        "name": "macode",
-        "group": "API Probe",
-        "status": "up",
-        "ping_ms": 150,
-        "message": "10 models",
-        "checked_at": "2026-04-07T16:13:05.457Z",
-        "uptime_24h": null,
-        "model_list": [
-          "MiniMax-M2.5",
-          "claude-haiku-4-5",
-          "claude-haiku-4-5-20251001",
-          "claude-opus-4-6",
-          "claude-sonnet-4-5",
-          "claude-sonnet-4-5-20250929",
-          "claude-sonnet-4-6",
-          "glm-5",
-          "gpt-5.3-codex",
-          "gpt-5.4"
-        ]
-      },
-      {
-        "id": "aipaibox",
-        "name": "aipaibox",
-        "group": "API Probe",
-        "status": "down",
-        "ping_ms": 973,
-        "message": "Unexpected token '<', \"<!doctype \"... is not valid JSON",
-        "checked_at": "2026-04-07T16:13:05.457Z",
-        "uptime_24h": null,
-        "model_list": []
       }
     ]
   }
