@@ -12,7 +12,7 @@ const scrapers = [
 
 const notifiers = [notifyServerChan, notifyFeishu, notifyWeCom];
 
-const mode = process.argv[2] || 'check'; // 'check' or 'digest'
+const mode = process.argv[2] || 'check'; // 'check', 'digest', or 'change-only'
 
 async function main() {
   console.log(`[main] Starting ${mode} mode...`);
@@ -39,7 +39,7 @@ async function main() {
     }
   }
 
-  const shouldNotify = mode === 'digest' || hasChanges;
+  const shouldNotify = mode === 'change-only' ? hasChanges : true;
 
   if (shouldNotify) {
     const title = mode === 'digest' ? '中转站每日状态报告' : '中转站状态报告';
@@ -47,7 +47,7 @@ async function main() {
     await Promise.allSettled(notifiers.map(fn => fn(title, md)));
     console.log(`[main] Notification sent (${mode})`);
   } else {
-    console.log('[main] No status changes');
+    console.log('[main] No status changes, skipping notification');
   }
 
   saveStatus(lastStatus);
