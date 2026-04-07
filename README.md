@@ -83,7 +83,9 @@
 
 ### 5. 启用 GitHub Actions
 
-Push 代码后，Actions 会自动每 5 分钟运行一次。也可以在 Actions 页面手动触发 `workflow_dispatch`。
+Push 代码后，Actions 会自动定时运行。也可以在 Actions 页面手动触发 `workflow_dispatch`。
+
+> GitHub Actions 的 schedule cron 不保证精确触发。即使设置为每 5 分钟，实际触发间隔通常在 15-30 分钟左右，负载高峰期可能更长。如需更精确的定时，建议使用自建服务器 + cron。
 
 ## 本地运行
 
