@@ -21,11 +21,11 @@
 
 | 站点 | 连通性 | 延迟 | 可用模型 |
 |------|--------|------|----------|
-| ltcraft | ✅ | 1295ms | 服务 3/7, 模型 5/10 |
+| packycode | ✅ | 1295ms | 服务 3/7, 模型 5/10 |
 | packyapi | ✅ | 766ms | 3 (未实测) |
 | aipaibox | ✅ | 330ms | 3 (未实测) |
 
-## ltcraft 服务明细
+## packycode 服务明细
 
 | 服务 | 状态 | 延迟 |
 |------|------|------|
@@ -33,7 +33,7 @@
 | Claude(Kiro) | ✅ | 2546ms |
 | Claude(Anti) | ❌ | - |
 
-## ltcraft 模型明细
+## packycode 模型明细
 
 | 模型 | 状态 | 延迟 |
 |------|------|------|
@@ -61,7 +61,7 @@
     },
     {
       "name": "another-provider",
-      "base_url": "https://api.example.com",
+      "base_url": "https://www.packyapi.com",
       "api_key": "sk-another-key",
       "deep_check": true
     }
