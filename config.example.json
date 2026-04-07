@@ -3,7 +3,9 @@
     {
       "name": "packycode",
       "base_url": "https://www.packyapi.com",
-      "api_key": "your-api-key-here"
+      "api_key": "your-api-key-here",
+      "models": ["claude-opus-4-6", "claude-sonnet-4-6"],
+      "deep_check": true
     }
   ]
 }

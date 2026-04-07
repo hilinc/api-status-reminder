@@ -79,6 +79,8 @@
 | `base_url` | 是 | 中转站 API 地址 |
 | `api_key` | 是 | 你的 API Key |
 | `deep_check` | 否 | 设为 `true` 逐模型实测可用性（会消耗少量 token） |
+| `models` | 否 | 手动指定模型列表，当 `/v1/models` 返回空时作为 fallback |
+| `models_path` | 否 | 自定义模型列表端点，默认 `/v1/models` |
 
 不开启 `deep_check` 时，只调用 `/v1/models` 获取模型列表，零 token 消耗，但无法确认单个模型是否真正可用。
 
