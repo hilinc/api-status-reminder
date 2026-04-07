@@ -1,15 +1,15 @@
 {
   "ltcraft": {
-    "checked_at": "2026-04-07T09:00:24.315Z",
+    "checked_at": "2026-04-07T09:16:54.273Z",
     "models": [
       {
         "id": 1,
         "name": "System",
         "group": "服务",
         "status": "up",
-        "ping_ms": 74,
+        "ping_ms": 69,
         "message": "",
-        "checked_at": "2026-04-07 08:58:50",
+        "checked_at": "2026-04-07 09:13:50",
         "uptime_24h": 0
       },
       {
@@ -19,7 +19,7 @@
         "status": "down",
         "ping_ms": null,
         "message": "",
-        "checked_at": "2026-04-07 08:59:18",
+        "checked_at": "2026-04-07 09:14:18",
         "uptime_24h": 0
       },
       {
@@ -29,7 +29,7 @@
         "status": "down",
         "ping_ms": null,
         "message": "",
-        "checked_at": "2026-04-07 08:58:00",
+        "checked_at": "2026-04-07 09:13:00",
         "uptime_24h": 0
       },
       {
@@ -39,17 +39,17 @@
         "status": "down",
         "ping_ms": null,
         "message": "",
-        "checked_at": "2026-04-07 08:59:29",
+        "checked_at": "2026-04-07 09:14:29",
         "uptime_24h": 0
       },
       {
         "id": 5,
         "name": "sonnet4.5",
         "group": "服务",
-        "status": "down",
-        "ping_ms": null,
+        "status": "up",
+        "ping_ms": 9901,
         "message": "",
-        "checked_at": "2026-04-07 08:58:48",
+        "checked_at": "2026-04-07 09:13:48",
         "uptime_24h": 0
       },
       {
@@ -57,9 +57,9 @@
         "name": "Claude(Kiro)",
         "group": "服务",
         "status": "up",
-        "ping_ms": 1516,
+        "ping_ms": 2652,
         "message": "",
-        "checked_at": "2026-04-07 08:59:19",
+        "checked_at": "2026-04-07 09:14:19",
         "uptime_24h": 0
       },
       {
@@ -69,7 +69,7 @@
         "status": "down",
         "ping_ms": null,
         "message": "",
-        "checked_at": "2026-04-07 08:59:19",
+        "checked_at": "2026-04-07 09:14:19",
         "uptime_24h": 0
       }
     ]
