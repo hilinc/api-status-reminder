@@ -114,7 +114,23 @@
 
 Push 代码后，Actions 会自动定时运行。也可以在 Actions 页面手动触发 `workflow_dispatch` 验证配置。
 
-> GitHub Actions 的 schedule cron 不保证精确触发。即使设置为每 5 分钟，实际触发间隔通常在 15-30 分钟左右，负载高峰期可能更长。如需更精确的定时，建议使用自建服务器 + cron。
+默认每小时检测一次，仅在北京时间 09:00-18:00 期间触发。可在 `.github/workflows/check.yml` 中修改 cron 表达式：
+
+```yaml
+schedule:
+  - cron: '0 1-10 * * *'    # UTC 01:00-10:00 = 北京时间 09:00-18:00，每小时
+```
+
+常用配置：
+
+| 说明 | cron |
+|------|------|
+| 每小时，北京 09-18 点（默认） | `0 1-10 * * *` |
+| 每小时，全天 | `0 * * * *` |
+| 每 30 分钟，北京 09-18 点 | `*/30 1-10 * * *` |
+| 每小时，仅工作日 | `0 1-10 * * 1-5` |
+
+> GitHub Actions 的 schedule cron 不保证精确触发，实际可能有几分钟到十几分钟的延迟。如需更精确的定时，建议使用自建服务器 + cron。
 
 ## 每日摘要
 
@@ -172,7 +188,7 @@ UPTIME_KUMA_BASE=https://your-instance.com node src/index.js
 
 ```
 ├── .github/workflows/
-│   ├── check.yml           # 定时检测（每 5 分钟）
+│   ├── check.yml           # 定时检测（每小时，北京 09-18 点）
 │   └── digest.yml          # 每日摘要
 ├── src/
 │   ├── index.js            # 入口

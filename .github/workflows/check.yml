@@ -1,7 +1,9 @@
 name: API Status Check
 on:
   schedule:
-    - cron: '*/5 * * * *'
+    # 每小时触发，仅北京时间 09:00-18:00（UTC 01:00-10:00）
+    # 如需自定义，修改 cron 表达式。小时范围对应 UTC 时间。
+    - cron: '0 1-10 * * *'
   workflow_dispatch:
 
 permissions:
