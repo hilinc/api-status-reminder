@@ -22,64 +22,116 @@ async function notify(title, markdown) {
   console.log('[ServerChan] Notification sent:', title);
 }
 
-function formatStatusMessage(scrapeResult, changes) {
-  const { source, url, checked_at, models } = scrapeResult;
-
-  const upCount = models.filter(m => m.status === 'up').length;
-  const downCount = models.filter(m => m.status === 'down').length;
-  const overall = downCount === 0 ? 'all up' : upCount === 0 ? 'all down' : 'partial';
-
+function formatReport(status) {
   const statusIcon = { up: '✅', down: '❌', unknown: '❓' };
+  let md = '';
 
-  let md = `## ${source} — ${overall === 'all up' ? '全部正常' : overall === 'all down' ? '全部异常' : '部分异常'}\n\n`;
-  md += `| 模型 | 状态 | 延迟 | 24h可用率 |\n`;
-  md += `|------|------|------|----------|\n`;
+  // Collect all sites: merge Uptime Kuma monitors under their source name
+  const sites = [];
+  const siteMap = {};
 
-  for (const m of models) {
-    const icon = statusIcon[m.status] || '❓';
-    const ping = m.ping_ms != null ? `${m.ping_ms}ms` : '-';
-    const uptime = m.uptime_24h != null ? `${(m.uptime_24h * 100).toFixed(1)}%` : '-';
-    const code = m.status_code ? ` (${m.status_code})` : '';
-    const detail = m.model_list?.length ? ` (${m.model_list.length}个模型)` : '';
-    md += `| ${m.name}${detail} | ${icon}${code} | ${ping} | ${uptime} |\n`;
+  for (const [source, data] of Object.entries(status)) {
+    const models = data.models || [];
+    if (source === 'api-probe') {
+      for (const m of models) {
+        const name = m.name;
+        if (siteMap[name]) {
+          // Merge with existing Uptime Kuma site
+          siteMap[name].model_details = m.model_details;
+          siteMap[name].ping_ms_probe = m.ping_ms;
+          siteMap[name].status_probe = m.status;
+        } else {
+          const site = { ...m, _source: 'api-probe' };
+          sites.push(site);
+          siteMap[name] = site;
+        }
+      }
+    } else {
+      // Uptime Kuma: group all monitors as one site
+      const upCount = models.filter(m => m.status === 'up').length;
+      const total = models.length;
+      const pings = models.filter(m => m.ping_ms).map(m => m.ping_ms);
+      const avgPing = pings.length ? Math.round(pings.reduce((a, b) => a + b, 0) / pings.length) : null;
+      const overall = models.every(m => m.status === 'down') ? 'down' : 'up';
+      const site = {
+        name: source,
+        status: overall,
+        ping_ms: avgPing,
+        _source: 'uptime-kuma',
+        _monitors: models,
+        _summary: `${upCount}/${total}`,
+      };
+      sites.push(site);
+      siteMap[source] = site;
+    }
   }
 
-  // Show model details as table
-  const probeModels = models.filter(m => m.model_details?.length > 0);
-  if (probeModels.length > 0) {
-    for (const m of probeModels) {
-      const hasDeepCheck = m.model_details.some(d => d.status !== 'listed');
-      md += `\n### ${m.name} 模型列表\n\n`;
-      if (hasDeepCheck) {
-        md += `| 模型 | 状态 | 响应码 | 延迟 |\n`;
-        md += `|------|------|--------|------|\n`;
-        for (const d of m.model_details) {
+  // --- Overview table ---
+  md += `## 总览\n\n`;
+  md += `| 站点 | 连通性 | 延迟 | 可用模型 |\n`;
+  md += `|------|--------|------|----------|\n`;
+
+  for (const s of sites) {
+    const icon = statusIcon[s.status] || '❓';
+    const ping = s.ping_ms != null ? `${s.ping_ms}ms` : '-';
+    let modelInfo = '-';
+    if (s._summary) {
+      modelInfo = `服务 ${s._summary}`;
+    }
+    if (s.model_details?.length > 0) {
+      const hasDeep = s.model_details.some(d => d.status !== 'listed');
+      const modelStr = hasDeep
+        ? `${s.model_details.filter(d => d.status === 'up').length}/${s.model_details.length}`
+        : `${s.model_details.length} (未实测)`;
+      modelInfo = s._summary ? `${modelInfo}, 模型 ${modelStr}` : modelStr;
+    }
+    md += `| ${s.name} | ${icon} | ${ping} | ${modelInfo} |\n`;
+  }
+
+  // --- Per-site details ---
+  for (const s of sites) {
+    if (s._monitors?.length > 0) {
+      md += `\n## ${s.name} 服务明细\n\n`;
+      md += `| 服务 | 状态 | 延迟 |\n`;
+      md += `|------|------|------|\n`;
+      for (const m of s._monitors) {
+        const icon = statusIcon[m.status] || '❓';
+        const ping = m.ping_ms != null ? `${m.ping_ms}ms` : '-';
+        md += `| ${m.name} | ${icon} | ${ping} |\n`;
+      }
+    }
+
+    if (s.model_details?.length > 0) {
+      const hasDeep = s.model_details.some(d => d.status !== 'listed');
+      md += `\n## ${s.name} 模型明细\n\n`;
+      if (hasDeep) {
+        md += `| 模型 | 状态 | 延迟 |\n`;
+        md += `|------|------|------|\n`;
+        for (const d of s.model_details) {
           const icon = d.status === 'up' ? '✅' : '❌';
-          const ping = d.latency_ms != null ? `${d.latency_ms}ms` : '-';
-          md += `| ${d.model} | ${icon} | ${d.code} | ${ping} |\n`;
+          const code = d.code === 0 ? ' 超时' : (d.code && d.code !== 200 ? ` ${d.code}` : '');
+          const ping = d.status === 'up' && d.latency_ms != null ? `${d.latency_ms}ms` : '-';
+          md += `| ${d.model} | ${icon}${code} | ${ping} |\n`;
         }
       } else {
-        md += `| 模型 | 状态 |\n`;
-        md += `|------|------|\n`;
-        for (const d of m.model_details) {
-          md += `| ${d.model} | 已列出 |\n`;
+        md += `| 模型 |\n`;
+        md += `|------|\n`;
+        for (const d of s.model_details) {
+          md += `| ${d.model} |\n`;
         }
-        md += `\n> 以上为 /v1/models 返回的模型列表，仅表示站点已注册该模型，不代表实际可用。如需逐模型实测，请在 config.json 中设置 \`"deep_check": true\`。\n`;
+        md += `\n> 仅 /v1/models 返回，未实测可用性\n`;
       }
     }
   }
 
-  if (changes.length > 0) {
-    md += `\n### 变化\n`;
-    for (const c of changes) {
-      md += `- ${c.name}: ${statusIcon[c.from] || c.from} → ${statusIcon[c.to]}\n`;
-    }
+  // --- Timestamp ---
+  const timestamps = Object.values(status).map(d => d.checked_at).filter(Boolean);
+  const latest = timestamps.sort().pop();
+  if (latest) {
+    md += `\n🕐 ${latest}\n`;
   }
-
-  md += `\n🕐 ${checked_at}\n`;
-  md += `\n[查看详情](${url})`;
 
   return md;
 }
 
-module.exports = { notify, formatStatusMessage };
+module.exports = { notify, formatReport };
