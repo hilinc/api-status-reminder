@@ -39,16 +39,33 @@ function formatStatusMessage(scrapeResult, changes) {
     const icon = statusIcon[m.status] || '❓';
     const ping = m.ping_ms != null ? `${m.ping_ms}ms` : '-';
     const uptime = m.uptime_24h != null ? `${(m.uptime_24h * 100).toFixed(1)}%` : '-';
+    const code = m.status_code ? ` (${m.status_code})` : '';
     const detail = m.model_list?.length ? ` (${m.model_list.length}个模型)` : '';
-    md += `| ${m.name}${detail} | ${icon} | ${ping} | ${uptime} |\n`;
+    md += `| ${m.name}${detail} | ${icon}${code} | ${ping} | ${uptime} |\n`;
   }
 
-  // Show model lists for api-probe results
-  const probeModels = models.filter(m => m.model_list?.length > 0);
+  // Show model details as table
+  const probeModels = models.filter(m => m.model_details?.length > 0);
   if (probeModels.length > 0) {
-    md += `\n### 可用模型\n`;
     for (const m of probeModels) {
-      md += `**${m.name}**: ${m.model_list.join(', ')}\n\n`;
+      const hasDeepCheck = m.model_details.some(d => d.status !== 'listed');
+      md += `\n### ${m.name} 模型列表\n\n`;
+      if (hasDeepCheck) {
+        md += `| 模型 | 状态 | 响应码 | 延迟 |\n`;
+        md += `|------|------|--------|------|\n`;
+        for (const d of m.model_details) {
+          const icon = d.status === 'up' ? '✅' : '❌';
+          const ping = d.latency_ms != null ? `${d.latency_ms}ms` : '-';
+          md += `| ${d.model} | ${icon} | ${d.code} | ${ping} |\n`;
+        }
+      } else {
+        md += `| 模型 | 状态 |\n`;
+        md += `|------|------|\n`;
+        for (const d of m.model_details) {
+          md += `| ${d.model} | 已列出 |\n`;
+        }
+        md += `\n> 以上为 /v1/models 返回的模型列表，仅表示站点已注册该模型，不代表实际可用。如需逐模型实测，请在 config.json 中设置 \`"deep_check": true\`。\n`;
+      }
     }
   }
 
