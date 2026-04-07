@@ -1,15 +1,15 @@
 {
   "ltcraft": {
-    "checked_at": "2026-04-07T09:47:03.701Z",
+    "checked_at": "2026-04-07T10:00:36.985Z",
     "models": [
       {
         "id": 1,
         "name": "System",
         "group": "服务",
         "status": "up",
-        "ping_ms": 45,
+        "ping_ms": 40,
         "message": "",
-        "checked_at": "2026-04-07 09:43:50",
+        "checked_at": "2026-04-07 09:58:50",
         "uptime_24h": 0
       },
       {
@@ -19,7 +19,7 @@
         "status": "down",
         "ping_ms": null,
         "message": "",
-        "checked_at": "2026-04-07 09:44:18",
+        "checked_at": "2026-04-07 09:59:18",
         "uptime_24h": 0
       },
       {
@@ -29,7 +29,7 @@
         "status": "down",
         "ping_ms": null,
         "message": "",
-        "checked_at": "2026-04-07 09:43:00",
+        "checked_at": "2026-04-07 09:58:00",
         "uptime_24h": 0
       },
       {
@@ -39,17 +39,17 @@
         "status": "down",
         "ping_ms": null,
         "message": "",
-        "checked_at": "2026-04-07 09:44:29",
+        "checked_at": "2026-04-07 09:59:29",
         "uptime_24h": 0
       },
       {
         "id": 5,
         "name": "sonnet4.5",
         "group": "服务",
-        "status": "up",
-        "ping_ms": 5369,
+        "status": "down",
+        "ping_ms": null,
         "message": "",
-        "checked_at": "2026-04-07 09:43:48",
+        "checked_at": "2026-04-07 09:58:48",
         "uptime_24h": 0
       },
       {
@@ -57,9 +57,9 @@
         "name": "Claude(Kiro)",
         "group": "服务",
         "status": "up",
-        "ping_ms": 4681,
+        "ping_ms": 1435,
         "message": "",
-        "checked_at": "2026-04-07 09:44:19",
+        "checked_at": "2026-04-07 09:59:19",
         "uptime_24h": 0
       },
       {
@@ -69,22 +69,22 @@
         "status": "down",
         "ping_ms": null,
         "message": "",
-        "checked_at": "2026-04-07 09:44:19",
+        "checked_at": "2026-04-07 09:59:19",
         "uptime_24h": 0
       }
     ]
   },
   "api-probe": {
-    "checked_at": "2026-04-07T09:47:04.443Z",
+    "checked_at": "2026-04-07T10:00:38.047Z",
     "models": [
       {
         "id": "ltcraft",
         "name": "ltcraft",
         "group": "API Probe",
         "status": "up",
-        "ping_ms": 739,
+        "ping_ms": 66,
         "message": "10 models",
-        "checked_at": "2026-04-07T09:47:04.443Z",
+        "checked_at": "2026-04-07T10:00:38.047Z",
         "uptime_24h": null,
         "model_list": [
           "claude-haiku-4-5",
@@ -98,6 +98,50 @@
           "minimax-m2.5",
           "qwen3-coder-next"
         ]
+      },
+      {
+        "id": "packyapi",
+        "name": "packyapi",
+        "group": "API Probe",
+        "status": "up",
+        "ping_ms": 239,
+        "message": "0 models",
+        "checked_at": "2026-04-07T10:00:38.047Z",
+        "uptime_24h": null,
+        "model_list": []
+      },
+      {
+        "id": "macode",
+        "name": "macode",
+        "group": "API Probe",
+        "status": "up",
+        "ping_ms": 211,
+        "message": "10 models",
+        "checked_at": "2026-04-07T10:00:38.047Z",
+        "uptime_24h": null,
+        "model_list": [
+          "MiniMax-M2.5",
+          "claude-haiku-4-5",
+          "claude-haiku-4-5-20251001",
+          "claude-opus-4-6",
+          "claude-sonnet-4-5",
+          "claude-sonnet-4-5-20250929",
+          "claude-sonnet-4-6",
+          "glm-5",
+          "gpt-5.3-codex",
+          "gpt-5.4"
+        ]
+      },
+      {
+        "id": "aipaibox",
+        "name": "aipaibox",
+        "group": "API Probe",
+        "status": "down",
+        "ping_ms": 958,
+        "message": "Unexpected token '<', \"<!doctype \"... is not valid JSON",
+        "checked_at": "2026-04-07T10:00:38.047Z",
+        "uptime_24h": null,
+        "model_list": []
       }
     ]
   }
