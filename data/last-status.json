@@ -1,6 +1,81 @@
 {
+  "ltcraft": {
+    "checked_at": "2026-04-07T18:01:53.810Z",
+    "models": [
+      {
+        "id": 1,
+        "name": "System",
+        "group": "服务",
+        "status": "up",
+        "ping_ms": 85,
+        "message": "",
+        "checked_at": "2026-04-07 17:58:50",
+        "uptime_24h": 0
+      },
+      {
+        "id": 2,
+        "name": "Claude(Anti)",
+        "group": "服务",
+        "status": "down",
+        "ping_ms": null,
+        "message": "",
+        "checked_at": "2026-04-07 17:59:18",
+        "uptime_24h": 0
+      },
+      {
+        "id": 3,
+        "name": "GPT",
+        "group": "服务",
+        "status": "down",
+        "ping_ms": null,
+        "message": "",
+        "checked_at": "2026-04-07 17:58:00",
+        "uptime_24h": 0
+      },
+      {
+        "id": 4,
+        "name": "Gemini",
+        "group": "服务",
+        "status": "down",
+        "ping_ms": null,
+        "message": "",
+        "checked_at": "2026-04-07 17:59:29",
+        "uptime_24h": 0
+      },
+      {
+        "id": 5,
+        "name": "sonnet4.5",
+        "group": "服务",
+        "status": "down",
+        "ping_ms": null,
+        "message": "",
+        "checked_at": "2026-04-07 17:58:48",
+        "uptime_24h": 0
+      },
+      {
+        "id": 6,
+        "name": "Claude(Kiro)",
+        "group": "服务",
+        "status": "up",
+        "ping_ms": 1730,
+        "message": "",
+        "checked_at": "2026-04-07 17:59:19",
+        "uptime_24h": 0
+      },
+      {
+        "id": 7,
+        "name": "Claude(vertex)",
+        "group": "服务",
+        "status": "down",
+        "ping_ms": null,
+        "message": "",
+        "checked_at": "2026-04-07 17:59:19",
+        "uptime_24h": 0
+      }
+    ]
+  },
   "api-probe": {
-    "checked_at": "2026-04-07T17:33:51.270Z",
+    "checked_at": "2026-04-07T18:01:55.483Z",
     "models": [
       {
         "id": "packyapi",
@@ -8,9 +83,9 @@
         "group": "API Probe",
         "status": "up",
         "status_code": 200,
-        "ping_ms": 736,
+        "ping_ms": 816,
         "message": "15 models",
-        "checked_at": "2026-04-07T17:33:51.271Z",
+        "checked_at": "2026-04-07T18:01:55.483Z",
         "uptime_24h": null,
         "model_list": [
           "claude-haiku-4-5-20251001",

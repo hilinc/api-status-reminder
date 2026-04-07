@@ -21,26 +21,34 @@
 
 | 站点 | 连通性 | 延迟 | 可用模型 |
 |------|--------|------|----------|
-| packycode | ✅ | 1295ms | 服务 3/7, 模型 5/10 |
-| packyapi | ✅ | 766ms | 3 (未实测) |
-| aipaibox | ✅ | 330ms | 3 (未实测) |
+| ltcraft | ✅ | 908ms | 服务 2/7 |
+| packyapi | ✅ | 816ms | 15 (未实测) |
 
-## packycode 服务明细
+## ltcraft 服务明细
 
 | 服务 | 状态 | 延迟 |
 |------|------|------|
-| System | ✅ | 43ms |
-| Claude(Kiro) | ✅ | 2546ms |
+| System | ✅ | 85ms |
 | Claude(Anti) | ❌ | - |
+| GPT | ❌ | - |
+| Gemini | ❌ | - |
+| sonnet4.5 | ❌ | - |
+| Claude(Kiro) | ✅ | 1730ms |
+| Claude(vertex) | ❌ | - |
 
-## packycode 模型明细
+## packyapi 模型明细
 
-| 模型 | 状态 | 延迟 |
-|------|------|------|
-| claude-opus-4-6 | ✅ | 3692ms |
-| claude-sonnet-4-6 | ✅ | 4301ms |
-| claude-sonnet-4-5 | ❌ 429 | - |
-| deepseek-3.2 | ❌ 超时 | - |
+| 模型 |
+|------|
+| claude-haiku-4-5-20251001 |
+| claude-opus-4-6 |
+| claude-sonnet-4-6 |
+| gpt-5 |
+| gpt-5-codex |
+| gpt-5.1 |
+| ... |
+
+> 仅 /v1/models 返回，未实测可用性
 ```
 
 ## 快速开始
@@ -192,34 +200,6 @@ UPTIME_KUMA_BASE=https://your-instance.com node src/index.js
 
 > `config.json` 已在 `.gitignore` 中，不会被提交到仓库。
 
-## 项目结构
-
-```
-├── .github/workflows/
-│   ├── check.yml           # 定时检测（每小时，北京 09-18 点）
-│   └── digest.yml          # 每日摘要
-├── src/
-│   ├── index.js            # 入口
-│   ├── diff.js             # 状态对比
-│   ├── scrapers/
-│   │   ├── api-probe.js    # /v1/models + deep_check 探测
-│   │   └── ltcraft.js      # Uptime Kuma 抓取
-│   └── notifiers/
-│       ├── serverchan.js   # Server酱 + 消息格式化
-│       ├── feishu.js       # 飞书
-│       ├── wecom.js        # 企业微信
-│       ├── telegram.js     # Telegram
-│       ├── dingding.js     # 钉钉
-│       ├── pushplus.js     # PushPlus
-│       ├── gotify.js       # Gotify
-│       └── bark.js         # Bark
-├── data/
-│   └── last-status.json    # 上次状态（自动维护）
-├── config.example.json     # 配置示例
-└── hooks/
-    └── status-report.sh    # Claude Code 社区上报 hook
-```
-
 ## License
 
-ISC
+MIT
