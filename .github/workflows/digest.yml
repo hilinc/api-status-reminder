@@ -22,12 +22,6 @@ jobs:
 
       - run: npm ci --registry=https://registry.npmjs.org
 
-      - name: Install Playwright Chromium
-        if: env.CHECK_CX_BASE != ''
-        run: npx playwright install chromium --with-deps
-        env:
-          CHECK_CX_BASE: https://check.linux.do
-
       - name: Write API probe config
         if: env.API_PROBE_CONFIG != ''
         run: echo "$API_PROBE_CONFIG" > config.json
@@ -37,7 +31,6 @@ jobs:
       - run: node src/index.js digest
         env:
           UPTIME_KUMA_BASE: https://ai.ltcraft.cn
-          CHECK_CX_BASE: https://check.linux.do
           SERVERCHAN_KEY: ${{ secrets.SERVERCHAN_KEY }}
           FEISHU_WEBHOOK: ${{ secrets.FEISHU_WEBHOOK }}
           WECOM_WEBHOOK: ${{ secrets.WECOM_WEBHOOK }}

@@ -53,7 +53,8 @@ async function main() {
     const totalChanges = allChanges.reduce((n, c) => n + c.changes.length, 0);
     console.log(`[main] ${totalChanges} status change(s) detected`);
     const title = `中转站状态变化 (${totalChanges}项)`;
-    const md = allChanges.map(c => formatStatusMessage(c.result, c.changes)).join('\n\n---\n\n');
+    let md = allChanges.map(c => formatStatusMessage(c.result, c.changes)).join('\n\n---\n\n');
+    md += '\n\n---\n\n## 全量状态\n\n' + formatDigest(lastStatus);
     await Promise.allSettled(notifiers.map(fn => fn(title, md)));
   } else {
     console.log('[main] No status changes');

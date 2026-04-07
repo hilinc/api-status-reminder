@@ -5,18 +5,18 @@
 ## 功能特性
 
 - 抓取 Uptime Kuma 状态页（如 ai.ltcraft.cn）
-- 抓取 check-cx 状态页（如 check.linux.do）
 - 用你自己的 API Key 探测中转站 `/v1/models` 接口（零 token 消耗）
-- 状态变化时推送通知，支持多种通知渠道
+- 状态变化时推送通知，包含全量状态概览
+- 每日定时发送全量状态报告（可配置时间）
+- 支持多种通知渠道（Server酱、飞书、企业微信）
 - GitHub Actions 定时运行，零部署成本
 
 ## 数据源
 
-| 数据源 | 说明 | 环境变量 |
+| 数据源 | 说明 | 配置方式 |
 |--------|------|----------|
-| Uptime Kuma | 抓取状态页 JSON API | `UPTIME_KUMA_BASE` |
-| check-cx | 抓取 check.linux.do API | `CHECK_CX_BASE` |
-| API Probe | 用你的 Key 调 /v1/models | `config.json` |
+| Uptime Kuma | 抓取状态页 JSON API | 环境变量 `UPTIME_KUMA_BASE` |
+| API Probe | 用你的 Key 调 /v1/models | `config.json` 或 Secret `API_PROBE_CONFIG` |
 
 ## 使用方法
 
@@ -57,11 +57,10 @@
 在仓库 Settings → Secrets and variables → Actions → Variables 中配置：
 
 - `UPTIME_KUMA_BASE`: Uptime Kuma 状态页地址（如 `https://ai.ltcraft.cn`）
-- `CHECK_CX_BASE`: check-cx 状态页地址（如 `https://check.linux.do`）
 
 ### 4. 配置 API 探测（可选）
 
-如果你想用自己的 API Key 探测中转站可用性：
+如果你想用自己的 API Key 探测中转站可用性（推荐 [PackyCode](https://www.packyapi.com/register?aff=YNms)）：
 
 1. 复制 `config.example.json` 为 `config.json`
 2. 填入你的中转站信息：
@@ -70,8 +69,8 @@
 {
   "providers": [
     {
-      "name": "my-provider",
-      "base_url": "https://api.example.com",
+      "name": "packycode",
+      "base_url": "https://www.packyapi.com",
       "api_key": "sk-your-key-here"
     }
   ]

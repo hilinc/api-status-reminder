@@ -1,8 +1,8 @@
 {
   "providers": [
     {
-      "name": "ltcraft",
-      "base_url": "https://ai.ltcraft.cn",
+      "name": "packycode",
+      "base_url": "https://www.packyapi.com",
       "api_key": "your-api-key-here"
     }
   ]
