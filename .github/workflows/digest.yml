@@ -1,7 +1,7 @@
 name: Daily Status Digest
 on:
   schedule:
-    - cron: '0 1 * * *'    # 默认 UTC 01:00 = 北京时间 09:00
+    - cron: '0 8 * * *'    # 默认 UTC 00:00 = 北京时间 08:00
   workflow_dispatch:
 
 env:
