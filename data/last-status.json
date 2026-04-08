@@ -1,15 +1,15 @@
 {
   "ltcraft": {
-    "checked_at": "2026-04-08T02:23:03.600Z",
+    "checked_at": "2026-04-08T03:46:09.171Z",
     "models": [
       {
         "id": 1,
         "name": "System",
         "group": "服务",
         "status": "up",
-        "ping_ms": 44,
+        "ping_ms": 82,
         "message": "",
-        "checked_at": "2026-04-08 02:18:50",
+        "checked_at": "2026-04-08 03:43:50",
         "uptime_24h": 0
       },
       {
@@ -19,7 +19,7 @@
         "status": "down",
         "ping_ms": null,
         "message": "",
-        "checked_at": "2026-04-08 02:19:18",
+        "checked_at": "2026-04-08 03:44:18",
         "uptime_24h": 0
       },
       {
@@ -29,7 +29,7 @@
         "status": "down",
         "ping_ms": null,
         "message": "",
-        "checked_at": "2026-04-08 02:18:00",
+        "checked_at": "2026-04-08 03:43:00",
         "uptime_24h": 0
       },
       {
@@ -39,7 +39,7 @@
         "status": "down",
         "ping_ms": null,
         "message": "",
-        "checked_at": "2026-04-08 02:19:29",
+        "checked_at": "2026-04-08 03:44:29",
         "uptime_24h": 0
       },
       {
@@ -47,9 +47,9 @@
         "name": "sonnet4.5",
         "group": "服务",
         "status": "up",
-        "ping_ms": 1133,
+        "ping_ms": 1206,
         "message": "",
-        "checked_at": "2026-04-08 02:18:48",
+        "checked_at": "2026-04-08 03:43:48",
         "uptime_24h": 0
       },
       {
@@ -57,9 +57,9 @@
         "name": "Claude(Kiro)",
         "group": "服务",
         "status": "up",
-        "ping_ms": 1397,
+        "ping_ms": 4248,
         "message": "",
-        "checked_at": "2026-04-08 02:19:19",
+        "checked_at": "2026-04-08 03:44:19",
         "uptime_24h": 0
       },
       {
@@ -69,13 +69,13 @@
         "status": "down",
         "ping_ms": null,
         "message": "",
-        "checked_at": "2026-04-08 02:19:19",
+        "checked_at": "2026-04-08 03:44:19",
         "uptime_24h": 0
       }
     ]
   },
   "api-probe": {
-    "checked_at": "2026-04-08T02:23:22.498Z",
+    "checked_at": "2026-04-08T03:46:24.922Z",
     "models": [
       {
         "id": "ltcraft",
@@ -83,9 +83,9 @@
         "group": "API Probe",
         "status": "up",
         "status_code": 200,
-        "ping_ms": 103,
+        "ping_ms": 207,
         "message": "10 models",
-        "checked_at": "2026-04-08T02:23:22.498Z",
+        "checked_at": "2026-04-08T03:46:24.922Z",
         "uptime_24h": null,
         "model_list": [
           "claude-haiku-4-5",
@@ -104,70 +104,70 @@
             "model": "claude-haiku-4-5",
             "status": "up",
             "code": 200,
-            "latency_ms": 2057,
+            "latency_ms": 1295,
             "label": ""
           },
           {
             "model": "claude-haiku-4-5-20251001",
             "status": "up",
             "code": 200,
-            "latency_ms": 1251,
+            "latency_ms": 1339,
             "label": ""
           },
           {
             "model": "claude-opus-4-6",
             "status": "up",
             "code": 200,
-            "latency_ms": 2745,
+            "latency_ms": 3279,
             "label": ""
           },
           {
             "model": "claude-sonnet-4-5",
             "status": "down",
             "code": 429,
-            "latency_ms": 6972,
+            "latency_ms": 6522,
             "label": ""
           },
           {
             "model": "claude-sonnet-4-5-20250929",
             "status": "down",
             "code": 429,
-            "latency_ms": 7594,
+            "latency_ms": 6647,
             "label": ""
           },
           {
             "model": "claude-sonnet-4-6",
             "status": "up",
             "code": 200,
-            "latency_ms": 2495,
+            "latency_ms": 2133,
             "label": ""
           },
           {
             "model": "deepseek-3.2",
             "status": "up",
             "code": 200,
-            "latency_ms": 3069,
+            "latency_ms": 2109,
             "label": ""
           },
           {
             "model": "minimax-m2.1",
             "status": "up",
             "code": 200,
-            "latency_ms": 1618,
+            "latency_ms": 1468,
             "label": ""
           },
           {
             "model": "minimax-m2.5",
             "status": "up",
             "code": 200,
-            "latency_ms": 2187,
+            "latency_ms": 2651,
             "label": ""
           },
           {
             "model": "qwen3-coder-next",
             "status": "up",
             "code": 200,
-            "latency_ms": 18784,
+            "latency_ms": 887,
             "label": ""
           }
         ]
@@ -178,14 +178,11 @@
         "group": "API Probe",
         "status": "up",
         "status_code": 200,
-        "ping_ms": 67,
-        "message": "15 models",
-        "checked_at": "2026-04-08T02:23:22.498Z",
+        "ping_ms": 247,
+        "message": "12 models",
+        "checked_at": "2026-04-08T03:46:24.922Z",
         "uptime_24h": null,
         "model_list": [
-          "claude-haiku-4-5-20251001",
-          "claude-opus-4-6",
-          "claude-sonnet-4-6",
           "gpt-5",
           "gpt-5-codex",
           "gpt-5-codex-mini",
@@ -201,108 +198,87 @@
         ],
         "model_details": [
           {
-            "model": "claude-haiku-4-5-20251001",
-            "status": "up",
-            "code": 200,
-            "latency_ms": 3165,
-            "label": "cc"
-          },
-          {
-            "model": "claude-sonnet-4-6",
-            "status": "up",
-            "code": 200,
-            "latency_ms": 1791,
-            "label": "cc"
-          },
-          {
-            "model": "claude-opus-4-6",
-            "status": "up",
-            "code": 200,
-            "latency_ms": 2274,
-            "label": "cc"
-          },
-          {
             "model": "gpt-5.2-codex",
             "status": "up",
             "code": 200,
-            "latency_ms": 3115,
+            "latency_ms": 15224,
             "label": "gpt"
           },
           {
             "model": "gpt-5.4-mini",
             "status": "up",
             "code": 200,
-            "latency_ms": 6319,
+            "latency_ms": 3758,
             "label": "gpt"
           },
           {
             "model": "gpt-5.4",
             "status": "up",
             "code": 200,
-            "latency_ms": 2979,
+            "latency_ms": 2797,
             "label": "gpt"
           },
           {
             "model": "gpt-5.3-codex",
             "status": "up",
             "code": 200,
-            "latency_ms": 2916,
+            "latency_ms": 2213,
             "label": "gpt"
           },
           {
             "model": "gpt-5.2",
             "status": "up",
             "code": 200,
-            "latency_ms": 7229,
+            "latency_ms": 4506,
             "label": "gpt"
           },
           {
             "model": "gpt-5.1-codex-mini",
             "status": "up",
             "code": 200,
-            "latency_ms": 6683,
+            "latency_ms": 2176,
             "label": "gpt"
           },
           {
             "model": "gpt-5-codex-mini",
             "status": "up",
             "code": 200,
-            "latency_ms": 2675,
+            "latency_ms": 2364,
             "label": "gpt"
           },
           {
             "model": "gpt-5",
             "status": "up",
             "code": 200,
-            "latency_ms": 6007,
+            "latency_ms": 5144,
             "label": "gpt"
           },
           {
             "model": "gpt-5.1-codex-max",
             "status": "up",
             "code": 200,
-            "latency_ms": 5688,
+            "latency_ms": 13505,
             "label": "gpt"
           },
           {
             "model": "gpt-5.1",
             "status": "up",
             "code": 200,
-            "latency_ms": 2395,
+            "latency_ms": 3010,
             "label": "gpt"
           },
           {
             "model": "gpt-5.1-codex",
             "status": "up",
             "code": 200,
-            "latency_ms": 4464,
+            "latency_ms": 7828,
             "label": "gpt"
           },
           {
             "model": "gpt-5-codex",
             "status": "up",
             "code": 200,
-            "latency_ms": 2736,
+            "latency_ms": 4384,
             "label": "gpt"
           }
         ]
@@ -313,9 +289,9 @@
         "group": "API Probe",
         "status": "up",
         "status_code": 200,
-        "ping_ms": 229,
+        "ping_ms": 264,
         "message": "7 models",
-        "checked_at": "2026-04-08T02:23:22.498Z",
+        "checked_at": "2026-04-08T03:46:24.922Z",
         "uptime_24h": null,
         "model_list": [
           "MiniMax-M2.5",
@@ -331,49 +307,49 @@
             "model": "claude-opus-4-6",
             "status": "up",
             "code": 200,
-            "latency_ms": 3962,
+            "latency_ms": 2073,
             "label": ""
           },
           {
             "model": "claude-sonnet-4-5",
             "status": "up",
             "code": 200,
-            "latency_ms": 4022,
+            "latency_ms": 1047,
             "label": ""
           },
           {
             "model": "claude-sonnet-4-6",
             "status": "up",
             "code": 200,
-            "latency_ms": 6579,
+            "latency_ms": 1001,
             "label": ""
           },
           {
             "model": "glm-5",
             "status": "down",
             "code": 403,
-            "latency_ms": 396,
+            "latency_ms": 434,
             "label": ""
           },
           {
             "model": "gpt-5.3-codex",
             "status": "up",
             "code": 200,
-            "latency_ms": 2000,
+            "latency_ms": 1859,
             "label": ""
           },
           {
             "model": "gpt-5.4",
             "status": "up",
             "code": 200,
-            "latency_ms": 5060,
+            "latency_ms": 6805,
             "label": ""
           },
           {
             "model": "MiniMax-M2.5",
             "status": "down",
             "code": 403,
-            "latency_ms": 495,
+            "latency_ms": 646,
             "label": ""
           }
         ]
@@ -384,9 +360,9 @@
         "group": "API Probe",
         "status": "up",
         "status_code": 200,
-        "ping_ms": 858,
+        "ping_ms": 1267,
         "message": "0 models",
-        "checked_at": "2026-04-08T02:23:22.498Z",
+        "checked_at": "2026-04-08T03:46:24.922Z",
         "uptime_24h": null,
         "model_list": [],
         "model_details": []
