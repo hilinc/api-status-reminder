@@ -27,12 +27,20 @@ function diff(oldData, newData) {
     }
   }
 
+  const newIds = new Set();
   for (const m of newData.models) {
+    newIds.add(m.id);
     const old = oldModels[m.id];
     if (!old) {
       changes.push({ name: m.name, from: 'new', to: m.status, ping_ms: m.ping_ms });
     } else if (old.status !== m.status) {
       changes.push({ name: m.name, from: old.status, to: m.status, ping_ms: m.ping_ms });
+    }
+  }
+
+  for (const m of Object.values(oldModels)) {
+    if (!newIds.has(m.id)) {
+      changes.push({ name: m.name, from: m.status, to: 'removed', ping_ms: null });
     }
   }
 

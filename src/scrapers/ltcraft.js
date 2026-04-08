@@ -2,7 +2,9 @@ const UPTIME_KUMA_BASE = process.env.UPTIME_KUMA_BASE || 'https://ai.ltcraft.cn'
 const SLUG = process.env.UPTIME_KUMA_SLUG || 'ai-status';
 
 async function fetchMonitors() {
-  const res = await fetch(`${UPTIME_KUMA_BASE}/api/status-page/${SLUG}`);
+  const res = await fetch(`${UPTIME_KUMA_BASE}/api/status-page/${SLUG}`, {
+    signal: AbortSignal.timeout(15000),
+  });
   if (!res.ok) throw new Error(`Status page API failed: ${res.status}`);
   const data = await res.json();
 
@@ -16,7 +18,9 @@ async function fetchMonitors() {
 }
 
 async function fetchHeartbeats() {
-  const res = await fetch(`${UPTIME_KUMA_BASE}/api/status-page/heartbeat/${SLUG}`);
+  const res = await fetch(`${UPTIME_KUMA_BASE}/api/status-page/heartbeat/${SLUG}`, {
+    signal: AbortSignal.timeout(15000),
+  });
   if (!res.ok) throw new Error(`Heartbeat API failed: ${res.status}`);
   return res.json();
 }

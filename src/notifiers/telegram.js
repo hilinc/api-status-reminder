@@ -3,7 +3,11 @@ async function notify(title, markdown) {
   const chatId = process.env.TELEGRAM_CHAT_ID;
   if (!token || !chatId) return;
 
-  const text = `*${title}*\n\n${markdown}`;
+  function escapeHtml(s) {
+    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  const text = `<b>${escapeHtml(title)}</b>\n\n${escapeHtml(markdown)}`;
 
   const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
     method: 'POST',
@@ -11,7 +15,7 @@ async function notify(title, markdown) {
     body: JSON.stringify({
       chat_id: chatId,
       text,
-      parse_mode: 'Markdown',
+      parse_mode: 'HTML',
     }),
   });
 

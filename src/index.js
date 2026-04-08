@@ -1,7 +1,8 @@
 const { scrape: scrapeLtcraft } = require('./scrapers/ltcraft');
 const { scrape: scrapeApiProbe } = require('./scrapers/api-probe');
 const { loadLastStatus, saveStatus, diff } = require('./diff');
-const { notify: notifyServerChan, formatReport } = require('./notifiers/serverchan');
+const { formatReport } = require('./format');
+const { notify: notifyServerChan } = require('./notifiers/serverchan');
 const { notify: notifyFeishu } = require('./notifiers/feishu');
 const { notify: notifyWeCom } = require('./notifiers/wecom');
 const { notify: notifyTelegram } = require('./notifiers/telegram');

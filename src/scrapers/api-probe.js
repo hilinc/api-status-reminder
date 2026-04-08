@@ -31,7 +31,7 @@ async function probeProvider(provider) {
   const keys = provider.api_keys || [{ key: provider.api_key }];
   const endpoint = models_path || '/v1/models';
 
-  let allModels = [];
+  let allModels = new Set();
   let allDetails = [];
   let bestLatency = Infinity;
   let overallStatus = 'down';
@@ -73,7 +73,7 @@ async function probeProvider(provider) {
         }
 
         for (const m of models) {
-          if (!allModels.includes(m)) allModels.push(m);
+          allModels.add(m);
         }
       } else {
         if (overallCode === 0) overallCode = res.status;
@@ -86,19 +86,19 @@ async function probeProvider(provider) {
     }
   }
 
-  if (allModels.length === 0 && configModels?.length > 0) {
+  if (allModels.size === 0 && configModels?.length > 0) {
     console.log(`[api-probe] Using configured models for ${name}`);
-    allModels = configModels;
+    allModels = new Set(configModels);
     if (deep_check) {
       const api_key = typeof keys[0] === 'string' ? keys[0] : keys[0].key;
-      allDetails = await Promise.all(allModels.map(m => probeModel(base_url, api_key, m)));
+      allDetails = await Promise.all([...allModels].map(m => probeModel(base_url, api_key, m)));
       if (allDetails.some(d => d.status === 'up')) overallStatus = 'up';
     }
   }
 
-  allModels.sort();
-  if (!deep_check && allModels.length > 0) {
-    allDetails = allModels.map(m => ({ model: m, status: 'listed', code: 200 }));
+  const sortedModels = [...allModels].sort();
+  if (!deep_check && sortedModels.length > 0) {
+    allDetails = sortedModels.map(m => ({ model: m, status: 'listed', code: 200 }));
   }
 
   return {
@@ -107,8 +107,8 @@ async function probeProvider(provider) {
     status_code: overallCode,
     latency_ms: bestLatency === Infinity ? 0 : bestLatency,
     error: overallStatus === 'down' ? lastError : undefined,
-    models: allModels,
-    model_count: allModels.length,
+    models: sortedModels,
+    model_count: sortedModels.length,
     model_details: allDetails,
   };
 }

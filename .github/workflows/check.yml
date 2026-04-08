@@ -3,7 +3,7 @@ on:
   schedule:
     # 每小时触发，仅北京时间 09:00-18:00（UTC 01:00-10:00）
     # 如需自定义，修改 cron 表达式。小时范围对应 UTC 时间。
-    - cron: '0 9-18 * * *'
+    - cron: '0 1-10 * * *'
   workflow_dispatch:
 
 permissions:
@@ -30,7 +30,7 @@ jobs:
         env:
           API_PROBE_CONFIG: ${{ secrets.API_PROBE_CONFIG }}
 
-      - run: node src/index.js
+      - run: node src/index.js change-only
         env:
           UPTIME_KUMA_BASE: https://ai.ltcraft.cn
           SERVERCHAN_KEY: ${{ secrets.SERVERCHAN_KEY }}

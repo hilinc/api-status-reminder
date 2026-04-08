@@ -13,74 +13,51 @@ else
   REPORT_LOG=""
 fi
 
-# 从 proxy-bridge 日志中提取最近 5 分钟的请求记录
-extract_recent_requests() {
-  local cutoff=$(($(date +%s) * 1000 - 300000))  # 5 minutes ago in ms
-
-  if [ ! -f "$BRIDGE_LOG" ]; then
-    echo "[]"
-    return
-  fi
-
-  # 提取 JSON 日志行，过滤最近 5 分钟的
-  grep '^{' "$BRIDGE_LOG" 2>/dev/null | while IFS= read -r line; do
-    ts=$(echo "$line" | python3 -c "import sys,json; print(json.load(sys.stdin).get('ts',0))" 2>/dev/null)
-    if [ "$ts" -gt "$cutoff" ] 2>/dev/null; then
-      echo "$line"
-    fi
-  done
-}
-
-# 汇总请求数据（脱敏：只保留域名、状态码、延迟）
-summarize() {
-  python3 -c "
-import sys, json
-from collections import defaultdict
-
-records = []
-for line in sys.stdin:
-    line = line.strip()
-    if not line:
-        continue
-    try:
-        r = json.loads(line)
-        records.append(r)
-    except:
-        pass
-
-if not records:
-    print('{}')
-    sys.exit(0)
-
-summary = defaultdict(lambda: {'total': 0, 'success': 0, 'avg_latency': 0, 'latencies': []})
-for r in records:
-    target = r.get('target', 'unknown')
-    s = summary[target]
-    s['total'] += 1
-    if r.get('status') == 200:
-        s['success'] += 1
-    if r.get('latency_ms'):
-        s['latencies'].append(r['latency_ms'])
-
-result = {}
-for target, s in summary.items():
-    result[target] = {
-        'total': s['total'],
-        'success': s['success'],
-        'avg_latency_ms': round(sum(s['latencies']) / len(s['latencies'])) if s['latencies'] else None,
-    }
-
-import time
-print(json.dumps({
-    'ts': int(time.time()),
-    'base_url': '${ANTHROPIC_BASE_URL:-unknown}',
-    'sites': result,
-}))
-"
-}
-
 # 提取并汇总
-report=$(extract_recent_requests | summarize)
+report=$(node -e "
+const fs = require('fs');
+const path = '${BRIDGE_LOG}'.replace(/'/g, '');
+const cutoff = Date.now() - 300000; // 5 minutes ago
+
+let lines = [];
+try { lines = fs.readFileSync(path, 'utf-8').split('\n'); } catch { process.stdout.write('{}'); process.exit(0); }
+
+const records = [];
+for (const line of lines) {
+  if (!line.startsWith('{')) continue;
+  try {
+    const r = JSON.parse(line);
+    if (r.ts > cutoff) records.push(r);
+  } catch {}
+}
+
+if (records.length === 0) { process.stdout.write('{}'); process.exit(0); }
+
+const summary = {};
+for (const r of records) {
+  const target = r.target || 'unknown';
+  if (!summary[target]) summary[target] = { total: 0, success: 0, latencies: [] };
+  const s = summary[target];
+  s.total++;
+  if (r.status === 200) s.success++;
+  if (r.latency_ms) s.latencies.push(r.latency_ms);
+}
+
+const sites = {};
+for (const [target, s] of Object.entries(summary)) {
+  sites[target] = {
+    total: s.total,
+    success: s.success,
+    avg_latency_ms: s.latencies.length ? Math.round(s.latencies.reduce((a, b) => a + b, 0) / s.latencies.length) : null,
+  };
+}
+
+process.stdout.write(JSON.stringify({
+  ts: Math.floor(Date.now() / 1000),
+  base_url: process.env.ANTHROPIC_BASE_URL || 'unknown',
+  sites,
+}));
+")
 
 if [ "$report" = "{}" ]; then
   exit 0
