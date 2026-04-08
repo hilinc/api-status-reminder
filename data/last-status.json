@@ -1,15 +1,15 @@
 {
   "ltcraft": {
-    "checked_at": "2026-04-07T18:01:53.810Z",
+    "checked_at": "2026-04-08T02:23:03.600Z",
     "models": [
       {
         "id": 1,
         "name": "System",
         "group": "服务",
         "status": "up",
-        "ping_ms": 85,
+        "ping_ms": 44,
         "message": "",
-        "checked_at": "2026-04-07 17:58:50",
+        "checked_at": "2026-04-08 02:18:50",
         "uptime_24h": 0
       },
       {
@@ -19,7 +19,7 @@
         "status": "down",
         "ping_ms": null,
         "message": "",
-        "checked_at": "2026-04-07 17:59:18",
+        "checked_at": "2026-04-08 02:19:18",
         "uptime_24h": 0
       },
       {
@@ -29,7 +29,7 @@
         "status": "down",
         "ping_ms": null,
         "message": "",
-        "checked_at": "2026-04-07 17:58:00",
+        "checked_at": "2026-04-08 02:18:00",
         "uptime_24h": 0
       },
       {
@@ -39,17 +39,17 @@
         "status": "down",
         "ping_ms": null,
         "message": "",
-        "checked_at": "2026-04-07 17:59:29",
+        "checked_at": "2026-04-08 02:19:29",
         "uptime_24h": 0
       },
       {
         "id": 5,
         "name": "sonnet4.5",
         "group": "服务",
-        "status": "down",
-        "ping_ms": null,
+        "status": "up",
+        "ping_ms": 1133,
         "message": "",
-        "checked_at": "2026-04-07 17:58:48",
+        "checked_at": "2026-04-08 02:18:48",
         "uptime_24h": 0
       },
       {
@@ -57,9 +57,9 @@
         "name": "Claude(Kiro)",
         "group": "服务",
         "status": "up",
-        "ping_ms": 1730,
+        "ping_ms": 1397,
         "message": "",
-        "checked_at": "2026-04-07 17:59:19",
+        "checked_at": "2026-04-08 02:19:19",
         "uptime_24h": 0
       },
       {
@@ -69,23 +69,118 @@
         "status": "down",
         "ping_ms": null,
         "message": "",
-        "checked_at": "2026-04-07 17:59:19",
+        "checked_at": "2026-04-08 02:19:19",
         "uptime_24h": 0
       }
     ]
   },
   "api-probe": {
-    "checked_at": "2026-04-07T18:01:55.483Z",
+    "checked_at": "2026-04-08T02:23:22.498Z",
     "models": [
+      {
+        "id": "ltcraft",
+        "name": "ltcraft",
+        "group": "API Probe",
+        "status": "up",
+        "status_code": 200,
+        "ping_ms": 103,
+        "message": "10 models",
+        "checked_at": "2026-04-08T02:23:22.498Z",
+        "uptime_24h": null,
+        "model_list": [
+          "claude-haiku-4-5",
+          "claude-haiku-4-5-20251001",
+          "claude-opus-4-6",
+          "claude-sonnet-4-5",
+          "claude-sonnet-4-5-20250929",
+          "claude-sonnet-4-6",
+          "deepseek-3.2",
+          "minimax-m2.1",
+          "minimax-m2.5",
+          "qwen3-coder-next"
+        ],
+        "model_details": [
+          {
+            "model": "claude-haiku-4-5",
+            "status": "up",
+            "code": 200,
+            "latency_ms": 2057,
+            "label": ""
+          },
+          {
+            "model": "claude-haiku-4-5-20251001",
+            "status": "up",
+            "code": 200,
+            "latency_ms": 1251,
+            "label": ""
+          },
+          {
+            "model": "claude-opus-4-6",
+            "status": "up",
+            "code": 200,
+            "latency_ms": 2745,
+            "label": ""
+          },
+          {
+            "model": "claude-sonnet-4-5",
+            "status": "down",
+            "code": 429,
+            "latency_ms": 6972,
+            "label": ""
+          },
+          {
+            "model": "claude-sonnet-4-5-20250929",
+            "status": "down",
+            "code": 429,
+            "latency_ms": 7594,
+            "label": ""
+          },
+          {
+            "model": "claude-sonnet-4-6",
+            "status": "up",
+            "code": 200,
+            "latency_ms": 2495,
+            "label": ""
+          },
+          {
+            "model": "deepseek-3.2",
+            "status": "up",
+            "code": 200,
+            "latency_ms": 3069,
+            "label": ""
+          },
+          {
+            "model": "minimax-m2.1",
+            "status": "up",
+            "code": 200,
+            "latency_ms": 1618,
+            "label": ""
+          },
+          {
+            "model": "minimax-m2.5",
+            "status": "up",
+            "code": 200,
+            "latency_ms": 2187,
+            "label": ""
+          },
+          {
+            "model": "qwen3-coder-next",
+            "status": "up",
+            "code": 200,
+            "latency_ms": 18784,
+            "label": ""
+          }
+        ]
+      },
       {
         "id": "packyapi",
         "name": "packyapi",
         "group": "API Probe",
         "status": "up",
         "status_code": 200,
-        "ping_ms": 816,
+        "ping_ms": 67,
         "message": "15 models",
-        "checked_at": "2026-04-07T18:01:55.483Z",
+        "checked_at": "2026-04-08T02:23:22.498Z",
         "uptime_24h": null,
         "model_list": [
           "claude-haiku-4-5-20251001",
@@ -107,80 +202,194 @@
         "model_details": [
           {
             "model": "claude-haiku-4-5-20251001",
-            "status": "listed",
-            "code": 200
-          },
-          {
-            "model": "claude-opus-4-6",
-            "status": "listed",
-            "code": 200
+            "status": "up",
+            "code": 200,
+            "latency_ms": 3165,
+            "label": "cc"
           },
           {
             "model": "claude-sonnet-4-6",
-            "status": "listed",
-            "code": 200
+            "status": "up",
+            "code": 200,
+            "latency_ms": 1791,
+            "label": "cc"
           },
           {
-            "model": "gpt-5",
-            "status": "listed",
-            "code": 200
-          },
-          {
-            "model": "gpt-5-codex",
-            "status": "listed",
-            "code": 200
-          },
-          {
-            "model": "gpt-5-codex-mini",
-            "status": "listed",
-            "code": 200
-          },
-          {
-            "model": "gpt-5.1",
-            "status": "listed",
-            "code": 200
-          },
-          {
-            "model": "gpt-5.1-codex",
-            "status": "listed",
-            "code": 200
-          },
-          {
-            "model": "gpt-5.1-codex-max",
-            "status": "listed",
-            "code": 200
-          },
-          {
-            "model": "gpt-5.1-codex-mini",
-            "status": "listed",
-            "code": 200
-          },
-          {
-            "model": "gpt-5.2",
-            "status": "listed",
-            "code": 200
+            "model": "claude-opus-4-6",
+            "status": "up",
+            "code": 200,
+            "latency_ms": 2274,
+            "label": "cc"
           },
           {
             "model": "gpt-5.2-codex",
-            "status": "listed",
-            "code": 200
-          },
-          {
-            "model": "gpt-5.3-codex",
-            "status": "listed",
-            "code": 200
-          },
-          {
-            "model": "gpt-5.4",
-            "status": "listed",
-            "code": 200
+            "status": "up",
+            "code": 200,
+            "latency_ms": 3115,
+            "label": "gpt"
           },
           {
             "model": "gpt-5.4-mini",
-            "status": "listed",
-            "code": 200
+            "status": "up",
+            "code": 200,
+            "latency_ms": 6319,
+            "label": "gpt"
+          },
+          {
+            "model": "gpt-5.4",
+            "status": "up",
+            "code": 200,
+            "latency_ms": 2979,
+            "label": "gpt"
+          },
+          {
+            "model": "gpt-5.3-codex",
+            "status": "up",
+            "code": 200,
+            "latency_ms": 2916,
+            "label": "gpt"
+          },
+          {
+            "model": "gpt-5.2",
+            "status": "up",
+            "code": 200,
+            "latency_ms": 7229,
+            "label": "gpt"
+          },
+          {
+            "model": "gpt-5.1-codex-mini",
+            "status": "up",
+            "code": 200,
+            "latency_ms": 6683,
+            "label": "gpt"
+          },
+          {
+            "model": "gpt-5-codex-mini",
+            "status": "up",
+            "code": 200,
+            "latency_ms": 2675,
+            "label": "gpt"
+          },
+          {
+            "model": "gpt-5",
+            "status": "up",
+            "code": 200,
+            "latency_ms": 6007,
+            "label": "gpt"
+          },
+          {
+            "model": "gpt-5.1-codex-max",
+            "status": "up",
+            "code": 200,
+            "latency_ms": 5688,
+            "label": "gpt"
+          },
+          {
+            "model": "gpt-5.1",
+            "status": "up",
+            "code": 200,
+            "latency_ms": 2395,
+            "label": "gpt"
+          },
+          {
+            "model": "gpt-5.1-codex",
+            "status": "up",
+            "code": 200,
+            "latency_ms": 4464,
+            "label": "gpt"
+          },
+          {
+            "model": "gpt-5-codex",
+            "status": "up",
+            "code": 200,
+            "latency_ms": 2736,
+            "label": "gpt"
           }
         ]
+      },
+      {
+        "id": "macode",
+        "name": "macode",
+        "group": "API Probe",
+        "status": "up",
+        "status_code": 200,
+        "ping_ms": 229,
+        "message": "7 models",
+        "checked_at": "2026-04-08T02:23:22.498Z",
+        "uptime_24h": null,
+        "model_list": [
+          "MiniMax-M2.5",
+          "claude-opus-4-6",
+          "claude-sonnet-4-5",
+          "claude-sonnet-4-6",
+          "glm-5",
+          "gpt-5.3-codex",
+          "gpt-5.4"
+        ],
+        "model_details": [
+          {
+            "model": "claude-opus-4-6",
+            "status": "up",
+            "code": 200,
+            "latency_ms": 3962,
+            "label": ""
+          },
+          {
+            "model": "claude-sonnet-4-5",
+            "status": "up",
+            "code": 200,
+            "latency_ms": 4022,
+            "label": ""
+          },
+          {
+            "model": "claude-sonnet-4-6",
+            "status": "up",
+            "code": 200,
+            "latency_ms": 6579,
+            "label": ""
+          },
+          {
+            "model": "glm-5",
+            "status": "down",
+            "code": 403,
+            "latency_ms": 396,
+            "label": ""
+          },
+          {
+            "model": "gpt-5.3-codex",
+            "status": "up",
+            "code": 200,
+            "latency_ms": 2000,
+            "label": ""
+          },
+          {
+            "model": "gpt-5.4",
+            "status": "up",
+            "code": 200,
+            "latency_ms": 5060,
+            "label": ""
+          },
+          {
+            "model": "MiniMax-M2.5",
+            "status": "down",
+            "code": 403,
+            "latency_ms": 495,
+            "label": ""
+          }
+        ]
+      },
+      {
+        "id": "aipaibox",
+        "name": "aipaibox",
+        "group": "API Probe",
+        "status": "up",
+        "status_code": 200,
+        "ping_ms": 858,
+        "message": "0 models",
+        "checked_at": "2026-04-08T02:23:22.498Z",
+        "uptime_24h": null,
+        "model_list": [],
+        "model_details": []
       }
     ]
   }
