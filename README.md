@@ -198,6 +198,63 @@ UPTIME_KUMA_BASE: https://your-uptime-kuma-instance.com
 
 程序会通过 Uptime Kuma 的 JSON API 获取监控数据，与 API 探测结果合并展示。同名站点会自动合并为一行。
 
+## Claude Code 插件
+
+除了 GitHub Actions 定时推送，还可以在 Claude Code 中直接查询中转站状态。
+
+### 安装
+
+```
+/install-plugin hilinc/api-status-reminder
+```
+
+### 配置
+
+插件从以下位置读取配置（优先级从高到低）：
+
+**1. cc-switch 自动读取**（推荐）
+
+如果你使用 [cc-switch](https://github.com/hilinc/cc-switch) 管理中转站，在 `~/.api-status/config.json` 中开启：
+
+```json
+{ "use_cc_switch": true }
+```
+
+插件会自动读取 cc-switch 中所有 provider 配置，无需重复填写。
+
+**2. 环境变量 `API_PROBE_CONFIG`**
+
+与 GitHub Actions 共用同一份配置。
+
+**3. `~/.api-status/config.json`**
+
+```json
+{
+  "providers": [
+    {
+      "name": "packyapi",
+      "base_url": "https://www.packyapi.com",
+      "api_key": "sk-your-key-here",
+      "deep_check": true
+    }
+  ]
+}
+```
+
+### 使用
+
+安装后，在 Claude Code 对话中直接说：
+
+- "查下中转站状态" → 返回所有站点总览 + 模型明细
+- "查下 packyapi 状态" → 只探测指定站点
+
+也可以使用 skill 命令：
+
+```
+/check-status
+/check-provider packyapi
+```
+
 ## 本地运行
 
 ```bash

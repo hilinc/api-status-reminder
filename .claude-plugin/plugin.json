@@ -1,0 +1,18 @@
+{
+  "name": "api-status-reminder",
+  "description": "在 Claude Code 中实时查询 AI 中转站状态",
+  "version": "1.0.0",
+  "author": {
+    "name": "hilinc"
+  },
+  "homepage": "https://github.com/hilinc/api-status-reminder",
+  "repository": "https://github.com/hilinc/api-status-reminder",
+  "license": "MIT",
+  "keywords": ["api", "status", "proxy", "relay"],
+  "mcpServers": {
+    "api-status": {
+      "command": "node",
+      "args": ["${CLAUDE_PLUGIN_ROOT}/src/mcp-server.js"]
+    }
+  }
+}
