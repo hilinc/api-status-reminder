@@ -27,4 +27,4 @@ async function notify(title, markdown) {
   console.log('[Telegram] Notification sent:', title);
 }
 
-module.exports = { notify };
+export { notify };

@@ -13,10 +13,12 @@
   "keywords": [],
   "author": "",
   "license": "MIT",
-  "type": "commonjs",
+  "type": "module",
   "bugs": {
     "url": "https://github.com/hilinc/api-status-reminder/issues"
   },
   "homepage": "https://github.com/hilinc/api-status-reminder#readme",
-  "dependencies": {}
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0"
+  }
 }

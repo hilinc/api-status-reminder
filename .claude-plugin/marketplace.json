@@ -1,0 +1,16 @@
+{
+  "name": "hilinc-plugins",
+  "owner": {
+    "name": "hilinc"
+  },
+  "metadata": {
+    "description": "AI 中转站状态监控插件"
+  },
+  "plugins": [
+    {
+      "name": "api-status-reminder",
+      "source": "./",
+      "description": "在 Claude Code 中实时查询 AI 中转站状态"
+    }
+  ]
+}

@@ -1,7 +1,72 @@
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import os from 'os';
+import path from 'path';
+import { execSync } from 'child_process';
 
-const CONFIG_FILE = path.join(__dirname, '..', '..', 'config.json');
+const USER_CONFIG_FILE = path.join(os.homedir(), '.api-status', 'config.json');
+const CC_SWITCH_DB = path.join(os.homedir(), '.cc-switch', 'cc-switch.db');
+
+function loadFromCcSwitch() {
+  try {
+    if (!fs.existsSync(CC_SWITCH_DB)) return null;
+
+    const rows = execSync(
+      `sqlite3 -json "${CC_SWITCH_DB}" "SELECT p.id, p.name, p.settings_config, pe.url AS endpoint_url FROM providers p LEFT JOIN provider_endpoints pe ON p.id = pe.provider_id WHERE p.name != 'default'"`,
+      { encoding: 'utf-8', timeout: 5000 }
+    );
+    const data = JSON.parse(rows);
+    if (!data.length) return null;
+
+    const providers = [];
+    for (const row of data) {
+      const settings = JSON.parse(row.settings_config || '{}');
+      const apiKey = settings.env?.ANTHROPIC_AUTH_TOKEN;
+      if (!apiKey) continue;
+
+      // Use endpoint_url (real remote URL) if available, otherwise ANTHROPIC_BASE_URL
+      let baseUrl = row.endpoint_url || settings.env?.ANTHROPIC_BASE_URL;
+      if (!baseUrl) continue;
+
+      // Strip trailing slash
+      baseUrl = baseUrl.replace(/\/+$/, '');
+
+      providers.push({ name: row.name, base_url: baseUrl, api_key: apiKey, deep_check: true });
+    }
+
+    return providers.length ? { providers } : null;
+  } catch {
+    return null;
+  }
+}
+
+function loadConfig() {
+  // Check use_cc_switch only from user-level config
+  let useCcSwitch = false;
+  try {
+    const userConfig = JSON.parse(fs.readFileSync(USER_CONFIG_FILE, 'utf-8'));
+    useCcSwitch = !!userConfig.use_cc_switch;
+  } catch {}
+
+  if (useCcSwitch) {
+    const ccConfig = loadFromCcSwitch();
+    if (ccConfig) return { ...ccConfig, _source: 'cc-switch' };
+  }
+
+  // 1. env var
+  if (process.env.API_PROBE_CONFIG) {
+    try {
+      const c = JSON.parse(process.env.API_PROBE_CONFIG);
+      if (c.providers?.length) return { ...c, _source: 'API_PROBE_CONFIG' };
+    } catch {}
+  }
+  // 2. ~/.api-status/config.json providers
+  try {
+    const c = JSON.parse(fs.readFileSync(USER_CONFIG_FILE, 'utf-8'));
+    if (c.providers?.length) return { ...c, _source: '~/.api-status/config.json' };
+  } catch {}
+
+  return null;
+}
 
 async function probeModel(base_url, api_key, model) {
   const startTime = Date.now();
@@ -29,7 +94,7 @@ async function probeModel(base_url, api_key, model) {
 async function probeProvider(provider) {
   const { name, base_url, deep_check, models: configModels, models_path } = provider;
   const keys = provider.api_keys || [{ key: provider.api_key }];
-  const endpoint = models_path || '/v1/models';
+  const endpoints = models_path ? [models_path] : ['/v1/models', '/v1beta/models'];
 
   let allModels = new Set();
   let allDetails = [];
@@ -41,48 +106,53 @@ async function probeProvider(provider) {
   for (const keyConfig of keys) {
     const api_key = typeof keyConfig === 'string' ? keyConfig : keyConfig.key;
     const label = (typeof keyConfig === 'object' && keyConfig.label) || '';
-    const startTime = Date.now();
 
-    try {
-      const res = await fetch(`${base_url}${endpoint}`, {
-        headers: { 'Authorization': `Bearer ${api_key}` },
-        signal: AbortSignal.timeout(15000),
-      });
-      const latency = Date.now() - startTime;
-      if (latency < bestLatency) bestLatency = latency;
+    for (const endpoint of endpoints) {
+      const startTime = Date.now();
 
-      if (res.ok) {
-        overallStatus = 'up';
-        overallCode = 200;
-        const data = await res.json();
-        const rawModels = data.data || data.models || [];
-        const models = rawModels.map(m => m.id || m.name).filter(Boolean);
+      try {
+        const res = await fetch(`${base_url}${endpoint}`, {
+          headers: { 'Authorization': `Bearer ${api_key}` },
+          signal: AbortSignal.timeout(15000),
+        });
+        const latency = Date.now() - startTime;
+        if (latency < bestLatency) bestLatency = latency;
 
-        if (deep_check) {
-          const prefix = label ? `[${label}] ` : '';
-          console.log(`[api-probe] Deep checking ${models.length} models for ${name} ${prefix}...`);
-          const details = await Promise.all(models.map(m => probeModel(base_url, api_key, m)));
-          for (const d of details) {
-            const existing = allDetails.find(e => e.model === d.model);
-            if (!existing) {
-              allDetails.push({ ...d, label });
-            } else if (d.status === 'up' && existing.status !== 'up') {
-              Object.assign(existing, d, { label });
+        if (res.ok) {
+          overallStatus = 'up';
+          overallCode = 200;
+          const data = await res.json();
+          const rawModels = data.data || data.models || [];
+          const models = rawModels.map(m => m.id || m.name).filter(Boolean);
+
+          if (deep_check && models.length > 0) {
+            const prefix = label ? `[${label}] ` : '';
+            console.log(`[api-probe] Deep checking ${models.length} models for ${name} ${prefix}...`);
+            const details = await Promise.all(models.map(m => probeModel(base_url, api_key, m)));
+            for (const d of details) {
+              const existing = allDetails.find(e => e.model === d.model);
+              if (!existing) {
+                allDetails.push({ ...d, label });
+              } else if (d.status === 'up' && existing.status !== 'up') {
+                Object.assign(existing, d, { label });
+              }
             }
           }
-        }
 
-        for (const m of models) {
-          allModels.add(m);
+          for (const m of models) {
+            allModels.add(m);
+          }
+          // Found models on this endpoint, skip remaining endpoints
+          if (models.length > 0) break;
+        } else {
+          if (overallCode === 0) overallCode = res.status;
+          lastError = `HTTP ${res.status}`;
         }
-      } else {
-        if (overallCode === 0) overallCode = res.status;
-        lastError = `HTTP ${res.status}`;
+      } catch (err) {
+        const latency = Date.now() - startTime;
+        if (latency < bestLatency) bestLatency = latency;
+        lastError = err.message;
       }
-    } catch (err) {
-      const latency = Date.now() - startTime;
-      if (latency < bestLatency) bestLatency = latency;
-      lastError = err.message;
     }
   }
 
@@ -110,16 +180,13 @@ async function probeProvider(provider) {
     models: sortedModels,
     model_count: sortedModels.length,
     model_details: allDetails,
+    models_empty_reason: overallStatus === 'up' && sortedModels.length === 0 ? '模型列表接口返回为空，可能是 API Key 权限不足或站点未提供模型列表' : undefined,
   };
 }
 
 async function scrape() {
-  let config;
-  try {
-    config = JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf-8'));
-  } catch {
-    return null;
-  }
+  const config = loadConfig();
+  if (!config) return null;
 
   const providers = config.providers || [];
   if (providers.length === 0) return null;
@@ -142,8 +209,9 @@ async function scrape() {
       uptime_24h: null,
       model_list: r.models,
       model_details: r.model_details,
+      models_empty_reason: r.models_empty_reason,
     })),
   };
 }
 
-module.exports = { scrape };
+export { scrape, probeProvider, loadConfig };

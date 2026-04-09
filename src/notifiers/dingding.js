@@ -24,4 +24,4 @@ async function notify(title, markdown) {
   console.log('[DingDing] Notification sent:', title);
 }
 
-module.exports = { notify };
+export { notify };

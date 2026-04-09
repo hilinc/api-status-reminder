@@ -54,4 +54,4 @@ async function scrape() {
   };
 }
 
-module.exports = { scrape };
+export { scrape };

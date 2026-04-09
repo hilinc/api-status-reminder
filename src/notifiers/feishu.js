@@ -29,4 +29,4 @@ async function notify(title, markdown) {
   console.log('[Feishu] Notification sent:', title);
 }
 
-module.exports = { notify };
+export { notify };

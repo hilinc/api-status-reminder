@@ -21,4 +21,4 @@ async function notify(title, markdown) {
   console.log('[PushPlus] Notification sent:', title);
 }
 
-module.exports = { notify };
+export { notify };

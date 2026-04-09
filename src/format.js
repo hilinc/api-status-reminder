@@ -61,6 +61,8 @@ function formatReport(status) {
         ? `${s.model_details.filter(d => d.status === 'up').length}/${s.model_details.length}`
         : `${s.model_details.length} (未实测)`;
       modelInfo = s._summary ? `${modelInfo}, 模型 ${modelStr}` : modelStr;
+    } else if (s.models_empty_reason) {
+      modelInfo = '⚠️ 无法获取';
     }
     md += `| ${s.name} | ${icon} | ${ping} | ${modelInfo} |\n`;
   }
@@ -98,6 +100,8 @@ function formatReport(status) {
         }
         md += `\n> 仅 /v1/models 返回，未实测可用性\n`;
       }
+    } else if (s.models_empty_reason) {
+      md += `\n## ${s.name}\n\n> ⚠️ ${s.models_empty_reason}\n`;
     }
   }
 
@@ -111,4 +115,4 @@ function formatReport(status) {
   return md;
 }
 
-module.exports = { formatReport };
+export { formatReport };

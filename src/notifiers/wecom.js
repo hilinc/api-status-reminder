@@ -23,4 +23,4 @@ async function notify(title, markdown) {
   console.log('[WeCom] Notification sent:', title);
 }
 
-module.exports = { notify };
+export { notify };

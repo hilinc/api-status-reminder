@@ -22,4 +22,4 @@ async function notify(title, markdown) {
   console.log('[Bark] Notification sent:', title);
 }
 
-module.exports = { notify };
+export { notify };

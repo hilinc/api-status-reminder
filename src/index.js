@@ -1,15 +1,15 @@
-const { scrape: scrapeLtcraft } = require('./scrapers/ltcraft');
-const { scrape: scrapeApiProbe } = require('./scrapers/api-probe');
-const { loadLastStatus, saveStatus, diff } = require('./diff');
-const { formatReport } = require('./format');
-const { notify: notifyServerChan } = require('./notifiers/serverchan');
-const { notify: notifyFeishu } = require('./notifiers/feishu');
-const { notify: notifyWeCom } = require('./notifiers/wecom');
-const { notify: notifyTelegram } = require('./notifiers/telegram');
-const { notify: notifyDingDing } = require('./notifiers/dingding');
-const { notify: notifyPushPlus } = require('./notifiers/pushplus');
-const { notify: notifyGotify } = require('./notifiers/gotify');
-const { notify: notifyBark } = require('./notifiers/bark');
+import { scrape as scrapeLtcraft } from './scrapers/ltcraft.js';
+import { scrape as scrapeApiProbe } from './scrapers/api-probe.js';
+import { loadLastStatus, saveStatus, diff } from './diff.js';
+import { formatReport } from './format.js';
+import { notify as notifyServerChan } from './notifiers/serverchan.js';
+import { notify as notifyFeishu } from './notifiers/feishu.js';
+import { notify as notifyWeCom } from './notifiers/wecom.js';
+import { notify as notifyTelegram } from './notifiers/telegram.js';
+import { notify as notifyDingDing } from './notifiers/dingding.js';
+import { notify as notifyPushPlus } from './notifiers/pushplus.js';
+import { notify as notifyGotify } from './notifiers/gotify.js';
+import { notify as notifyBark } from './notifiers/bark.js';
 
 const scrapers = [
   { name: 'ltcraft', fn: scrapeLtcraft, enabled: !!process.env.UPTIME_KUMA_BASE },

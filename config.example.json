@@ -1,4 +1,5 @@
 {
+  "use_cc_switch": false,
   "providers": [
     {
       "name": "packycode",
