@@ -7,7 +7,7 @@ async function notify(title, markdown) {
     card: {
       header: {
         title: { tag: 'plain_text', content: title },
-        template: markdown.includes('❌') ? 'red' : 'green',
+        template: markdown.includes('DOWN') || /\b[45]\d{2}\b/.test(markdown) || markdown.includes('超时') ? 'red' : 'green',
       },
       elements: [
         { tag: 'markdown', content: markdown },

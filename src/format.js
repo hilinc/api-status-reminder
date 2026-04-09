@@ -1,4 +1,4 @@
-const statusIcon = { up: '✅', down: '❌', unknown: '❓' };
+const statusIcon = { up: '✅', down: 'DOWN', unknown: '?' };
 
 function formatReport(status) {
   let md = '';
@@ -85,10 +85,10 @@ function formatReport(status) {
         md += `| 模型 | 状态 | 延迟 |\n`;
         md += `|------|------|------|\n`;
         for (const d of s.model_details) {
-          const icon = d.status === 'up' ? '✅' : '❌';
-          const code = d.code === 0 ? ' 超时' : (d.code && d.code !== 200 ? ` ${d.code}` : '');
+          const code = d.code === 0 ? '超时' : (d.code && d.code !== 200 ? `${d.code}` : '');
+          const statusStr = d.status === 'up' ? '✅' : code || 'DOWN';
           const ping = d.status === 'up' && d.latency_ms != null ? `${d.latency_ms}ms` : '-';
-          md += `| ${d.model} | ${icon}${code} | ${ping} |\n`;
+          md += `| ${d.model} | ${statusStr} | ${ping} |\n`;
         }
       } else {
         md += `| 模型 |\n`;
