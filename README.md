@@ -29,12 +29,12 @@
 | 服务 | 状态 | 延迟 |
 |------|------|------|
 | System | ✅ | 85ms |
-| Claude(Anti) | ❌ | - |
-| GPT | ❌ | - |
-| Gemini | ❌ | - |
-| sonnet4.5 | ❌ | - |
+| Claude(Anti) | DOWN | - |
+| GPT | DOWN | - |
+| Gemini | DOWN | - |
+| sonnet4.5 | DOWN | - |
 | Claude(Kiro) | ✅ | 1730ms |
-| Claude(vertex) | ❌ | - |
+| Claude(vertex) | DOWN | - |
 
 ## packyapi 模型明细
 
