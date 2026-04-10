@@ -1,15 +1,15 @@
 {
   "ltcraft": {
-    "checked_at": "2026-04-10T14:50:44.187Z",
+    "checked_at": "2026-04-10T15:56:17.490Z",
     "models": [
       {
         "id": 1,
         "name": "System",
         "group": "服务",
         "status": "up",
-        "ping_ms": 46,
+        "ping_ms": 77,
         "message": "",
-        "checked_at": "2026-04-10 14:45:27",
+        "checked_at": "2026-04-10 15:55:27",
         "uptime_24h": 0
       },
       {
@@ -19,7 +19,7 @@
         "status": "down",
         "ping_ms": null,
         "message": "",
-        "checked_at": "2026-04-10 14:48:22",
+        "checked_at": "2026-04-10 15:53:22",
         "uptime_24h": 0
       },
       {
@@ -27,9 +27,9 @@
         "name": "GPT",
         "group": "服务",
         "status": "up",
-        "ping_ms": 1109,
+        "ping_ms": 756,
         "message": "",
-        "checked_at": "2026-04-10 14:45:28",
+        "checked_at": "2026-04-10 15:55:28",
         "uptime_24h": 0
       },
       {
@@ -37,9 +37,9 @@
         "name": "Gemini",
         "group": "服务",
         "status": "up",
-        "ping_ms": 1668,
+        "ping_ms": 4416,
         "message": "",
-        "checked_at": "2026-04-10 14:45:26",
+        "checked_at": "2026-04-10 15:55:26",
         "uptime_24h": 0
       },
       {
@@ -47,9 +47,9 @@
         "name": "sonnet4.5",
         "group": "服务",
         "status": "up",
-        "ping_ms": 882,
+        "ping_ms": 1131,
         "message": "",
-        "checked_at": "2026-04-10 14:46:23",
+        "checked_at": "2026-04-10 15:51:23",
         "uptime_24h": 0
       },
       {
@@ -59,17 +59,17 @@
         "status": "down",
         "ping_ms": null,
         "message": "",
-        "checked_at": "2026-04-10 14:46:46",
+        "checked_at": "2026-04-10 15:51:46",
         "uptime_24h": 0
       },
       {
         "id": 7,
         "name": "Claude(vertex)",
         "group": "服务",
-        "status": "up",
-        "ping_ms": 4631,
+        "status": "down",
+        "ping_ms": null,
         "message": "",
-        "checked_at": "2026-04-10 14:45:13",
+        "checked_at": "2026-04-10 15:55:13",
         "uptime_24h": 0
       }
     ]
