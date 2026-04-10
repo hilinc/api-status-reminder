@@ -1,15 +1,15 @@
 {
   "ltcraft": {
-    "checked_at": "2026-04-09T09:23:24.396Z",
+    "checked_at": "2026-04-10T06:53:47.240Z",
     "models": [
       {
         "id": 1,
         "name": "System",
         "group": "服务",
         "status": "up",
-        "ping_ms": 62,
+        "ping_ms": 77,
         "message": "",
-        "checked_at": "2026-04-09 09:18:51",
+        "checked_at": "2026-04-10 06:50:27",
         "uptime_24h": 0
       },
       {
@@ -19,7 +19,7 @@
         "status": "down",
         "ping_ms": null,
         "message": "",
-        "checked_at": "2026-04-09 09:19:18",
+        "checked_at": "2026-04-10 06:53:22",
         "uptime_24h": 0
       },
       {
@@ -27,9 +27,9 @@
         "name": "GPT",
         "group": "服务",
         "status": "up",
-        "ping_ms": 868,
+        "ping_ms": 815,
         "message": "",
-        "checked_at": "2026-04-09 09:18:01",
+        "checked_at": "2026-04-10 06:50:28",
         "uptime_24h": 0
       },
       {
@@ -39,27 +39,27 @@
         "status": "down",
         "ping_ms": null,
         "message": "",
-        "checked_at": "2026-04-09 09:19:29",
+        "checked_at": "2026-04-10 06:50:26",
         "uptime_24h": 0
       },
       {
         "id": 5,
         "name": "sonnet4.5",
         "group": "服务",
-        "status": "down",
-        "ping_ms": null,
+        "status": "up",
+        "ping_ms": 2410,
         "message": "",
-        "checked_at": "2026-04-09 09:18:48",
+        "checked_at": "2026-04-10 06:51:23",
         "uptime_24h": 0
       },
       {
         "id": 6,
         "name": "Claude(Kiro)",
         "group": "服务",
-        "status": "up",
-        "ping_ms": 29443,
+        "status": "down",
+        "ping_ms": null,
         "message": "",
-        "checked_at": "2026-04-09 09:19:19",
+        "checked_at": "2026-04-10 06:51:46",
         "uptime_24h": 0
       },
       {
@@ -67,9 +67,9 @@
         "name": "Claude(vertex)",
         "group": "服务",
         "status": "up",
-        "ping_ms": 4097,
+        "ping_ms": 15082,
         "message": "",
-        "checked_at": "2026-04-09 09:19:19",
+        "checked_at": "2026-04-10 06:50:13",
         "uptime_24h": 0
       }
     ]
