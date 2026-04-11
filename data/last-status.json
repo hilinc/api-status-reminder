@@ -1,15 +1,15 @@
 {
   "ltcraft": {
-    "checked_at": "2026-04-11T08:48:46.079Z",
+    "checked_at": "2026-04-11T09:42:26.107Z",
     "models": [
       {
         "id": 1,
         "name": "System",
         "group": "服务",
         "status": "up",
-        "ping_ms": 64,
+        "ping_ms": 43,
         "message": "",
-        "checked_at": "2026-04-11 08:45:27",
+        "checked_at": "2026-04-11 09:40:27",
         "uptime_24h": 0
       },
       {
@@ -19,7 +19,7 @@
         "status": "down",
         "ping_ms": null,
         "message": "",
-        "checked_at": "2026-04-11 08:43:22",
+        "checked_at": "2026-04-11 09:38:22",
         "uptime_24h": 0
       },
       {
@@ -27,9 +27,9 @@
         "name": "GPT",
         "group": "服务",
         "status": "up",
-        "ping_ms": 1667,
+        "ping_ms": 715,
         "message": "",
-        "checked_at": "2026-04-11 08:45:28",
+        "checked_at": "2026-04-11 09:40:28",
         "uptime_24h": 0
       },
       {
@@ -39,7 +39,7 @@
         "status": "down",
         "ping_ms": null,
         "message": "",
-        "checked_at": "2026-04-11 08:45:26",
+        "checked_at": "2026-04-11 09:40:26",
         "uptime_24h": 0
       },
       {
@@ -47,9 +47,9 @@
         "name": "sonnet4.5",
         "group": "服务",
         "status": "up",
-        "ping_ms": 1034,
+        "ping_ms": 728,
         "message": "",
-        "checked_at": "2026-04-11 08:46:23",
+        "checked_at": "2026-04-11 09:41:23",
         "uptime_24h": 0
       },
       {
@@ -59,7 +59,7 @@
         "status": "down",
         "ping_ms": null,
         "message": "",
-        "checked_at": "2026-04-11 08:46:46",
+        "checked_at": "2026-04-11 09:41:46",
         "uptime_24h": 0
       },
       {
@@ -67,9 +67,9 @@
         "name": "Claude(vertex)",
         "group": "服务",
         "status": "up",
-        "ping_ms": 4440,
+        "ping_ms": 3891,
         "message": "",
-        "checked_at": "2026-04-11 08:45:13",
+        "checked_at": "2026-04-11 09:40:13",
         "uptime_24h": 0
       }
     ]
