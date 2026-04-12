@@ -204,9 +204,14 @@ UPTIME_KUMA_BASE: https://your-uptime-kuma-instance.com
 
 ### 安装
 
+通过插件市场安装：
+
+```bash
+/plugin add-marketplace directory /path/to/api-status-reminder
+/plugin install hilinc-plugins/api-status-reminder
 ```
-/install-plugin hilinc/api-status-reminder
-```
+
+重启 Claude Code 后即可使用。
 
 ### 配置
 
@@ -280,3 +285,28 @@ UPTIME_KUMA_BASE=https://your-instance.com node src/index.js
 ## License
 
 MIT
+
+## 故障排除
+
+### Skill 命令无法识别（"Unknown skill: check-status"）
+
+如果安装后 `/check-status` 和 `/check-provider` 命令无法识别，尝试以下步骤：
+
+1. 在 `~/.claude/settings.json` 中显式启用插件：
+   ```json
+   {
+     "enabledPlugins": {
+       "api-status-reminder@hilinc-plugins": true
+     }
+   }
+   ```
+
+2. 手动创建 skill 符号链接：
+   ```bash
+   ln -sf ~/.claude/plugins/cache/hilinc-plugins/api-status-reminder/*/skills/check-status ~/.claude/skills/check-status
+   ln -sf ~/.claude/plugins/cache/hilinc-plugins/api-status-reminder/*/skills/check-provider ~/.claude/skills/check-provider
+   ```
+
+3. 重启 Claude Code
+
+这通常是 Claude Code 插件系统的已知问题，未来版本可能会修复。
