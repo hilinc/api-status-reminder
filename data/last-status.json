@@ -1,36 +1,36 @@
 {
   "ltcraft": {
-    "checked_at": "2026-04-13T09:57:45.807Z",
+    "checked_at": "2026-04-13T11:24:13.417Z",
     "models": [
       {
         "id": 1,
         "name": "System",
         "group": "服务",
         "status": "up",
-        "ping_ms": 51,
+        "ping_ms": 48,
         "message": "",
-        "checked_at": "2026-04-13 09:53:06",
+        "checked_at": "2026-04-13 11:23:06",
         "uptime_24h": 1
       },
       {
         "id": 2,
         "name": "Claude(Anti)",
         "group": "服务",
-        "status": "down",
-        "ping_ms": null,
+        "status": "up",
+        "ping_ms": 2786,
         "message": "",
-        "checked_at": "2026-04-13 09:53:06",
-        "uptime_24h": 0
+        "checked_at": "2026-04-13 11:23:06",
+        "uptime_24h": 0.023255813953488372
       },
       {
         "id": 3,
         "name": "GPT",
         "group": "服务",
         "status": "up",
-        "ping_ms": 735,
+        "ping_ms": 783,
         "message": "",
-        "checked_at": "2026-04-13 09:53:06",
-        "uptime_24h": 0.9966329966329966
+        "checked_at": "2026-04-13 11:23:06",
+        "uptime_24h": 0.9964285714285714
       },
       {
         "id": 4,
@@ -39,7 +39,7 @@
         "status": "down",
         "ping_ms": null,
         "message": "",
-        "checked_at": "2026-04-13 09:53:06",
+        "checked_at": "2026-04-13 11:23:06",
         "uptime_24h": 0
       },
       {
@@ -47,10 +47,10 @@
         "name": "sonnet4.5",
         "group": "服务",
         "status": "up",
-        "ping_ms": 727,
+        "ping_ms": 785,
         "message": "",
-        "checked_at": "2026-04-13 09:53:06",
-        "uptime_24h": 0.9966329966329966
+        "checked_at": "2026-04-13 11:23:06",
+        "uptime_24h": 0.9964285714285714
       },
       {
         "id": 6,
@@ -59,18 +59,18 @@
         "status": "down",
         "ping_ms": null,
         "message": "",
-        "checked_at": "2026-04-13 09:53:06",
-        "uptime_24h": 0.6040268456375839
+        "checked_at": "2026-04-13 11:23:06",
+        "uptime_24h": 0.5160142348754448
       },
       {
         "id": 7,
         "name": "Claude(vertex)",
         "group": "服务",
         "status": "up",
-        "ping_ms": 5274,
+        "ping_ms": 3846,
         "message": "",
-        "checked_at": "2026-04-13 09:53:06",
-        "uptime_24h": 0.9899328859060402
+        "checked_at": "2026-04-13 11:23:06",
+        "uptime_24h": 0.9893238434163701
       }
     ]
   },
