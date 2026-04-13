@@ -1,15 +1,15 @@
 {
   "ltcraft": {
-    "checked_at": "2026-04-13T02:34:59.347Z",
+    "checked_at": "2026-04-13T04:20:51.824Z",
     "models": [
       {
         "id": 1,
         "name": "System",
         "group": "服务",
         "status": "up",
-        "ping_ms": 75,
+        "ping_ms": 57,
         "message": "",
-        "checked_at": "2026-04-13 02:32:25",
+        "checked_at": "2026-04-13 04:17:25",
         "uptime_24h": 1
       },
       {
@@ -19,7 +19,7 @@
         "status": "down",
         "ping_ms": null,
         "message": "",
-        "checked_at": "2026-04-13 02:32:26",
+        "checked_at": "2026-04-13 04:17:26",
         "uptime_24h": 0
       },
       {
@@ -27,9 +27,9 @@
         "name": "GPT",
         "group": "服务",
         "status": "up",
-        "ping_ms": 713,
+        "ping_ms": 698,
         "message": "",
-        "checked_at": "2026-04-13 02:32:27",
+        "checked_at": "2026-04-13 04:17:27",
         "uptime_24h": 1
       },
       {
@@ -39,7 +39,7 @@
         "status": "down",
         "ping_ms": null,
         "message": "",
-        "checked_at": "2026-04-13 02:32:27",
+        "checked_at": "2026-04-13 04:17:27",
         "uptime_24h": 0
       },
       {
@@ -47,10 +47,10 @@
         "name": "sonnet4.5",
         "group": "服务",
         "status": "up",
-        "ping_ms": 1127,
+        "ping_ms": 1117,
         "message": "",
-        "checked_at": "2026-04-13 02:32:28",
-        "uptime_24h": 0.9974093264248705
+        "checked_at": "2026-04-13 04:17:28",
+        "uptime_24h": 0.9972602739726028
       },
       {
         "id": 6,
@@ -59,18 +59,18 @@
         "status": "down",
         "ping_ms": null,
         "message": "",
-        "checked_at": "2026-04-13 02:32:29",
-        "uptime_24h": 0.9224806201550387
+        "checked_at": "2026-04-13 04:17:29",
+        "uptime_24h": 0.860655737704918
       },
       {
         "id": 7,
         "name": "Claude(vertex)",
         "group": "服务",
         "status": "up",
-        "ping_ms": 6571,
+        "ping_ms": 3714,
         "message": "",
-        "checked_at": "2026-04-13 02:32:30",
-        "uptime_24h": 0.9974160206718347
+        "checked_at": "2026-04-13 04:17:30",
+        "uptime_24h": 0.9972602739726028
       }
     ]
   },
