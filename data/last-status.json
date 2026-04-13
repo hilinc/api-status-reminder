@@ -1,15 +1,15 @@
 {
   "ltcraft": {
-    "checked_at": "2026-04-13T07:14:19.504Z",
+    "checked_at": "2026-04-13T09:57:45.807Z",
     "models": [
       {
         "id": 1,
         "name": "System",
         "group": "服务",
         "status": "up",
-        "ping_ms": 49,
+        "ping_ms": 51,
         "message": "",
-        "checked_at": "2026-04-13 07:12:25",
+        "checked_at": "2026-04-13 09:53:06",
         "uptime_24h": 1
       },
       {
@@ -19,7 +19,7 @@
         "status": "down",
         "ping_ms": null,
         "message": "",
-        "checked_at": "2026-04-13 07:12:26",
+        "checked_at": "2026-04-13 09:53:06",
         "uptime_24h": 0
       },
       {
@@ -27,10 +27,10 @@
         "name": "GPT",
         "group": "服务",
         "status": "up",
-        "ping_ms": 1099,
+        "ping_ms": 735,
         "message": "",
-        "checked_at": "2026-04-13 07:12:47",
-        "uptime_24h": 0.9969604863221885
+        "checked_at": "2026-04-13 09:53:06",
+        "uptime_24h": 0.9966329966329966
       },
       {
         "id": 4,
@@ -39,7 +39,7 @@
         "status": "down",
         "ping_ms": null,
         "message": "",
-        "checked_at": "2026-04-13 07:12:47",
+        "checked_at": "2026-04-13 09:53:06",
         "uptime_24h": 0
       },
       {
@@ -47,10 +47,10 @@
         "name": "sonnet4.5",
         "group": "服务",
         "status": "up",
-        "ping_ms": 997,
+        "ping_ms": 727,
         "message": "",
-        "checked_at": "2026-04-13 07:12:48",
-        "uptime_24h": 0.9939393939393939
+        "checked_at": "2026-04-13 09:53:06",
+        "uptime_24h": 0.9966329966329966
       },
       {
         "id": 6,
@@ -59,18 +59,18 @@
         "status": "down",
         "ping_ms": null,
         "message": "",
-        "checked_at": "2026-04-13 07:12:49",
-        "uptime_24h": 0.7401812688821753
+        "checked_at": "2026-04-13 09:53:06",
+        "uptime_24h": 0.6040268456375839
       },
       {
         "id": 7,
         "name": "Claude(vertex)",
         "group": "服务",
         "status": "up",
-        "ping_ms": 2987,
+        "ping_ms": 5274,
         "message": "",
-        "checked_at": "2026-04-13 07:12:50",
-        "uptime_24h": 0.9939577039274925
+        "checked_at": "2026-04-13 09:53:06",
+        "uptime_24h": 0.9899328859060402
       }
     ]
   },
