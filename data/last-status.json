@@ -1,6 +1,6 @@
 {
   "ltcraft": {
-    "checked_at": "2026-04-14T04:10:29.256Z",
+    "checked_at": "2026-04-14T06:53:37.681Z",
     "models": [
       {
         "id": 1,
@@ -9,18 +9,18 @@
         "status": "up",
         "ping_ms": 49,
         "message": "",
-        "checked_at": "2026-04-14 04:08:19",
-        "uptime_24h": 0.9824561403508771
+        "checked_at": "2026-04-14 06:48:19",
+        "uptime_24h": 0.9823943661971831
       },
       {
         "id": 2,
         "name": "Claude(Anti)",
         "group": "服务",
         "status": "up",
-        "ping_ms": 7795,
+        "ping_ms": 4264,
         "message": "",
-        "checked_at": "2026-04-14 04:09:55",
-        "uptime_24h": 0.6503496503496503
+        "checked_at": "2026-04-14 06:49:55",
+        "uptime_24h": 0.7578947368421053
       },
       {
         "id": 3,
@@ -29,8 +29,8 @@
         "status": "down",
         "ping_ms": null,
         "message": "",
-        "checked_at": "2026-04-14 04:05:47",
-        "uptime_24h": 0.8175438596491228
+        "checked_at": "2026-04-14 06:50:47",
+        "uptime_24h": 0.7052631578947368
       },
       {
         "id": 4,
@@ -39,7 +39,7 @@
         "status": "down",
         "ping_ms": null,
         "message": "",
-        "checked_at": "2026-04-14 04:09:59",
+        "checked_at": "2026-04-14 06:49:59",
         "uptime_24h": 0
       },
       {
@@ -49,28 +49,28 @@
         "status": "down",
         "ping_ms": null,
         "message": "",
-        "checked_at": "2026-04-14 04:09:55",
-        "uptime_24h": 0.8111888111888111
+        "checked_at": "2026-04-14 06:49:55",
+        "uptime_24h": 0.7017543859649122
       },
       {
         "id": 6,
         "name": "Claude(Kiro)",
         "group": "服务",
         "status": "up",
-        "ping_ms": 11036,
+        "ping_ms": 25054,
         "message": "",
-        "checked_at": "2026-04-14 04:09:55",
-        "uptime_24h": 0.15034965034965034
+        "checked_at": "2026-04-14 06:49:55",
+        "uptime_24h": 0.25263157894736843
       },
       {
         "id": 7,
         "name": "Claude(vertex)",
         "group": "服务",
-        "status": "down",
-        "ping_ms": null,
+        "status": "up",
+        "ping_ms": 9167,
         "message": "",
-        "checked_at": "2026-04-14 04:09:55",
-        "uptime_24h": 0.8811188811188811
+        "checked_at": "2026-04-14 06:49:55",
+        "uptime_24h": 0.8210526315789474
       }
     ]
   },
