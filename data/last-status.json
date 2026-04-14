@@ -1,26 +1,26 @@
 {
   "ltcraft": {
-    "checked_at": "2026-04-14T02:28:49.569Z",
+    "checked_at": "2026-04-14T04:10:29.256Z",
     "models": [
       {
         "id": 1,
         "name": "System",
         "group": "服务",
         "status": "up",
-        "ping_ms": 117,
+        "ping_ms": 49,
         "message": "",
-        "checked_at": "2026-04-14 02:23:18",
-        "uptime_24h": 0.9859154929577465
+        "checked_at": "2026-04-14 04:08:19",
+        "uptime_24h": 0.9824561403508771
       },
       {
         "id": 2,
         "name": "Claude(Anti)",
         "group": "服务",
         "status": "up",
-        "ping_ms": 9167,
+        "ping_ms": 7795,
         "message": "",
-        "checked_at": "2026-04-14 02:24:55",
-        "uptime_24h": 0.5789473684210527
+        "checked_at": "2026-04-14 04:09:55",
+        "uptime_24h": 0.6503496503496503
       },
       {
         "id": 3,
@@ -29,8 +29,8 @@
         "status": "down",
         "ping_ms": null,
         "message": "",
-        "checked_at": "2026-04-14 02:25:47",
-        "uptime_24h": 0.887719298245614
+        "checked_at": "2026-04-14 04:05:47",
+        "uptime_24h": 0.8175438596491228
       },
       {
         "id": 4,
@@ -39,7 +39,7 @@
         "status": "down",
         "ping_ms": null,
         "message": "",
-        "checked_at": "2026-04-14 02:24:59",
+        "checked_at": "2026-04-14 04:09:59",
         "uptime_24h": 0
       },
       {
@@ -49,18 +49,18 @@
         "status": "down",
         "ping_ms": null,
         "message": "",
-        "checked_at": "2026-04-14 02:24:55",
-        "uptime_24h": 0.8842105263157894
+        "checked_at": "2026-04-14 04:09:55",
+        "uptime_24h": 0.8111888111888111
       },
       {
         "id": 6,
         "name": "Claude(Kiro)",
         "group": "服务",
         "status": "up",
-        "ping_ms": 28510,
+        "ping_ms": 11036,
         "message": "",
-        "checked_at": "2026-04-14 02:24:55",
-        "uptime_24h": 0.11228070175438597
+        "checked_at": "2026-04-14 04:09:55",
+        "uptime_24h": 0.15034965034965034
       },
       {
         "id": 7,
@@ -69,8 +69,8 @@
         "status": "down",
         "ping_ms": null,
         "message": "",
-        "checked_at": "2026-04-14 02:24:55",
-        "uptime_24h": 0.9543859649122807
+        "checked_at": "2026-04-14 04:09:55",
+        "uptime_24h": 0.8811188811188811
       }
     ]
   },
