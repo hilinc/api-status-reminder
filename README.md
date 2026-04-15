@@ -57,6 +57,8 @@
 
 ### 2. 配置 API 探测
 
+> **⚠️ API Key 安全提示：请使用测试用 Key 或有限额度的 Key，不要使用主力 Key。** 每次探测会调用 `/v1/models` 接口（零 token 消耗）；开启 `deep_check` 后每模型会消耗约 20 tokens。Key 一旦泄露可能造成损失，建议单独创建一个低额度的 Key 用于监控。
+
 在仓库 Settings → Secrets and variables → Actions → Secrets 中添加 `API_PROBE_CONFIG`，值为 JSON 格式的中转站配置：
 
 ```json
@@ -78,6 +80,19 @@
 ```
 
 如果你还没有中转站，可以试试 [PackyCode](https://www.packyapi.com/register?aff=YNms)，支持 Claude、GPT 等主流模型，用着还比较稳。
+
+**一键同步配置（推荐）：** 不想每次在 GitHub 网页上手动粘贴 JSON？可以用本地 `config.json` 作为配置源，一条命令同步到 GitHub Secrets：
+
+```bash
+# 1. 复制并编辑配置文件
+cp config.example.json config.json
+# 编辑 config.json，填入你的中转站信息
+
+# 2. 同步到 GitHub Secrets（需要 gh CLI：brew install gh）
+npm run sync-secret
+```
+
+以后每次修改 `config.json` 后跑一次 `npm run sync-secret` 即可，本地文件就是你的唯一配置源。`config.json` 已在 `.gitignore` 中，不会被提交到仓库。
 
 **字段说明：**
 
