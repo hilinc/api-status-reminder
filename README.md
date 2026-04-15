@@ -79,7 +79,10 @@
 }
 ```
 
-如果你还没有中转站，可以试试 [PackyCode](https://www.packyapi.com/register?aff=YNms)，支持 Claude、GPT 等主流模型，用着还比较稳。
+如果你还没有中转站，可以试试：
+
+- [PackyCode](https://www.packyapi.com/register?aff=YNms)，支持 Claude、GPT 等主流模型，贵但稳
+- [LTCraft](https://ai.ltcraft.cn/register?aff=w4Vb)，支持 Claude、GPT、Gemini 等主流模型，性价比之选
 
 **一键同步配置（推荐）：** 不想每次在 GitHub 网页上手动粘贴 JSON？可以用本地 `config.json` 作为配置源，一条命令同步到 GitHub Secrets：
 
@@ -96,22 +99,22 @@ npm run sync-secret
 
 **字段说明：**
 
-| 字段 | 必填 | 说明 |
-|------|------|------|
-| `name` | 是 | 站点显示名称 |
-| `base_url` | 是 | 中转站 API 地址 |
-| `api_key` | 二选一 | 单个 API Key |
-| `api_keys` | 二选一 | 多个 API Key（同一站点不同分组/套餐） |
-| `deep_check` | 否 | 设为 `true` 逐模型实测可用性（会消耗少量 token） |
-| `models` | 否 | 手动指定模型列表，当 `/v1/models` 返回空时作为 fallback |
-| `models_path` | 否 | 自定义模型列表端点，默认 `/v1/models` |
+| 字段          | 必填   | 说明                                                    |
+| ------------- | ------ | ------------------------------------------------------- |
+| `name`        | 是     | 站点显示名称                                            |
+| `base_url`    | 是     | 中转站 API 地址                                         |
+| `api_key`     | 二选一 | 单个 API Key                                            |
+| `api_keys`    | 二选一 | 多个 API Key（同一站点不同分组/分组）                   |
+| `deep_check`  | 否     | 设为 `true` 逐模型实测可用性（会消耗少量 token）        |
+| `models`      | 否     | 手动指定模型列表，当 `/v1/models` 返回空时作为 fallback |
+| `models_path` | 否     | 自定义模型列表端点，默认 `/v1/models`                   |
 
 `api_keys` 格式：
 
 ```json
 "api_keys": [
-  { "key": "sk-group-a-key", "label": "套餐A" },
-  { "key": "sk-group-b-key", "label": "套餐B" }
+  { "key": "sk-group-a-key", "label": "分组A" },
+  { "key": "sk-group-b-key", "label": "分组B" }
 ]
 ```
 
@@ -125,19 +128,19 @@ npm run sync-secret
 
 在 Secrets 中添加你需要的通知渠道（至少配一个）：
 
-| Secret 名称 | 通知渠道 | 获取方式 |
-|-------------|---------|---------|
-| `SERVERCHAN_KEY` | Server酱 | [sct.ftqq.com](https://sct.ftqq.com/) → 设置 → SendKey |
-| `FEISHU_WEBHOOK` | 飞书机器人 | 群设置 → 群机器人 → 自定义机器人 → Webhook 地址 |
-| `WECOM_WEBHOOK` | 企业微信机器人 | 群设置 → 群机器人 → 新建机器人 → Webhook 地址 |
-| `TELEGRAM_BOT_TOKEN` | Telegram Bot | 在 Telegram 中找 [@BotFather](https://t.me/BotFather)，发送 `/newbot` 创建机器人，获取 Token |
-| `TELEGRAM_CHAT_ID` | Telegram Chat ID | 给机器人发一条消息，然后访问 `https://api.telegram.org/bot<你的Token>/getUpdates` 查看 `chat.id` |
-| `DINGDING_WEBHOOK` | 钉钉机器人 | 群设置 → 智能群助手 → 添加机器人 → 自定义，安全设置选"自定义关键词"填 `中转站` |
-| `PUSHPLUS_TOKEN` | PushPlus | [pushplus.plus](https://www.pushplus.plus/) 注册后获取 Token |
-| `GOTIFY_URL` | Gotify | 你的 Gotify 服务地址（如 `https://gotify.example.com/message`） |
-| `GOTIFY_TOKEN` | Gotify Token | Gotify 应用的访问令牌 |
-| `BARK_KEY` | Bark | 打开 Bark App 即可看到 Key |
-| `BARK_SERVER` | Bark 自建服务器（可选） | 默认 `https://api.day.app` |
+| Secret 名称          | 通知渠道                | 获取方式                                                                                         |
+| -------------------- | ----------------------- | ------------------------------------------------------------------------------------------------ |
+| `SERVERCHAN_KEY`     | Server酱                | [sct.ftqq.com](https://sct.ftqq.com/) → 设置 → SendKey                                           |
+| `FEISHU_WEBHOOK`     | 飞书机器人              | 群设置 → 群机器人 → 自定义机器人 → Webhook 地址                                                  |
+| `WECOM_WEBHOOK`      | 企业微信机器人          | 群设置 → 群机器人 → 新建机器人 → Webhook 地址                                                    |
+| `TELEGRAM_BOT_TOKEN` | Telegram Bot            | 在 Telegram 中找 [@BotFather](https://t.me/BotFather)，发送 `/newbot` 创建机器人，获取 Token     |
+| `TELEGRAM_CHAT_ID`   | Telegram Chat ID        | 给机器人发一条消息，然后访问 `https://api.telegram.org/bot<你的Token>/getUpdates` 查看 `chat.id` |
+| `DINGDING_WEBHOOK`   | 钉钉机器人              | 群设置 → 智能群助手 → 添加机器人 → 自定义，安全设置选"自定义关键词"填 `中转站`                   |
+| `PUSHPLUS_TOKEN`     | PushPlus                | [pushplus.plus](https://www.pushplus.plus/) 注册后获取 Token                                     |
+| `GOTIFY_URL`         | Gotify                  | 你的 Gotify 服务地址（如 `https://gotify.example.com/message`）                                  |
+| `GOTIFY_TOKEN`       | Gotify Token            | Gotify 应用的访问令牌                                                                            |
+| `BARK_KEY`           | Bark                    | 打开 Bark App 即可看到 Key                                                                       |
+| `BARK_SERVER`        | Bark 自建服务器（可选） | 默认 `https://api.day.app`                                                                       |
 
 每个渠道独立配置，未配置的会自动跳过。
 
@@ -149,17 +152,17 @@ Push 代码后，Actions 会自动定时运行。也可以在 Actions 页面手�
 
 ```yaml
 schedule:
-  - cron: '0 1-15 * * *'    # UTC 01:00-15:00 = 北京时间 09:00-23:00，每小时
+  - cron: "0 1-15 * * *" # UTC 01:00-15:00 = 北京时间 09:00-23:00，每小时
 ```
 
 常用配置：
 
-| 说明 | cron |
-|------|------|
-| 每小时，北京 09-23 点（默认） | `0 1-15 * * *` |
-| 每小时，全天 | `0 * * * *` |
-| 每 30 分钟，北京 09-23 点 | `*/30 1-15 * * *` |
-| 每小时，仅工作日 | `0 1-15 * * 1-5` |
+| 说明                          | cron              |
+| ----------------------------- | ----------------- |
+| 每小时，北京 09-23 点（默认） | `0 1-15 * * *`    |
+| 每小时，全天                  | `0 * * * *`       |
+| 每 30 分钟，北京 09-23 点     | `*/30 1-15 * * *` |
+| 每小时，仅工作日              | `0 1-15 * * 1-5`  |
 
 > GitHub Actions 的 schedule cron 不保证精确触发，实际可能有几分钟到十几分钟的延迟。如需更精确的定时，建议使用自建服务器 + cron。
 
@@ -171,11 +174,11 @@ schedule:
 node src/index.js [mode]
 ```
 
-| 模式 | 说明 |
-|------|------|
-| `check`（默认） | 每次运行都推送通知 |
-| `change-only` | 仅在状态发生变化时推送通知，适合高频检测场景 |
-| `digest` | 发送全量状态报告，用于每日摘要 |
+| 模式            | 说明                                         |
+| --------------- | -------------------------------------------- |
+| `check`（默认） | 每次运行都推送通知                           |
+| `change-only`   | 仅在状态发生变化时推送通知，适合高频检测场景 |
+| `digest`        | 发送全量状态报告，用于每日摘要               |
 
 如需仅在状态变化时通知，修改 `.github/workflows/check.yml` 中的运行命令：
 
@@ -191,16 +194,16 @@ node src/index.js [mode]
 
 ```yaml
 schedule:
-  - cron: '0 1 * * *'    # UTC 01:00 = 北京时间 09:00
+  - cron: "0 1 * * *" # UTC 01:00 = 北京时间 09:00
 ```
 
 常用时间：
 
-| 北京时间 | cron |
-|---------|------|
-| 08:00 | `0 0 * * *` |
-| 09:00 | `0 1 * * *` |
-| 20:00 | `0 12 * * *` |
+| 北京时间       | cron           |
+| -------------- | -------------- |
+| 08:00          | `0 0 * * *`    |
+| 09:00          | `0 1 * * *`    |
+| 20:00          | `0 12 * * *`   |
 | 08:00 和 20:00 | `0 0,12 * * *` |
 
 ## 接入 Uptime Kuma（可选）
@@ -308,6 +311,7 @@ MIT
 如果安装后 `/check-status` 和 `/check-provider` 命令无法识别，尝试以下步骤：
 
 1. 在 `~/.claude/settings.json` 中显式启用插件：
+
    ```json
    {
      "enabledPlugins": {
@@ -317,6 +321,7 @@ MIT
    ```
 
 2. 手动创建 skill 符号链接：
+
    ```bash
    ln -sf ~/.claude/plugins/cache/hilinc-plugins/api-status-reminder/*/skills/check-status ~/.claude/skills/check-status
    ln -sf ~/.claude/plugins/cache/hilinc-plugins/api-status-reminder/*/skills/check-provider ~/.claude/skills/check-provider
