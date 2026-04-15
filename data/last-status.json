@@ -1,81 +1,81 @@
 {
   "ltcraft": {
-    "checked_at": "2026-04-15T12:01:44.906Z",
+    "checked_at": "2026-04-15T13:55:32.234Z",
     "models": [
       {
         "id": 1,
         "name": "System",
         "group": "服务",
         "status": "up",
-        "ping_ms": 55,
+        "ping_ms": 82,
         "message": "",
-        "checked_at": "2026-04-15 12:00:55",
-        "uptime_24h": 0.986013986013986
+        "checked_at": "2026-04-15 13:50:55",
+        "uptime_24h": 0.9895104895104895
       },
       {
         "id": 2,
         "name": "Claude(Anti)",
         "group": "服务",
-        "status": "down",
-        "ping_ms": null,
+        "status": "up",
+        "ping_ms": 2335,
         "message": "",
-        "checked_at": "2026-04-15 12:00:56",
-        "uptime_24h": 0.7027972027972028
+        "checked_at": "2026-04-15 13:50:56",
+        "uptime_24h": 0.6328671328671329
       },
       {
         "id": 3,
         "name": "GPT",
         "group": "服务",
-        "status": "up",
-        "ping_ms": 625,
+        "status": "down",
+        "ping_ms": null,
         "message": "",
-        "checked_at": "2026-04-15 12:00:56",
-        "uptime_24h": 0.24210526315789474
+        "checked_at": "2026-04-15 13:50:56",
+        "uptime_24h": 0.2937062937062937
       },
       {
         "id": 4,
         "name": "Gemini",
         "group": "服务",
         "status": "up",
-        "ping_ms": 1455,
+        "ping_ms": 1784,
         "message": "",
-        "checked_at": "2026-04-15 12:00:56",
-        "uptime_24h": 0.1853146853146853
+        "checked_at": "2026-04-15 13:50:56",
+        "uptime_24h": 0.26223776223776224
       },
       {
         "id": 5,
         "name": "sonnet4.5",
         "group": "服务",
         "status": "up",
-        "ping_ms": 2332,
+        "ping_ms": 2630,
         "message": "",
-        "checked_at": "2026-04-15 12:00:55",
-        "uptime_24h": 0.24561403508771928
+        "checked_at": "2026-04-15 13:50:55",
+        "uptime_24h": 0.3076923076923077
       },
       {
         "id": 6,
         "name": "Claude(Kiro)",
         "group": "服务",
         "status": "up",
-        "ping_ms": 2169,
+        "ping_ms": 3799,
         "message": "",
-        "checked_at": "2026-04-15 12:00:55",
-        "uptime_24h": 0.15034965034965034
+        "checked_at": "2026-04-15 13:50:55",
+        "uptime_24h": 0.2062937062937063
       },
       {
         "id": 7,
         "name": "Claude(vertex)",
         "group": "服务",
-        "status": "down",
-        "ping_ms": null,
+        "status": "up",
+        "ping_ms": 3186,
         "message": "",
-        "checked_at": "2026-04-15 12:00:57",
-        "uptime_24h": 0.458041958041958
+        "checked_at": "2026-04-15 13:50:57",
+        "uptime_24h": 0.45104895104895104
       }
     ]
   },
   "api-probe": {
-    "checked_at": "2026-04-15T12:02:40.633Z",
+    "checked_at": "2026-04-15T13:56:34.966Z",
     "models": [
       {
         "id": "ltcraft",
@@ -83,17 +83,20 @@
         "group": "API Probe",
         "status": "up",
         "status_code": 200,
-        "ping_ms": 73,
+        "ping_ms": 62,
         "message": "25 models",
-        "checked_at": "2026-04-15T12:02:40.633Z",
+        "checked_at": "2026-04-15T13:56:34.967Z",
         "uptime_24h": null,
         "model_list": [
           "claude-haiku-4-5",
           "claude-haiku-4-5-20251001",
           "claude-opus-4-6",
+          "claude-sonnet-4-5",
+          "claude-sonnet-4-5-20250929",
           "claude-sonnet-4-6",
           "cursor-5.3-codex",
           "cursor-5.4",
+          "deepseek-3.2",
           "gemini-2.5-flash",
           "gemini-2.5-flash-lite",
           "gemini-3-flash",
@@ -104,44 +107,63 @@
           "gemini-3.1-pro",
           "gemini-3.1-pro-high",
           "gemini-3.1-pro-low",
-          "gpt-5",
-          "gpt-5-codex",
-          "gpt-5.1",
-          "gpt-5.1-codex",
-          "gpt-5.2",
-          "gpt-5.2-codex",
+          "glm-5",
           "gpt-5.3-codex",
           "gpt-5.4",
-          "gpt-5.4-mini"
+          "minimax-m2.1",
+          "minimax-m2.5",
+          "qwen3-coder-next"
         ],
         "model_details": [
           {
             "model": "claude-haiku-4-5",
             "status": "up",
             "code": 200,
-            "latency_ms": 972,
+            "latency_ms": 4894,
             "label": "anti"
           },
           {
             "model": "claude-haiku-4-5-20251001",
             "status": "up",
             "code": 200,
-            "latency_ms": 1188,
+            "latency_ms": 13119,
             "label": "anti"
           },
           {
             "model": "claude-opus-4-6",
             "status": "up",
             "code": 200,
-            "latency_ms": 2800,
-            "label": "kiro"
+            "latency_ms": 28703,
+            "label": "anti"
+          },
+          {
+            "model": "claude-sonnet-4-5",
+            "status": "up",
+            "code": 200,
+            "latency_ms": 5898,
+            "label": "anti"
+          },
+          {
+            "model": "claude-sonnet-4-5-20250929",
+            "status": "up",
+            "code": 200,
+            "latency_ms": 10565,
+            "label": "anti"
           },
           {
             "model": "claude-sonnet-4-6",
             "status": "up",
             "code": 200,
-            "latency_ms": 1771,
+            "latency_ms": 6854,
+            "error": "The operation was aborted due to timeout",
             "label": "kiro"
+          },
+          {
+            "model": "deepseek-3.2",
+            "status": "up",
+            "code": 200,
+            "latency_ms": 8802,
+            "label": "anti"
           },
           {
             "model": "gemini-2.5-flash",
@@ -154,142 +176,121 @@
           {
             "model": "gemini-2.5-flash-lite",
             "status": "down",
-            "code": 0,
-            "latency_ms": 30001,
-            "error": "The operation was aborted due to timeout",
+            "code": 503,
+            "latency_ms": 28085,
             "label": "anti"
           },
           {
             "model": "gemini-3-flash",
             "status": "up",
             "code": 200,
-            "latency_ms": 1874,
+            "latency_ms": 3457,
             "label": "anti"
           },
           {
             "model": "gemini-3-pro",
-            "status": "up",
-            "code": 200,
-            "latency_ms": 12106,
+            "status": "down",
+            "code": 0,
+            "latency_ms": 30002,
+            "error": "The operation was aborted due to timeout",
             "label": "anti"
           },
           {
             "model": "gemini-3-pro-high",
             "status": "up",
             "code": 200,
-            "latency_ms": 4718,
+            "latency_ms": 25979,
             "label": "anti"
           },
           {
             "model": "gemini-3-pro-low",
             "status": "up",
             "code": 200,
-            "latency_ms": 3274,
+            "latency_ms": 26862,
             "label": "anti"
           },
           {
             "model": "gemini-3.1-flash-image",
-            "status": "up",
-            "code": 200,
-            "latency_ms": 4418,
+            "status": "down",
+            "code": 403,
+            "latency_ms": 205,
             "label": "anti"
           },
           {
             "model": "gemini-3.1-pro",
             "status": "up",
             "code": 200,
-            "latency_ms": 4271,
+            "latency_ms": 2777,
             "label": "anti"
           },
           {
             "model": "gemini-3.1-pro-high",
             "status": "up",
             "code": 200,
-            "latency_ms": 11742,
+            "latency_ms": 25364,
             "label": "anti"
           },
           {
             "model": "gemini-3.1-pro-low",
             "status": "up",
             "code": 200,
-            "latency_ms": 4515,
+            "latency_ms": 2916,
             "label": "anti"
           },
           {
-            "model": "gpt-5",
-            "status": "down",
-            "code": 400,
-            "latency_ms": 3774,
-            "label": "anti"
-          },
-          {
-            "model": "gpt-5-codex",
-            "status": "down",
-            "code": 400,
-            "latency_ms": 12307,
-            "label": "anti"
-          },
-          {
-            "model": "gpt-5.1",
-            "status": "down",
-            "code": 400,
-            "latency_ms": 2016,
-            "label": "anti"
-          },
-          {
-            "model": "gpt-5.1-codex",
-            "status": "down",
-            "code": 400,
-            "latency_ms": 836,
-            "label": "anti"
-          },
-          {
-            "model": "gpt-5.2",
+            "model": "glm-5",
             "status": "up",
             "code": 200,
-            "latency_ms": 7758,
+            "latency_ms": 3972,
             "label": "anti"
           },
           {
-            "model": "gpt-5.2-codex",
-            "status": "down",
-            "code": 400,
-            "latency_ms": 5509,
-            "label": "anti"
-          },
-          {
-            "model": "gpt-5.4-mini",
+            "model": "minimax-m2.1",
             "status": "up",
             "code": 200,
-            "latency_ms": 5200,
+            "latency_ms": 10965,
+            "label": "anti"
+          },
+          {
+            "model": "minimax-m2.5",
+            "status": "up",
+            "code": 200,
+            "latency_ms": 2639,
+            "label": "anti"
+          },
+          {
+            "model": "qwen3-coder-next",
+            "status": "up",
+            "code": 200,
+            "latency_ms": 11250,
             "label": "anti"
           },
           {
             "model": "cursor-5.3-codex",
             "status": "up",
             "code": 200,
-            "latency_ms": 986,
+            "latency_ms": 958,
             "label": "plus"
           },
           {
             "model": "cursor-5.4",
             "status": "up",
             "code": 200,
-            "latency_ms": 1364,
+            "latency_ms": 2148,
             "label": "plus"
           },
           {
             "model": "gpt-5.3-codex",
             "status": "up",
             "code": 200,
-            "latency_ms": 1128,
+            "latency_ms": 1400,
             "label": "plus"
           },
           {
             "model": "gpt-5.4",
             "status": "up",
             "code": 200,
-            "latency_ms": 2412,
+            "latency_ms": 989,
             "label": "plus"
           }
         ]
