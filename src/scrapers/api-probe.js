@@ -64,6 +64,12 @@ function loadConfig() {
     const c = JSON.parse(fs.readFileSync(USER_CONFIG_FILE, 'utf-8'));
     if (c.providers?.length) return { ...c, _source: '~/.api-status/config.json' };
   } catch {}
+  // 3. ./config.json (project directory, written by CI from secret)
+  const localConfig = path.join(process.cwd(), 'config.json');
+  try {
+    const c = JSON.parse(fs.readFileSync(localConfig, 'utf-8'));
+    if (c.providers?.length) return { ...c, _source: 'config.json' };
+  } catch {}
 
   return null;
 }

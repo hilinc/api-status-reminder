@@ -67,3 +67,11 @@ for (const p of config.providers) {
   const keyCount = p.api_keys ? p.api_keys.length : 1;
   console.log(`   - ${p.name} (${keyCount} key${keyCount > 1 ? 's' : ''})`);
 }
+
+// 7. 触发 check workflow 验证配置
+try {
+  execSync('gh workflow run check.yml', { stdio: 'inherit' });
+  console.log('🚀 已触发 check workflow，稍后可在 Actions 页面查看结果');
+} catch {
+  console.log('⚠️  触发 workflow 失败（不影响 secret 同步），可手动在 Actions 页面触发');
+}
