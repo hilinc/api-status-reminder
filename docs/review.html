@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI 中转站推荐</title>
+  <meta name="description" content="精选 AI API 中转站推荐，帮你找到稳定、靠谱的 API 服务商">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      background: #f5f7fa;
+      color: #1a1a2e;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    header h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #1a1a2e;
+      margin-bottom: 0.5rem;
+    }
+
+    header p {
+      color: #6b7280;
+      font-size: 0.95rem;
+      max-width: 70vw;
+      margin: 0 auto;
+    }
+
+    .notice {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 0.75rem;
+      padding: 1rem 1.25rem;
+      margin-bottom: 2rem;
+      font-size: 0.9rem;
+      color: #92400e;
+    }
+
+    .notice strong {
+      color: #78350f;
+    }
+
+    .cards {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 1rem;
+      padding: 1.5rem;
+      transition: box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.75rem;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .card-header h2 {
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+
+    .card-header a {
+      display: inline-block;
+      padding: 0.4rem 1rem;
+      background: #3b82f6;
+      color: #fff;
+      border-radius: 0.5rem;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: background 0.15s ease;
+    }
+
+    .card-header a:hover {
+      background: #2563eb;
+    }
+
+    .card-desc {
+      color: #374151;
+      font-size: 0.92rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .card-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 0.375rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    .tag-model {
+      background: #ede9fe;
+      color: #5b21b6;
+    }
+
+    .tag-feature {
+      background: #e0f2fe;
+      color: #0369a1;
+    }
+
+    .tag-price {
+      background: #ecfdf5;
+      color: #065f46;
+    }
+
+    .pricing {
+      margin-top: 0.75rem;
+    }
+
+    .pricing table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+
+    .pricing th {
+      text-align: left;
+      padding: 0.4rem 0.5rem;
+      color: #6b7280;
+      font-weight: 500;
+      border-bottom: 1px solid #f3f4f6;
+    }
+
+    .pricing td {
+      padding: 0.4rem 0.5rem;
+      border-bottom: 1px solid #f3f4f6;
+    }
+
+    .pricing tr:last-child td {
+      border-bottom: none;
+    }
+
+    .note {
+      margin-top: 0.5rem;
+      font-size: 0.82rem;
+      color: #9ca3af;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 3rem;
+      padding: 1.5rem 0;
+      color: #9ca3af;
+      font-size: 0.8rem;
+      border-top: 1px solid #e5e7eb;
+    }
+
+    footer a {
+      color: #6b7280;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      color: #374151;
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        padding: 1.25rem 0.75rem;
+      }
+
+      header h1 {
+        font-size: 1.4rem;
+      }
+
+      .card {
+        padding: 1.25rem;
+      }
+
+      .pricing table {
+        font-size: 0.8rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <h1>AI 中转站推荐</h1>
+      <p>自己用过的几家中转站，记录一下，省得每次有人问还得重新说一遍。价格随时在变，这里写的仅供参考。</p>
+    </header>
+
+    <div class="notice">
+      <strong>提醒：</strong>这行业说倒就倒，别一次充太多，用多少充多少就行。
+    </div>
+
+    <div class="cards">
+
+      <div class="card">
+        <div class="card-header">
+          <h2>aitechflux</h2>
+          <a href="https://aitechflux.com/register?aff=WPSn" target="_blank">注册</a>
+        </div>
+        <div class="card-desc">
+          站长大约持有价值1000万人民币的显卡，算力充沛，超级稳定，速度超快。新注册用户送100万到200万token，邀请一位送10万token。夜间时间段（晚上11点左右到早上8点左右）token价格减半。充值完成后24小时内会有赠送额度：5美金以上
+          10%，10美金以上 15%，100美金以上 20%。
+        </div>
+        <div class="card-meta">
+          <span class="tag tag-model">MiniMax 2.5 230B</span>
+          <span class="tag tag-model">Qwen3.5 32B</span>
+          <span class="tag tag-model">Claude 混合版</span>
+          <span class="tag tag-feature">自有算力</span>
+          <span class="tag tag-feature">夜间半价</span>
+        </div>
+        <div class="pricing">
+          <table>
+            <tr>
+              <th>模型</th>
+              <th>输入 ($/M)</th>
+              <th>输出 ($/M)</th>
+              <th>备注</th>
+            </tr>
+            <tr>
+              <td>minimax2.5（推荐）</td>
+              <td>0.049</td>
+              <td>0.99</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>qwen3.5（不推荐）</td>
+              <td>0.04</td>
+              <td>0.99</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>Claude 混合版（不推荐）</td>
+              <td>0.045</td>
+              <td>0.99</td>
+              <td>Claude 失败时降级为 MiniMax 230B</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h2>LTCraft</h2>
+          <a href="https://ai.ltcraft.cn/register?aff=w4Vb" target="_blank">注册</a>
+        </div>
+        <div class="card-desc">
+          站长维护积极，Claude、GPT、Gemini 都有。100R=1000U，性价比之选！
+        </div>
+        <div class="card-meta">
+          <span class="tag tag-model">Claude</span>
+          <span class="tag tag-model">GPT</span>
+          <span class="tag tag-model">Gemini</span>
+          <span class="tag tag-price">性价比高</span>
+        </div>
+        <div class="pricing">
+          <table>
+            <tr>
+              <th>模型</th>
+              <th>输入 ($/M)</th>
+              <th>输出 ($/M)</th>
+              <th>备注</th>
+            </tr>
+            <tr>
+              <td>Sonnet 4.6 (vertex)</td>
+              <td>9</td>
+              <td>45</td>
+              <td>3x 倍率，推荐</td>
+            </tr>
+            <tr>
+              <td>Sonnet 4.6 (antigravity/kiro)</td>
+              <td>19.5</td>
+              <td>97.5</td>
+              <td>6.5x 倍率</td>
+            </tr>
+            <tr>
+              <td>Opus 4.6 (vertex)</td>
+              <td>9</td>
+              <td>45</td>
+              <td>3x 倍率，推荐</td>
+            </tr>
+            <tr>
+              <td>Opus 4.6 (antigravity/kiro)</td>
+              <td>19.5</td>
+              <td>97.5</td>
+              <td>6.5x 倍率</td>
+            </tr>
+            <tr>
+              <td>GPT 5.4 (plus)</td>
+              <td>3.75</td>
+              <td>22.5</td>
+              <td>1.5x 倍率</td>
+            </tr>
+            <tr>
+              <td>Gemini 3.1 Pro high</td>
+              <td>13</td>
+              <td>78</td>
+              <td>6.5x 倍率</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h2>PackyCode</h2>
+          <a href="https://www.packyapi.com/register?aff=YNms" target="_blank">注册</a>
+        </div>
+        <div class="card-desc">
+          站长经常在 X 上冒泡，有问题找客服基本秒回，注册送 1 块，最低充 50，能开票。Gemini 的速度试下来比别家快不少。国产模型接了阿里百炼、MiniMax 五折、GLM 九折。很早就开始专门针对 CC
+          场景调优，好多小站其实都是从他家拿的货。
+        </div>
+        <div class="card-meta">
+          <span class="tag tag-model">Claude</span>
+          <span class="tag tag-model">GPT</span>
+          <span class="tag tag-model">Gemini</span>
+          <span class="tag tag-model">国产模型</span>
+          <span class="tag tag-feature">Claude Code 优化</span>
+          <span class="tag tag-feature">可开发票</span>
+        </div>
+        <div class="pricing">
+          <table>
+            <tr>
+              <th>模型</th>
+              <th>输入 ($/M)</th>
+              <th>输出 ($/M)</th>
+              <th>备注</th>
+            </tr>
+            <tr>
+              <td>Sonnet 4.6 (cc)</td>
+              <td>3</td>
+              <td>15</td>
+              <td>推荐，质量好</td>
+            </tr>
+            <tr>
+              <td>Opus 4.6 (cc)</td>
+              <td>5</td>
+              <td>25</td>
+              <td>推荐，质量好</td>
+            </tr>
+            <tr>
+              <td>GPT 5.4</td>
+              <td>1.25</td>
+              <td>7.5</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>Gemini 3.1 Pro</td>
+              <td>1.2</td>
+              <td>7.2</td>
+              <td>速度快</td>
+            </tr>
+            <tr>
+              <td>MiniMax M2.5</td>
+              <td>1.05</td>
+              <td>4.2</td>
+              <td>官方五折</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <!-- PLACEHOLDER_MORE_CARDS -->
+
+      <div class="card">
+        <div class="card-header">
+          <h2>Poixe AI</h2>
+          <a href="https://poixe.com/i/xsp892" target="_blank">注册</a>
+        </div>
+        <div class="card-desc">
+          接口试下来确实不错，速度快，没什么幺蛾子。干这行好几年了，比大多数站都早。价格不算便宜，但有免费的 GPT-4o 可以先体验。充点钱升 VIP1 就能打八折，能开票。
+        </div>
+        <div class="card-meta">
+          <span class="tag tag-model">Claude</span>
+          <span class="tag tag-model">GPT</span>
+          <span class="tag tag-model">Gemini</span>
+          <span class="tag tag-model">DeepSeek</span>
+          <span class="tag tag-model">Grok</span>
+          <span class="tag tag-feature">接口质量高</span>
+          <span class="tag tag-feature">可开发票</span>
+        </div>
+        <div class="pricing">
+          <table>
+            <tr>
+              <th>模型</th>
+              <th>输入 ($/M)</th>
+              <th>输出 ($/M)</th>
+              <th>备注</th>
+            </tr>
+            <tr>
+              <td>Sonnet 4.6</td>
+              <td>3</td>
+              <td>15</td>
+              <td>VIP1 八折：2.4/12</td>
+            </tr>
+            <tr>
+              <td>Opus 4.6</td>
+              <td>5</td>
+              <td>25</td>
+              <td>VIP1 八折：4/20</td>
+            </tr>
+            <tr>
+              <td>GPT 5.4</td>
+              <td>2.5</td>
+              <td>15</td>
+              <td>VIP1 七折：1.75/10.5</td>
+            </tr>
+          </table>
+        </div>
+        <div class="note">充点钱就能 VIP1 打八折，追求质量的可以考虑</div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h2>柏拉图AI</h2>
+          <a href="https://api.bltcy.ai/register?aff=NK3i123333" target="_blank">注册</a>
+        </div>
+        <div class="card-desc">
+          模型巨全是最大的卖点，Midjourney、Suno、可灵这种文生图/视频/音乐的都能调，冷门接口也能找到，覆盖面没得说。Claude、GPT、Gemini
+          不用说，DeepSeek、豆包、MiniMax、通义千问、GLM 也都支持。2024 年就有了，算老站。节点分布在好几个地区，延迟控制得还可以。每天签到能领点额度，注册送两毛，能开票。
+        </div>
+        <div class="card-meta">
+          <span class="tag tag-model">Claude</span>
+          <span class="tag tag-model">GPT</span>
+          <span class="tag tag-model">Gemini</span>
+          <span class="tag tag-model">文生图/视频/音乐</span>
+          <span class="tag tag-feature">模型最全</span>
+          <span class="tag tag-feature">多区域接入</span>
+          <span class="tag tag-feature">可开发票</span>
+        </div>
+        <div class="pricing">
+          <table>
+            <tr>
+              <th>模型</th>
+              <th>输入 (¥/M)</th>
+              <th>输出 (¥/M)</th>
+              <th>备注</th>
+            </tr>
+            <tr>
+              <td>Sonnet 4.6（逆向）</td>
+              <td>4</td>
+              <td>20</td>
+              <td>kiro/CC 逆向渠道</td>
+            </tr>
+            <tr>
+              <td>Sonnet 4.6（特价）</td>
+              <td>7.5</td>
+              <td>45</td>
+              <td>纯 AWS</td>
+            </tr>
+            <tr>
+              <td>Opus 4.6（逆向）</td>
+              <td>5</td>
+              <td>25</td>
+              <td>默认分组</td>
+            </tr>
+            <tr>
+              <td>Opus 4.6（特价）</td>
+              <td>10</td>
+              <td>50</td>
+              <td>封控期间价格可能变动</td>
+            </tr>
+            <tr>
+              <td>GPT 5.4</td>
+              <td>2.5</td>
+              <td>15</td>
+              <td></td>
+            </tr>
+          </table>
+        </div>
+        <div class="note">不支持月卡，接口挺稳，需要各种模型的可以看看</div>
+      </div>
+
+      <!-- PLACEHOLDER_LAST_CARDS -->
+
+      <div class="card">
+        <div class="card-header">
+          <h2>DawCode</h2>
+          <a href="https://dawclaudecode.com/register?aff=Qlpb" target="_blank">注册</a>
+        </div>
+        <div class="card-desc">
+          一进来就给 4 块体验金，签到还能攒点零花，想试水的话成本基本为零。2026 年新开的站，Claude、GPT、Gemini 都有。线路有好几条，稳定性还过得去。有套餐但不太划算，按量充更灵活。
+        </div>
+        <div class="card-meta">
+          <span class="tag tag-model">Claude</span>
+          <span class="tag tag-model">GPT</span>
+          <span class="tag tag-model">Gemini</span>
+          <span class="tag tag-feature">新用户送 4 元</span>
+          <span class="tag tag-feature">每日签到</span>
+        </div>
+        <div class="pricing">
+          <table>
+            <tr>
+              <th>模型</th>
+              <th>输入 ($/M)</th>
+              <th>输出 ($/M)</th>
+              <th>备注</th>
+            </tr>
+            <tr>
+              <td>Opus 4.6</td>
+              <td>4.5</td>
+              <td>22.5</td>
+              <td>cc-tehui-pro-max 分组</td>
+            </tr>
+            <tr>
+              <td>GPT 5.4</td>
+              <td>0.5</td>
+              <td>3</td>
+              <td>codex-stu 分组</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h2>云雾AI</h2>
+          <a href="https://yunwu.ai/register?aff=YLwl" target="_blank">注册</a>
+        </div>
+        <div class="card-desc">
+          模型种类多，DeepSeek、通义千问、豆包、Midjourney、MiniMax 这些也都有，官方出新模型这边跟得很紧。老牌站了，Claude、GPT、Gemini
+          自然不在话下。域名做了高防，国内外都有节点，基本不会被打挂。偏企业向，稳定性不错。每天签到能领点，注册也送点钱，能开票。
+        </div>
+        <div class="card-meta">
+          <span class="tag tag-model">Claude</span>
+          <span class="tag tag-model">GPT</span>
+          <span class="tag tag-model">Gemini</span>
+          <span class="tag tag-model">DeepSeek</span>
+          <span class="tag tag-model">更多</span>
+          <span class="tag tag-feature">老牌站点</span>
+          <span class="tag tag-feature">高防域名</span>
+          <span class="tag tag-feature">可开发票</span>
+        </div>
+        <div class="pricing">
+          <table>
+            <tr>
+              <th>模型</th>
+              <th>输入 (⚡/M)</th>
+              <th>输出 (⚡/M)</th>
+              <th>备注</th>
+            </tr>
+            <tr>
+              <td>Opus 4.6</td>
+              <td>3</td>
+              <td>15</td>
+              <td>default 分组</td>
+            </tr>
+            <tr>
+              <td>GPT 5.4</td>
+              <td>2.5</td>
+              <td>15</td>
+              <td>default 分组</td>
+            </tr>
+          </table>
+        </div>
+        <div class="note">⚡ 为云雾AI 站内积分单位</div>
+        <div class="note">偏企业向，求稳的可以试试</div>
+      </div>
+
+    </div>
+
+    <footer>
+      <p>本页面由 <a href="https://github.com/hilinc/api-status-reminder">API Status Reminder</a> 项目维护</p>
+      <p style="margin-top:0.25rem">价格信息仅供参考，以各站点实际标价为准</p>
+    </footer>
+  </div>
+</body>
+
+</html>

@@ -79,10 +79,7 @@
 }
 ```
 
-如果你还没有中转站，可以试试：
-
-- [PackyCode](https://www.packyapi.com/register?aff=YNms)，支持 Claude、GPT 等主流模型，贵但稳
-- [LTCraft](https://ai.ltcraft.cn/register?aff=w4Vb)，支持 Claude、GPT、Gemini 等主流模型，性价比之选
+如果你还没有中转站，可以参考 [中转站推荐页面](docs/review.html)，里面有几家实际用过的站点对比。
 
 **一键同步配置（推荐）：** 不想每次在 GitHub 网页上手动粘贴 JSON？可以用本地 `config.json` 作为配置源，一条命令同步到 GitHub Secrets：
 
