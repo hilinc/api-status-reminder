@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [1.1.1] - 2026-04-16
+
+### Fixed
+- `api-probe.js`: missing closing brace in `loadFromCcSwitch()` caused ESM export to fail on Node.js 24
+
+## [1.1.0] - 2026-04-15
+
 ### Added
 - Config validation module (`src/validate.js`) and CLI command (`npm run validate`)
 - Unit tests for diff, format, and validate modules (`npm test`)
