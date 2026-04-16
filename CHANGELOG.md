@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [1.1.2] - 2026-04-16
+
+### Changed
+- rename 套餐 to 分组 in config example
+
 ## [1.1.1] - 2026-04-16
 
 ### Fixed
