@@ -2,9 +2,7 @@
 
 [![CI](https://github.com/hilinc/api-status-reminder/actions/workflows/ci.yml/badge.svg)](https://github.com/hilinc/api-status-reminder/actions/workflows/ci.yml)
 
-Automated availability monitoring for AI API relay stations. Probes `/v1/models` endpoints with your own API keys (zero token cost), optionally deep-checks each model, and pushes notifications when status changes. Runs on GitHub Actions with zero deployment cost. Also available as a Claude Code plugin for on-demand status queries.
-
----
+[English](./README.en.md)
 
 自动检测 AI 中转站可用性，状态变化时推送通知到你的手机。
 
