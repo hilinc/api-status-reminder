@@ -1,6 +1,6 @@
 {
   "name": "api-status-reminder",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "自动检测中转站可用性，定时推送结果",
   "main": "src/index.js",
   "scripts": {

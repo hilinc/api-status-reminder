@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [1.1.5] - 2026-04-16
+
+### Changed
+- rename review.html to recommend.html
+
 ## [1.1.4] - 2026-04-16
 
 ### Fixed
