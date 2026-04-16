@@ -6,6 +6,7 @@
       "base_url": "https://www.packyapi.com",
       "api_key": "sk-your-key-here",
       "models": ["claude-opus-4-6", "claude-sonnet-4-6"],
+      "models_path": "/v1/models",
       "deep_check": true
     },
     {

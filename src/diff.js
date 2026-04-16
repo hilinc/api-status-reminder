@@ -9,7 +9,10 @@ const STATUS_FILE = path.join(__dirname, '..', 'data', 'last-status.json');
 function loadLastStatus() {
   try {
     return JSON.parse(fs.readFileSync(STATUS_FILE, 'utf-8'));
-  } catch {
+  } catch (err) {
+    if (err.code !== 'ENOENT') {
+      console.warn(`[diff] 状态文件读取失败: ${err.message}`);
+    }
     return {};
   }
 }

@@ -2,6 +2,7 @@ import fs from 'fs';
 import os from 'os';
 import path from 'path';
 import { execSync } from 'child_process';
+import { validateConfig } from '../validate.js';
 
 const USER_CONFIG_FILE = path.join(os.homedir(), '.api-status', 'config.json');
 const CC_SWITCH_DB = path.join(os.homedir(), '.cc-switch', 'cc-switch.db');
@@ -35,9 +36,9 @@ function loadFromCcSwitch() {
 
     return providers.length ? { providers } : null;
   } catch {
+    console.warn('[api-probe] cc-switch 数据库读取失败，跳过');
     return null;
   }
-}
 
 function loadConfig() {
   // Check use_cc_switch only from user-level config
@@ -45,7 +46,9 @@ function loadConfig() {
   try {
     const userConfig = JSON.parse(fs.readFileSync(USER_CONFIG_FILE, 'utf-8'));
     useCcSwitch = !!userConfig.use_cc_switch;
-  } catch {}
+  } catch {
+    // user config not found, continue
+  }
 
   if (useCcSwitch) {
     const ccConfig = loadFromCcSwitch();
@@ -57,19 +60,25 @@ function loadConfig() {
     try {
       const c = JSON.parse(process.env.API_PROBE_CONFIG);
       if (c.providers?.length) return { ...c, _source: 'API_PROBE_CONFIG' };
-    } catch {}
+    } catch {
+      console.warn('[api-probe] API_PROBE_CONFIG 环境变量 JSON 解析失败');
+    }
   }
   // 2. ~/.api-status/config.json providers
   try {
     const c = JSON.parse(fs.readFileSync(USER_CONFIG_FILE, 'utf-8'));
     if (c.providers?.length) return { ...c, _source: '~/.api-status/config.json' };
-  } catch {}
+  } catch {
+    console.warn('[api-probe] ~/.api-status/config.json 读取失败，跳过');
+  }
   // 3. ./config.json (project directory, written by CI from secret)
   const localConfig = path.join(process.cwd(), 'config.json');
   try {
     const c = JSON.parse(fs.readFileSync(localConfig, 'utf-8'));
     if (c.providers?.length) return { ...c, _source: 'config.json' };
-  } catch {}
+  } catch {
+    console.warn('[api-probe] ./config.json 读取失败，跳过');
+  }
 
   return null;
 }
@@ -194,10 +203,26 @@ async function scrape() {
   const config = loadConfig();
   if (!config) return null;
 
+  const { valid, errors } = validateConfig(config);
+  if (!valid) {
+    console.warn('[api-probe] 配置校验失败：');
+    for (const e of errors) console.warn(`  - ${e}`);
+  }
+
   const providers = config.providers || [];
   if (providers.length === 0) return null;
 
-  const results = await Promise.all(providers.map(probeProvider));
+  const settled = await Promise.allSettled(providers.map(probeProvider));
+  const results = [];
+  for (let i = 0; i < settled.length; i++) {
+    if (settled[i].status === 'fulfilled') {
+      results.push(settled[i].value);
+    } else {
+      console.error(`[api-probe] ${providers[i].name} 探测失败: ${settled[i].reason?.message || settled[i].reason}`);
+    }
+  }
+
+  if (results.length === 0) return null;
 
   return {
     source: 'api-probe',

@@ -1,5 +1,11 @@
 # API Status Reminder
 
+[![CI](https://github.com/hilinc/api-status-reminder/actions/workflows/ci.yml/badge.svg)](https://github.com/hilinc/api-status-reminder/actions/workflows/ci.yml)
+
+Automated availability monitoring for AI API relay stations. Probes `/v1/models` endpoints with your own API keys (zero token cost), optionally deep-checks each model, and pushes notifications when status changes. Runs on GitHub Actions with zero deployment cost. Also available as a Claude Code plugin for on-demand status queries.
+
+---
+
 自动检测 AI 中转站可用性，状态变化时推送通知到你的手机。
 
 ## 功能
@@ -10,6 +16,7 @@
 - 状态变化时推送通知，包含总览 + 每站明细
 - 每日定时发送全量状态报告（可配置时间）
 - 支持 Server酱、飞书、企业微信、Telegram、钉钉、PushPlus、Gotify、Bark 通知
+- Claude Code 插件：在对话中直接查询中转站状态，支持 `/check-status` 和 `/check-provider` 命令
 - GitHub Actions 定时运行，零部署成本
 
 ## 通知效果
@@ -88,7 +95,10 @@
 cp config.example.json config.json
 # 编辑 config.json，填入你的中转站信息
 
-# 2. 同步到 GitHub Secrets（需要 gh CLI：brew install gh）
+# 2. 同步到 GitHub Secrets（需要 gh CLI）
+# macOS: brew install gh
+# Linux: https://github.com/cli/cli/blob/trunk/docs/install_linux.md
+# Windows: winget install --id GitHub.cli
 npm run sync-secret
 ```
 
@@ -285,6 +295,9 @@ npm ci
 cp config.example.json config.json
 # 编辑 config.json，填入你的中转站信息
 
+# 校验配置
+npm run validate
+
 # 状态检测（有变化时通知）
 SERVERCHAN_KEY=your-sendkey node src/index.js
 
@@ -297,11 +310,58 @@ UPTIME_KUMA_BASE=https://your-instance.com node src/index.js
 
 > `config.json` 已在 `.gitignore` 中，不会被提交到仓库。
 
+## 赞助
+
+如果这个项目对你有帮助，欢迎请作者喝杯咖啡 ☕
+
+<img src="docs/wechat-donate.png" width="300" alt="微信赞赏码" />
+
+## 免责声明
+
+本脚本仅用于学习和研究目的，使用前请确保遵守相关网站的使用条款。
+
 ## License
 
 MIT
 
 ## 故障排除
+
+### 通知发送失败
+
+运行日志中出现 `通知发送失败` 字样时：
+
+1. 检查对应通知渠道的 Secret 是否正确配置（注意不要有多余空格或换行）
+2. Server酱：确认 SendKey 未过期，免费版每天限 5 条
+3. Telegram：确认 Bot Token 和 Chat ID 都已配置，且机器人已被添加到目标群组
+4. 飞书/企业微信/钉钉：确认 Webhook 地址完整且未被禁用
+5. 本地测试：`SERVERCHAN_KEY=your-key node src/index.js check` 查看完整错误信息
+
+### config.json 格式错误
+
+```bash
+# 校验配置文件，会提示具体哪个字段有问题
+npm run validate
+```
+
+常见问题：
+- JSON 语法错误（多余逗号、缺少引号）
+- `base_url` 不是合法 URL
+- 既没有 `api_key` 也没有 `api_keys`
+- `deep_check` 写成了字符串 `"true"` 而不是布尔值 `true`
+
+### GitHub Actions 运行失败
+
+1. 在 Actions 页面查看失败的 workflow run 日志
+2. 确认 `API_PROBE_CONFIG` Secret 已配置且是合法 JSON
+3. 确认至少配置了一个通知渠道的 Secret
+4. 手动触发 `workflow_dispatch` 测试：Actions → API Status Check → Run workflow
+
+### API Key 无效或模型列表为空
+
+- 确认 Key 未过期、未被封禁
+- 部分中转站的 `/v1/models` 接口需要特定权限，尝试联系站长确认
+- 如果 `/v1/models` 返回空，可以在配置中手动指定 `models` 列表作为 fallback
+- 使用 `models_path` 字段自定义模型列表端点（部分站点使用 `/v1beta/models`）
 
 ### Skill 命令无法识别（"Unknown skill: check-status"）
 
