@@ -1,15 +1,15 @@
 {
   "ltcraft": {
-    "checked_at": "2026-04-16T06:31:46.489Z",
+    "checked_at": "2026-04-16T06:57:33.823Z",
     "models": [
       {
         "id": 1,
         "name": "System",
         "group": "服务",
         "status": "up",
-        "ping_ms": 30,
+        "ping_ms": 42,
         "message": "",
-        "checked_at": "2026-04-16 06:31:07",
+        "checked_at": "2026-04-16 06:56:07",
         "uptime_24h": 0.9930313588850174
       },
       {
@@ -19,7 +19,7 @@
         "status": "down",
         "ping_ms": null,
         "message": "",
-        "checked_at": "2026-04-16 06:27:07",
+        "checked_at": "2026-04-16 06:52:07",
         "uptime_24h": 0.5331010452961672
       },
       {
@@ -27,10 +27,10 @@
         "name": "GPT",
         "group": "服务",
         "status": "up",
-        "ping_ms": 984,
+        "ping_ms": 3443,
         "message": "",
-        "checked_at": "2026-04-16 06:31:07",
-        "uptime_24h": 0.43205574912891986
+        "checked_at": "2026-04-16 06:56:07",
+        "uptime_24h": 0.42857142857142855
       },
       {
         "id": 4,
@@ -39,7 +39,7 @@
         "status": "down",
         "ping_ms": null,
         "message": "",
-        "checked_at": "2026-04-16 06:27:07",
+        "checked_at": "2026-04-16 06:52:07",
         "uptime_24h": 0.6968641114982579
       },
       {
@@ -47,35 +47,35 @@
         "name": "sonnet4.5",
         "group": "服务",
         "status": "up",
-        "ping_ms": 1544,
+        "ping_ms": 1425,
         "message": "",
-        "checked_at": "2026-04-16 06:27:07",
-        "uptime_24h": 0.9616724738675958
+        "checked_at": "2026-04-16 06:52:07",
+        "uptime_24h": 0.9651567944250871
       },
       {
         "id": 6,
         "name": "Claude(Kiro)",
         "group": "服务",
         "status": "up",
-        "ping_ms": 1592,
+        "ping_ms": 1622,
         "message": "",
-        "checked_at": "2026-04-16 06:27:07",
-        "uptime_24h": 0.8432055749128919
+        "checked_at": "2026-04-16 06:52:07",
+        "uptime_24h": 0.8606271777003485
       },
       {
         "id": 7,
         "name": "Claude(vertex)",
         "group": "服务",
         "status": "up",
-        "ping_ms": 3594,
+        "ping_ms": 2947,
         "message": "",
-        "checked_at": "2026-04-16 06:31:06",
-        "uptime_24h": 0.8432055749128919
+        "checked_at": "2026-04-16 06:56:06",
+        "uptime_24h": 0.8466898954703833
       }
     ]
   },
   "api-probe": {
-    "checked_at": "2026-04-16T06:33:24.709Z",
+    "checked_at": "2026-04-16T06:59:15.575Z",
     "models": [
       {
         "id": "ltcraft",
@@ -83,9 +83,9 @@
         "group": "API Probe",
         "status": "up",
         "status_code": 200,
-        "ping_ms": 60,
+        "ping_ms": 68,
         "message": "26 models",
-        "checked_at": "2026-04-16T06:33:24.709Z",
+        "checked_at": "2026-04-16T06:59:15.575Z",
         "uptime_24h": null,
         "model_list": [
           "claude-haiku-4-5",
@@ -120,161 +120,169 @@
             "model": "claude-haiku-4-5",
             "status": "up",
             "code": 200,
-            "latency_ms": 1539,
+            "latency_ms": 1544,
             "label": "anti"
           },
           {
             "model": "claude-haiku-4-5-20251001",
             "status": "up",
             "code": 200,
-            "latency_ms": 4371,
+            "latency_ms": 14028,
             "label": "anti"
           },
           {
             "model": "claude-opus-4-6",
             "status": "up",
             "code": 200,
-            "latency_ms": 8985,
+            "latency_ms": 14855,
+            "error": "The operation was aborted due to timeout",
             "label": "kiro"
           },
           {
             "model": "claude-sonnet-4-5",
             "status": "up",
             "code": 200,
-            "latency_ms": 3258,
+            "latency_ms": 5059,
             "label": "anti"
           },
           {
             "model": "claude-sonnet-4-5-20250929",
             "status": "up",
             "code": 200,
-            "latency_ms": 6145,
+            "latency_ms": 3730,
             "label": "anti"
           },
           {
             "model": "claude-sonnet-4-6",
             "status": "up",
             "code": 200,
-            "latency_ms": 2530,
+            "latency_ms": 11393,
+            "error": "The operation was aborted due to timeout",
             "label": "kiro"
           },
           {
             "model": "deepseek-3.2",
             "status": "up",
             "code": 200,
-            "latency_ms": 9686,
+            "latency_ms": 16301,
             "label": "anti"
           },
           {
             "model": "gemini-2.5-flash",
             "status": "down",
-            "code": 503,
-            "latency_ms": 1711,
+            "code": 0,
+            "latency_ms": 30000,
+            "error": "The operation was aborted due to timeout",
             "label": "anti"
           },
           {
             "model": "gemini-2.5-flash-lite",
             "status": "down",
-            "code": 503,
-            "latency_ms": 6476,
+            "code": 0,
+            "latency_ms": 30002,
+            "error": "The operation was aborted due to timeout",
             "label": "anti"
           },
           {
             "model": "gemini-3-flash",
             "status": "down",
             "code": 503,
-            "latency_ms": 2111,
+            "latency_ms": 11491,
             "label": "anti"
           },
           {
             "model": "gemini-3-pro",
             "status": "down",
-            "code": 503,
-            "latency_ms": 1917,
+            "code": 0,
+            "latency_ms": 30001,
+            "error": "The operation was aborted due to timeout",
             "label": "anti"
           },
           {
             "model": "gemini-3-pro-high",
             "status": "down",
             "code": 503,
-            "latency_ms": 1825,
+            "latency_ms": 26236,
             "label": "anti"
           },
           {
             "model": "gemini-3-pro-low",
             "status": "down",
-            "code": 503,
-            "latency_ms": 1794,
+            "code": 0,
+            "latency_ms": 30001,
+            "error": "The operation was aborted due to timeout",
             "label": "anti"
           },
           {
             "model": "gemini-3.1-flash-image",
             "status": "down",
             "code": 403,
-            "latency_ms": 211,
+            "latency_ms": 234,
             "label": "anti"
           },
           {
             "model": "gemini-3.1-pro",
             "status": "down",
-            "code": 503,
-            "latency_ms": 2014,
+            "code": 0,
+            "latency_ms": 30004,
+            "error": "The operation was aborted due to timeout",
             "label": "anti"
           },
           {
             "model": "gemini-3.1-pro-high",
             "status": "down",
             "code": 503,
-            "latency_ms": 1950,
+            "latency_ms": 16246,
             "label": "anti"
           },
           {
             "model": "gemini-3.1-pro-low",
             "status": "down",
-            "code": 503,
-            "latency_ms": 1882,
+            "code": 0,
+            "latency_ms": 30004,
+            "error": "The operation was aborted due to timeout",
             "label": "anti"
           },
           {
             "model": "glm-5",
             "status": "up",
             "code": 200,
-            "latency_ms": 11530,
+            "latency_ms": 14902,
             "label": "anti"
           },
           {
             "model": "minimax-m2.1",
             "status": "up",
             "code": 200,
-            "latency_ms": 10467,
+            "latency_ms": 5716,
             "label": "anti"
           },
           {
             "model": "minimax-m2.5",
             "status": "up",
             "code": 200,
-            "latency_ms": 6667,
+            "latency_ms": 25590,
             "label": "anti"
           },
           {
             "model": "qwen3-coder-next",
             "status": "up",
             "code": 200,
-            "latency_ms": 20846,
+            "latency_ms": 11252,
             "label": "anti"
           },
           {
             "model": "cursor-5.3-codex",
             "status": "up",
             "code": 200,
-            "latency_ms": 27858,
+            "latency_ms": 5914,
             "label": "plus"
           },
           {
             "model": "cursor-5.4",
             "status": "down",
             "code": 0,
-            "latency_ms": 30000,
+            "latency_ms": 30001,
             "error": "The operation was aborted due to timeout",
             "label": "plus"
           },
@@ -282,21 +290,22 @@
             "model": "gpt-5.3-codex",
             "status": "up",
             "code": 200,
-            "latency_ms": 8566,
+            "latency_ms": 8028,
             "label": "plus"
           },
           {
             "model": "gpt-5.4",
-            "status": "up",
-            "code": 200,
-            "latency_ms": 9339,
+            "status": "down",
+            "code": 0,
+            "latency_ms": 30001,
+            "error": "The operation was aborted due to timeout",
             "label": "plus"
           },
           {
             "model": "gpt-5.4-mini",
             "status": "up",
             "code": 200,
-            "latency_ms": 26494,
+            "latency_ms": 7158,
             "label": "plus"
           }
         ]
