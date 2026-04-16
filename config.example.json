@@ -13,8 +13,8 @@
       "name": "my-provider",
       "base_url": "https://api.example.com",
       "api_keys": [
-        { "key": "sk-group-a-key", "label": "套餐A" },
-        { "key": "sk-group-b-key", "label": "套餐B" }
+        { "key": "sk-group-a-key", "label": "分组A" },
+        { "key": "sk-group-b-key", "label": "分组B" }
       ],
       "deep_check": true
     }
