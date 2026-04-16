@@ -39,6 +39,7 @@ function loadFromCcSwitch() {
     console.warn('[api-probe] cc-switch 数据库读取失败，跳过');
     return null;
   }
+}
 
 function loadConfig() {
   // Check use_cc_switch only from user-level config
