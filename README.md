@@ -303,6 +303,10 @@ UPTIME_KUMA_BASE=https://your-instance.com node src/index.js
 
 <img src="docs/wechat-donate.png" width="300" alt="微信赞赏码" />
 
+## 免责声明
+
+本脚本仅用于学习和研究目的，使用前请确保遵守相关网站的使用条款。
+
 ## License
 
 MIT
