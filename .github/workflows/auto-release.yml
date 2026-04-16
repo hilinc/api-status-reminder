@@ -143,4 +143,4 @@ jobs:
         run: |
           NEW_VERSION="${{ steps.version.outputs.version }}"
           BODY=$(awk "/^## \[${NEW_VERSION}\]/{found=1; next} /^## \[/{if(found) exit} found{print}" CHANGELOG.md)
-          gh release create "v${NEW_VERSION}" --title "v${NEW_VERSION}" --notes "$BODY"
+          gh release create "v${NEW_VERSION}" --title "v${NEW_VERSION}" --notes "$BODY" --target main
