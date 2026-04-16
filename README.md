@@ -84,7 +84,7 @@
 }
 ```
 
-如果你还没有中转站，可以参考 [中转站推荐页面](docs/review.html)，里面有几家实际用过的站点对比。
+如果你还没有中转站，可以参考 [中转站推荐页面](https://hilinc.github.io/api-status-reminder/)，里面有几家实际用过的站点对比。
 
 **一键同步配置（推荐）：** 不想每次在 GitHub 网页上手动粘贴 JSON？可以用本地 `config.json` 作为配置源，一条命令同步到 GitHub Secrets：
 
