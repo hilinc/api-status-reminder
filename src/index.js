@@ -50,8 +50,14 @@ async function main() {
   if (shouldNotify) {
     const title = mode === 'digest' ? '中转站每日状态报告' : '中转站状态报告';
     const md = formatReport(lastStatus);
-    await Promise.allSettled(notifiers.map(fn => fn(title, md)));
-    console.log(`[main] Notification sent (${mode})`);
+    const results = await Promise.allSettled(notifiers.map(fn => fn(title, md)));
+    const failed = results.filter(r => r.status === 'rejected');
+    if (failed.length > 0) {
+      for (const f of failed) {
+        console.error(`[main] 通知发送失败: ${f.reason?.message || f.reason}`);
+      }
+    }
+    console.log(`[main] Notification sent (${mode}), ${results.length - failed.length}/${results.length} succeeded`);
   } else {
     console.log('[main] No status changes, skipping notification');
   }

@@ -5,7 +5,9 @@
   "main": "src/index.js",
   "scripts": {
     "check": "node src/index.js",
-    "sync-secret": "node scripts/sync-secret.js"
+    "sync-secret": "node scripts/sync-secret.js",
+    "validate": "node scripts/validate.js",
+    "test": "node --test test/*.test.js"
   },
   "repository": {
     "type": "git",

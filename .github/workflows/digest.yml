@@ -7,9 +7,6 @@ on:
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
-permissions:
-  contents: write
-
 jobs:
   digest:
     runs-on: ubuntu-latest
@@ -21,6 +18,12 @@ jobs:
           node-version: 24
 
       - run: npm ci --registry=https://registry.npmjs.org
+
+      - name: Restore status cache
+        uses: actions/cache@v4
+        with:
+          path: data/last-status.json
+          key: status-data
 
       - name: Write API probe config
         if: env.API_PROBE_CONFIG != ''
@@ -42,8 +45,3 @@ jobs:
           GOTIFY_TOKEN: ${{ secrets.GOTIFY_TOKEN }}
           BARK_KEY: ${{ secrets.BARK_KEY }}
           BARK_SERVER: ${{ secrets.BARK_SERVER }}
-
-      - uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: 'chore: update status data (digest)'
-          file_pattern: 'data/*.json'
