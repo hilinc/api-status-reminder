@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [1.1.6] - 2026-04-16
+
+### Changed
+- rename recommend.html to index.html for cleaner URL
+
 ## [1.1.5] - 2026-04-16
 
 ### Changed

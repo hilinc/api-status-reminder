@@ -1,7 +1,7 @@
 {
   "name": "api-status-reminder",
   "description": "在 Claude Code 中实时查询 AI 中转站状态",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "author": {
     "name": "hilinc"
   },
