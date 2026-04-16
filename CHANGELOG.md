@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [1.1.3] - 2026-04-16
+
+### Fixed
+- create GitHub Release directly in auto-release workflow
+
 ## [1.1.2] - 2026-04-16
 
 ### Changed
