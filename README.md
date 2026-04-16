@@ -297,6 +297,12 @@ UPTIME_KUMA_BASE=https://your-instance.com node src/index.js
 
 > `config.json` 已在 `.gitignore` 中，不会被提交到仓库。
 
+## 赞助
+
+如果这个项目对你有帮助，欢迎请作者喝杯咖啡 ☕
+
+<img src="docs/wechat-donate.png" width="300" alt="微信赞赏码" />
+
 ## License
 
 MIT
