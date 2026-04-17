@@ -4,7 +4,11 @@
 
 [English](./README.en.md)
 
-自动检测 AI 中转站可用性，状态变化时推送通知到你的手机。
+自动检测 AI 中转站可用性，状态变化时推送通知到你的手机。安装插件后还可以在 Claude Code 中直接查询中转站状态。
+
+维护开源不易，如果本项目帮助到了你，请帮忙点个 Star，谢谢!
+
+如果你还没有中转站，可以看看我整理的 [中转站推荐](https://hilinc.github.io/api-status-reminder/)，里面有几家实际用过的站点对比。
 
 ## 功能
 
@@ -83,8 +87,6 @@
   ]
 }
 ```
-
-如果你还没有中转站，可以参考 [中转站推荐页面](https://hilinc.github.io/api-status-reminder/)，里面有几家实际用过的站点对比。
 
 **一键同步配置（推荐）：** 不想每次在 GitHub 网页上手动粘贴 JSON？可以用本地 `config.json` 作为配置源，一条命令同步到 GitHub Secrets：
 
@@ -342,6 +344,7 @@ npm run validate
 ```
 
 常见问题：
+
 - JSON 语法错误（多余逗号、缺少引号）
 - `base_url` 不是合法 URL
 - 既没有 `api_key` 也没有 `api_keys`
