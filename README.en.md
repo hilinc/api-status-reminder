@@ -6,6 +6,10 @@
 
 Automated availability monitoring for AI API relay stations. Probes endpoints with your own API keys, detects status changes, and pushes notifications to your phone.
 
+If this project helps you, please give it a Star!
+
+If you don't have a relay station yet, check out the [Relay Station Recommendations](https://hilinc.github.io/api-status-reminder/) for a comparison of sites I've actually used.
+
 ## Features
 
 - Probe relay station `/v1/models` endpoint with your own API Key (zero token cost)
