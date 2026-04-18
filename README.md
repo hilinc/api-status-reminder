@@ -109,12 +109,13 @@ npm run sync-secret
 | 字段          | 必填   | 说明                                                    |
 | ------------- | ------ | ------------------------------------------------------- |
 | `name`        | 是     | 站点显示名称                                            |
-| `base_url`    | 是     | 中转站 API 地址                                         |
-| `api_key`     | 二选一 | 单个 API Key                                            |
-| `api_keys`    | 二选一 | 多个 API Key（同一站点不同分组/分组）                   |
+| `base_url`    | 是*    | 中转站 API 地址（使用 `uptime_kuma` 时可省略）          |
+| `api_key`     | 二选一 | 单个 API Key（使用 `uptime_kuma` 时可省略）             |
+| `api_keys`    | 二选一 | 多个 API Key（同一站点不同分组）                        |
 | `deep_check`  | 否     | 设为 `true` 逐模型实测可用性（会消耗少量 token）        |
 | `models`      | 否     | 手动指定模型列表，当 `/v1/models` 返回空时作为 fallback |
 | `models_path` | 否     | 自定义模型列表端点，默认 `/v1/models`                   |
+| `uptime_kuma` | 否     | 从 Uptime Kuma 状态页读取数据，不消耗 API Key（见下）   |
 
 `api_keys` 格式：
 
@@ -130,6 +131,24 @@ npm run sync-secret
 不开启 `deep_check` 时，只调用 `/v1/models` 获取模型列表，零 token 消耗，但无法确认单个模型是否真正可用。
 
 开启 `deep_check` 后，会对每个模型发送一次最短请求（约 20 tokens），能拿到具体的 HTTP 状态码（200/403/429/500/超时等）。
+
+**`uptime_kuma` 模式**：如果站点有 [Uptime Kuma](https://github.com/louislam/uptime-kuma) 状态页，可以直接从状态页读取监控数据，完全不需要 API Key：
+
+```json
+{
+  "name": "ltcraft",
+  "uptime_kuma": {
+    "base": "https://ai.ltcraft.cn",
+    "slug": "ai-status"
+  }
+}
+```
+
+| `uptime_kuma` 子字段 | 必填 | 说明 |
+| -------------------- | ---- | ---- |
+| `base`               | 否   | Uptime Kuma 服务地址，默认读 `UPTIME_KUMA_BASE` 环境变量 |
+| `slug`               | 否   | 状态页 slug，默认读 `UPTIME_KUMA_SLUG` 环境变量 |
+| `ids`                | 否   | 只取指定 monitor ID 的数据，不填则取全部 |
 
 ### 3. 配置通知渠道
 

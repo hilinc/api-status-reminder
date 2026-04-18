@@ -105,10 +105,10 @@ async function probeModel(base_url, api_key, model) {
   }
 }
 
-async function probeProviderJsonOnly(provider) {
-  const { name, uptime_kuma_base, uptime_kuma_slug, uptime_kuma_ids } = provider;
-  const base = uptime_kuma_base || process.env.UPTIME_KUMA_BASE || 'https://ai.ltcraft.cn';
-  const slug = uptime_kuma_slug || process.env.UPTIME_KUMA_SLUG || 'ai-status';
+async function probeProviderUptimeKuma(provider) {
+  const { name, uptime_kuma } = provider;
+  const base = uptime_kuma.base || process.env.UPTIME_KUMA_BASE || 'https://ai.ltcraft.cn';
+  const slug = uptime_kuma.slug || process.env.UPTIME_KUMA_SLUG || 'ai-status';
 
   const res = await fetch(`${base}/api/status-page/heartbeat/${slug}`, {
     signal: AbortSignal.timeout(15000),
@@ -116,8 +116,8 @@ async function probeProviderJsonOnly(provider) {
   if (!res.ok) throw new Error(`Heartbeat API failed: ${res.status}`);
   const hbData = await res.json();
 
-  const ids = uptime_kuma_ids
-    ? uptime_kuma_ids.map(String)
+  const ids = uptime_kuma.ids
+    ? uptime_kuma.ids.map(String)
     : Object.keys(hbData.heartbeatList);
 
   const model_details = [];
@@ -146,7 +146,7 @@ async function probeProviderJsonOnly(provider) {
 }
 
 async function probeProvider(provider) {
-  if (provider.json_only) return probeProviderJsonOnly(provider);
+  if (provider.uptime_kuma) return probeProviderUptimeKuma(provider);
   const { name, base_url, deep_check, models: configModels, models_path } = provider;
   const keys = provider.api_keys || [{ key: provider.api_key }];
   const endpoints = models_path ? [models_path] : ['/v1/models', '/v1beta/models'];

@@ -27,7 +27,7 @@ export function validateConfig(config) {
       errors.push(`${prefix}.name: 必填，必须是非空字符串`);
     }
 
-    if (!p.json_only) {
+    if (!p.uptime_kuma) {
       if (typeof p.base_url !== 'string' || !p.base_url.trim()) {
         errors.push(`${prefix}.base_url: 必填，必须是非空字符串`);
       } else {
@@ -46,7 +46,7 @@ export function validateConfig(config) {
       }
     }
 
-    if (!p.json_only && Array.isArray(p.api_keys) && p.api_keys.length > 0) {
+    if (!p.uptime_kuma && Array.isArray(p.api_keys) && p.api_keys.length > 0) {
       for (let j = 0; j < p.api_keys.length; j++) {
         const k = p.api_keys[j];
         if (!k || typeof k !== 'object' || typeof k.key !== 'string' || !k.key.trim()) {
