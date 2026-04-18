@@ -42,21 +42,22 @@ function loadFromCcSwitch() {
 }
 
 function loadConfig() {
-  // Check use_cc_switch only from user-level config
-  let useCcSwitch = false;
+  // 1. ./config.json (project-local) takes highest priority when present
+  const localConfig = path.join(process.cwd(), 'config.json');
   try {
-    const userConfig = JSON.parse(fs.readFileSync(USER_CONFIG_FILE, 'utf-8'));
-    useCcSwitch = !!userConfig.use_cc_switch;
+    const c = JSON.parse(fs.readFileSync(localConfig, 'utf-8'));
+    if (c.providers?.length) {
+      if (c.use_cc_switch) {
+        const ccConfig = loadFromCcSwitch();
+        if (ccConfig) return { ...ccConfig, _source: 'cc-switch' };
+      }
+      return { ...c, _source: 'config.json' };
+    }
   } catch {
-    // user config not found, continue
+    // no local config, continue
   }
 
-  if (useCcSwitch) {
-    const ccConfig = loadFromCcSwitch();
-    if (ccConfig) return { ...ccConfig, _source: 'cc-switch' };
-  }
-
-  // 1. env var
+  // 2. env var
   if (process.env.API_PROBE_CONFIG) {
     try {
       const c = JSON.parse(process.env.API_PROBE_CONFIG);
@@ -65,20 +66,17 @@ function loadConfig() {
       console.warn('[api-probe] API_PROBE_CONFIG 环境变量 JSON 解析失败');
     }
   }
-  // 2. ~/.api-status/config.json providers
+
+  // 3. ~/.api-status/config.json
   try {
-    const c = JSON.parse(fs.readFileSync(USER_CONFIG_FILE, 'utf-8'));
-    if (c.providers?.length) return { ...c, _source: '~/.api-status/config.json' };
+    const userConfig = JSON.parse(fs.readFileSync(USER_CONFIG_FILE, 'utf-8'));
+    if (userConfig.use_cc_switch) {
+      const ccConfig = loadFromCcSwitch();
+      if (ccConfig) return { ...ccConfig, _source: 'cc-switch' };
+    }
+    if (userConfig.providers?.length) return { ...userConfig, _source: '~/.api-status/config.json' };
   } catch {
     console.warn('[api-probe] ~/.api-status/config.json 读取失败，跳过');
-  }
-  // 3. ./config.json (project directory, written by CI from secret)
-  const localConfig = path.join(process.cwd(), 'config.json');
-  try {
-    const c = JSON.parse(fs.readFileSync(localConfig, 'utf-8'));
-    if (c.providers?.length) return { ...c, _source: 'config.json' };
-  } catch {
-    console.warn('[api-probe] ./config.json 读取失败，跳过');
   }
 
   return null;
@@ -107,7 +105,48 @@ async function probeModel(base_url, api_key, model) {
   }
 }
 
+async function probeProviderJsonOnly(provider) {
+  const { name, uptime_kuma_base, uptime_kuma_slug, uptime_kuma_ids } = provider;
+  const base = uptime_kuma_base || process.env.UPTIME_KUMA_BASE || 'https://ai.ltcraft.cn';
+  const slug = uptime_kuma_slug || process.env.UPTIME_KUMA_SLUG || 'ai-status';
+
+  const res = await fetch(`${base}/api/status-page/heartbeat/${slug}`, {
+    signal: AbortSignal.timeout(15000),
+  });
+  if (!res.ok) throw new Error(`Heartbeat API failed: ${res.status}`);
+  const hbData = await res.json();
+
+  const ids = uptime_kuma_ids
+    ? uptime_kuma_ids.map(String)
+    : Object.keys(hbData.heartbeatList);
+
+  const model_details = [];
+  for (const id of ids) {
+    const beats = hbData.heartbeatList[id] || [];
+    const latest = beats[beats.length - 1] ?? null;
+    model_details.push({
+      model: id,
+      status: latest ? (latest.status === 1 ? 'up' : 'down') : 'unknown',
+      latency_ms: latest?.ping ?? null,
+      message: latest?.msg || '',
+    });
+  }
+
+  const overallStatus = model_details.some(m => m.status === 'up') ? 'up' : 'down';
+
+  return {
+    name, base_url: base,
+    status: overallStatus,
+    status_code: overallStatus === 'up' ? 200 : 0,
+    latency_ms: model_details.find(m => m.latency_ms != null)?.latency_ms ?? 0,
+    models: ids,
+    model_count: ids.length,
+    model_details,
+  };
+}
+
 async function probeProvider(provider) {
+  if (provider.json_only) return probeProviderJsonOnly(provider);
   const { name, base_url, deep_check, models: configModels, models_path } = provider;
   const keys = provider.api_keys || [{ key: provider.api_key }];
   const endpoints = models_path ? [models_path] : ['/v1/models', '/v1beta/models'];
@@ -219,7 +258,9 @@ async function scrape() {
     if (settled[i].status === 'fulfilled') {
       results.push(settled[i].value);
     } else {
-      console.error(`[api-probe] ${providers[i].name} 探测失败: ${settled[i].reason?.message || settled[i].reason}`);
+      const err = settled[i].reason;
+      const cause = err?.cause?.message || err?.cause?.code || '';
+      console.error(`[api-probe] ${providers[i].name} 探测失败: ${err?.message || err}${cause ? ` (${cause})` : ''}`);
     }
   }
 

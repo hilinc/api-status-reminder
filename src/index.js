@@ -24,6 +24,7 @@ async function main() {
   console.log(`[main] Starting ${mode} mode...`);
 
   const lastStatus = loadLastStatus();
+  const currentStatus = {};
   let hasChanges = false;
 
   for (const s of scrapers) {
@@ -36,12 +37,12 @@ async function main() {
       const changes = diff(lastStatus, result);
       if (changes.length > 0) hasChanges = true;
 
-      lastStatus[result.source] = {
+      currentStatus[result.source] = {
         checked_at: result.checked_at,
         models: result.models,
       };
     } catch (err) {
-      console.error(`[main] ${s.name} failed:`, err.message);
+      console.error(`[main] ${s.name} failed:`, err);
     }
   }
 
@@ -49,7 +50,7 @@ async function main() {
 
   if (shouldNotify) {
     const title = mode === 'digest' ? '中转站每日状态报告' : '中转站状态报告';
-    const md = formatReport(lastStatus);
+    const md = formatReport(currentStatus);
     const results = await Promise.allSettled(notifiers.map(fn => fn(title, md)));
     const failed = results.filter(r => r.status === 'rejected');
     if (failed.length > 0) {
@@ -62,7 +63,7 @@ async function main() {
     console.log('[main] No status changes, skipping notification');
   }
 
-  saveStatus(lastStatus);
+  saveStatus({ ...lastStatus, ...currentStatus });
   console.log('[main] Status saved');
 }
 

@@ -27,24 +27,26 @@ export function validateConfig(config) {
       errors.push(`${prefix}.name: 必填，必须是非空字符串`);
     }
 
-    if (typeof p.base_url !== 'string' || !p.base_url.trim()) {
-      errors.push(`${prefix}.base_url: 必填，必须是非空字符串`);
-    } else {
-      try {
-        new URL(p.base_url);
-      } catch {
-        errors.push(`${prefix}.base_url: "${p.base_url}" 不是合法的 URL`);
+    if (!p.json_only) {
+      if (typeof p.base_url !== 'string' || !p.base_url.trim()) {
+        errors.push(`${prefix}.base_url: 必填，必须是非空字符串`);
+      } else {
+        try {
+          new URL(p.base_url);
+        } catch {
+          errors.push(`${prefix}.base_url: "${p.base_url}" 不是合法的 URL`);
+        }
+      }
+
+      const hasKey = typeof p.api_key === 'string' && p.api_key.trim();
+      const hasKeys = Array.isArray(p.api_keys) && p.api_keys.length > 0;
+
+      if (!hasKey && !hasKeys) {
+        errors.push(`${prefix}: 必须提供 api_key 或 api_keys（二选一）`);
       }
     }
 
-    const hasKey = typeof p.api_key === 'string' && p.api_key.trim();
-    const hasKeys = Array.isArray(p.api_keys) && p.api_keys.length > 0;
-
-    if (!hasKey && !hasKeys) {
-      errors.push(`${prefix}: 必须提供 api_key 或 api_keys（二选一）`);
-    }
-
-    if (hasKeys) {
+    if (!p.json_only && Array.isArray(p.api_keys) && p.api_keys.length > 0) {
       for (let j = 0; j < p.api_keys.length; j++) {
         const k = p.api_keys[j];
         if (!k || typeof k !== 'object' || typeof k.key !== 'string' || !k.key.trim()) {
