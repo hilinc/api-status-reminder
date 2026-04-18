@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [1.3.0] - 2026-04-18
+
+### Added
+- rename json_only to uptime_kuma nested object, update README
+
 ## [1.2.0] - 2026-04-18
 
 ### Added
