@@ -110,11 +110,22 @@ async function probeProviderUptimeKuma(provider) {
   const base = uptime_kuma.base || process.env.UPTIME_KUMA_BASE || 'https://ai.ltcraft.cn';
   const slug = uptime_kuma.slug || process.env.UPTIME_KUMA_SLUG || 'ai-status';
 
-  const res = await fetch(`${base}/api/status-page/heartbeat/${slug}`, {
-    signal: AbortSignal.timeout(15000),
-  });
-  if (!res.ok) throw new Error(`Heartbeat API failed: ${res.status}`);
-  const hbData = await res.json();
+  let hbData;
+  try {
+    const res = await fetch(`${base}/api/status-page/heartbeat/${slug}`, {
+      signal: AbortSignal.timeout(15000),
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    hbData = await res.json();
+  } catch (err) {
+    const cause = err.cause?.message || err.cause?.code || '';
+    return {
+      name, base_url: base,
+      status: 'down', status_code: 0,
+      latency_ms: 0, models: [], model_count: 0, model_details: [],
+      error: `Uptime Kuma 请求失败: ${err.message}${cause ? ` (${cause})` : ''}`,
+    };
+  }
 
   const ids = uptime_kuma.ids
     ? uptime_kuma.ids.map(String)
