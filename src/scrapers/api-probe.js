@@ -110,13 +110,14 @@ async function probeProviderUptimeKuma(provider) {
   const base = uptime_kuma.base || process.env.UPTIME_KUMA_BASE || 'https://ai.ltcraft.cn';
   const slug = uptime_kuma.slug || process.env.UPTIME_KUMA_SLUG || 'ai-status';
 
-  let hbData;
+  let hbData, pageData;
   try {
-    const res = await fetch(`${base}/api/status-page/heartbeat/${slug}`, {
-      signal: AbortSignal.timeout(15000),
-    });
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    hbData = await res.json();
+    [hbData, pageData] = await Promise.all([
+      fetch(`${base}/api/status-page/heartbeat/${slug}`, { signal: AbortSignal.timeout(15000) })
+        .then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); }),
+      fetch(`${base}/api/status-page/${slug}`, { signal: AbortSignal.timeout(15000) })
+        .then(r => r.ok ? r.json() : null).catch(() => null),
+    ]);
   } catch (err) {
     const cause = err.cause?.message || err.cause?.code || '';
     return {
@@ -127,6 +128,14 @@ async function probeProviderUptimeKuma(provider) {
     };
   }
 
+  // Build id -> {name, group} map from status page
+  const monitorInfo = {};
+  for (const group of pageData?.publicGroupList || []) {
+    for (const m of group.monitorList || []) {
+      monitorInfo[String(m.id)] = { name: m.name.trim(), group: group.name };
+    }
+  }
+
   const ids = uptime_kuma.ids
     ? uptime_kuma.ids.map(String)
     : Object.keys(hbData.heartbeatList);
@@ -135,8 +144,10 @@ async function probeProviderUptimeKuma(provider) {
   for (const id of ids) {
     const beats = hbData.heartbeatList[id] || [];
     const latest = beats[beats.length - 1] ?? null;
+    const info = monitorInfo[id];
     model_details.push({
-      model: id,
+      model: info?.name || id,
+      group: info?.group,
       status: latest ? (latest.status === 1 ? 'up' : 'down') : 'unknown',
       latency_ms: latest?.ping ?? null,
       message: latest?.msg || '',
@@ -150,7 +161,7 @@ async function probeProviderUptimeKuma(provider) {
     status: overallStatus,
     status_code: overallStatus === 'up' ? 200 : 0,
     latency_ms: model_details.find(m => m.latency_ms != null)?.latency_ms ?? 0,
-    models: ids,
+    models: model_details.map(m => m.model),
     model_count: ids.length,
     model_details,
   };
