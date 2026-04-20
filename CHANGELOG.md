@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [1.4.0] - 2026-04-20
+
+### Added
+- map Uptime Kuma monitor IDs to names in api-probe
+
 ## [1.3.1] - 2026-04-18
 
 ### Fixed
